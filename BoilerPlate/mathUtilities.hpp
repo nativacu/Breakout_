@@ -28,8 +28,8 @@ public:
 		return maxValue;
 	}
 
-	template<class T, class... fArguments>
-	T get_max_value(T x, T y, fArguments... otherValues) //The actual function. fArguments stands for function arguments
+	template<class T, class... functionArguments>
+	T get_max_value(T x, T y, functionArguments... otherValues) //The actual function. fArguments stands for function arguments
 	{
 		return get_max_value(get_max_value(x, y), otherValues...);
 	}
@@ -44,8 +44,8 @@ public:
 		return minValue;
 	}
 
-	template<class T, class... fArguments>
-	T get_min_value(T x, T y, fArguments... otherValues) //The actual function. fArguments stands for function arguments
+	template<class T, class... functionArguments>
+	T get_min_value(T x, T y, functionArguments... otherValues) //The actual function. fArguments stands for function arguments
 	{
 		return get_min_value(get_min_value(x, y), otherValues...);
 	}
