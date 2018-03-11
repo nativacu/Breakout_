@@ -53,14 +53,14 @@ float vector2::normalize()
 	return length;
 }
 
-vector2& vector2::operator=(const vector2& avector2)
+vector2& vector2::operator=(const vector2& aVector2)
 {
 	//Prevent self assignment
-	if (this == &avector2)
+	if (this == &aVector2)
 		return *this;
 
-	x = avector2.x;
-	y = avector2.y;
+	x = aVector2.x;
+	y = aVector2.y;
 
 	//Calculate new length
 	length = get_length();
@@ -68,10 +68,10 @@ vector2& vector2::operator=(const vector2& avector2)
 	return *this;
 }
 
-vector2& vector2::operator+=(const vector2& avector2)
+vector2& vector2::operator+=(const vector2& aVector2)
 {
-	x = x + avector2.x;
-	y = y + avector2.y;
+	x = x + aVector2.x;
+	y = y + aVector2.y;
 
 	//Calculate new length
 	length = get_length();
@@ -79,10 +79,10 @@ vector2& vector2::operator+=(const vector2& avector2)
 	return *this;
 }
 
-vector2& vector2::operator-=(const vector2& avector2)
+vector2& vector2::operator-=(const vector2& aVector2)
 {
-	x = x - avector2.x;
-	y = y - avector2.y;
+	x = x - aVector2.x;
+	y = y - aVector2.y;
 
 	//Calculate new length
 	length = get_length();
@@ -90,10 +90,10 @@ vector2& vector2::operator-=(const vector2& avector2)
 	return *this;
 }
 
-vector2& vector2::operator*=(const vector2& avector2)
+vector2& vector2::operator*=(const vector2& aVector2)
 {
-	x = x * avector2.x;
-	y = y * avector2.y;
+	x = x * aVector2.x;
+	y = y * aVector2.y;
 
 	//Calculate new length
 	length = get_length();
@@ -101,13 +101,13 @@ vector2& vector2::operator*=(const vector2& avector2)
 	return *this;
 }
 
-vector2& vector2::operator/=(const vector2& avector2)
+vector2& vector2::operator/=(const vector2& aVector2)
 {
-	if (avector2.x == 0) throw "Can't divide by zero";
-	if (avector2.y == 0) throw "Can't divide by zero";
+	if (aVector2.x == 0) throw "Can't divide by zero";
+	if (aVector2.y == 0) throw "Can't divide by zero";
 
-	x = x / avector2.x;
-	y = y / avector2.y;
+	x = x / aVector2.x;
+	y = y / aVector2.y;
 
 	//Calculate new length
 	length = get_length();
@@ -116,68 +116,68 @@ vector2& vector2::operator/=(const vector2& avector2)
 }
 
 /*Calculates resulting coordinates of the addition and returns them as a new vector*/
-vector2 vector2::operator+(const vector2& avector2) const
+vector2 vector2::operator+(const vector2& aVector2) const
 {
-	float resultingXvalue = x + avector2.x;
-	float resultingYvalue = y + avector2.y;
+	float resultingXvalue = x + aVector2.x;
+	float resultingYvalue = y + aVector2.y;
 
 	return vector2(resultingXvalue, resultingYvalue);
 }
 
 /*Calculates resulting coordinates of the subtraction and returns them as a new vector*/
-vector2 vector2::operator-(const vector2& avector2) const
+vector2 vector2::operator-(const vector2& aVector2) const
 {
-	float resultingXvalue = x - avector2.x;
-	float resultingYvalue = y - avector2.y;
+	float resultingXvalue = x - aVector2.x;
+	float resultingYvalue = y - aVector2.y;
 
 	return vector2(resultingXvalue, resultingYvalue);
 }
 
 /*Calculates resulting coordinates of the multiplication and returns them as a new vector*/
-vector2 vector2::operator*(const vector2& avector2) const
+vector2 vector2::operator*(const vector2& aVector2) const
 {
-	float resultingXvalue = x * avector2.x;
-	float resultingYvalue = y * avector2.y;
+	float resultingXvalue = x * aVector2.x;
+	float resultingYvalue = y * aVector2.y;
 
 	return vector2(resultingXvalue, resultingYvalue);
 }
 
 /*Calculates resulting coordinates of the division and returns them as a new vector*/
-vector2 vector2::operator/(const vector2& avector2) const
+vector2 vector2::operator/(const vector2& aVector2) const
 {
-	if (avector2.x == 0) throw "Can't divide by zero";
-	if (avector2.y == 0) throw "Can't divide by zero";
+	if (aVector2.x == 0) throw "Can't divide by zero";
+	if (aVector2.y == 0) throw "Can't divide by zero";
 
-	float resultingXvalue = x / avector2.x;
-	float resultingYvalue = y / avector2.y;
+	float resultingXvalue = x / aVector2.x;
+	float resultingYvalue = y / aVector2.y;
 
 	return vector2(resultingXvalue, resultingYvalue);
 }
 
-bool vector2::operator==(const vector2& avector2)const
+bool vector2::operator==(const vector2& aVector2)const
 {
-	return x == avector2.x && y == avector2.y;
+	return x == aVector2.x && y == aVector2.y;
 }
 
-bool vector2::operator!=(const vector2& avector2)const
+bool vector2::operator!=(const vector2& aVector2)const
 {
-	return x != avector2.x || y != avector2.y;
+	return x != aVector2.x || y != aVector2.y;
 }
 
 /*Calculates resulting coordinates of the multiplication by a value and returns them as a new vector*/
-vector2 operator*(float value, const vector2& avector2)
+vector2 operator*(float value, const vector2& aVector2)
 {
-	float resultingXvalue = value * avector2.x;
-	float resultingYvalue = value * avector2.y;
+	float resultingXvalue = value * aVector2.x;
+	float resultingYvalue = value * aVector2.y;
 
 	return vector2(resultingXvalue, resultingYvalue);
 }
 
 /*Calculates resulting coordinates of the multiplication by a value and returns them as a new vector*/
-vector2 operator*(const vector2& avector2, float value)
+vector2 operator*(const vector2& aVector2, float value)
 {
-	float resultingXvalue = value * avector2.x;
-	float resultingYvalue = value * avector2.y;
+	float resultingXvalue = value * aVector2.x;
+	float resultingYvalue = value * aVector2.y;
 
 	return vector2(resultingXvalue, resultingYvalue);
 }

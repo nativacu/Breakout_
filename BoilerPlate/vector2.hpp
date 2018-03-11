@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
-#ifndef _VECTOR2_H_
-#define _VECTOR2_H_
+#ifndef VECTOR2
+#define VECTOR2
 
 struct vector2
 {
@@ -39,4 +39,4 @@ struct vector2
 	friend vector2	operator*	(const vector2&, float);
 };
 
-#endif // !_VECTOR2_H_
+#endif
