@@ -15,6 +15,9 @@
     <ClCompile Include="vector4.cpp">
       <Filter>Engine\Source files</Filter>
     </ClCompile>
+    <ClCompile Include="mathUtilities.cpp">
+      <Filter>Engine\Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -27,6 +30,9 @@
       <Filter>Engine\Header files</Filter>
     </ClInclude>
     <ClInclude Include="vector4.hpp">
+      <Filter>Engine\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mathUtilities.hpp">
       <Filter>Engine\Header files</Filter>
     </ClInclude>
   </ItemGroup>
