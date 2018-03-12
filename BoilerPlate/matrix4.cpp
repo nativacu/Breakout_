@@ -117,7 +117,7 @@ matrix4 matrix4::get_transpose()
 	return transpose;
 }
 
-vector3 matrix4::get_rotation(float& yaw, float& pitch, float& roll)
+vector3 matrix4::get_angle(float& yaw, float& pitch, float& roll)
 {
 	vector3 angles;
 	if (matrixEntries[1][1] == 1.0f || matrixEntries[1][1] == -1.0f) {
@@ -233,6 +233,18 @@ matrix4 matrix4::rotate_z(float angle)
 	return zRotationMatrix;
 }
 
+matrix4 matrix4::get_translate_matrix(vector4 vector)
+{
+	matrix4 translated;
+
+	translated.matrixEntries[0][3] = vector.x;
+	translated.matrixEntries[1][3] = vector.y;
+	translated.matrixEntries[2][3] = vector.z;
+
+
+	return translated;
+}
+
 
 matrix4 matrix4::operator+(matrix4 rhs) {
 	matrix4 result;
@@ -266,4 +278,91 @@ matrix4 matrix4::operator*(matrix4 rhs) {
 	return result;
 }
 
+void matrix4::get_cofactor(int temp[4][4], int p, int q, int n)
+{
+	int i = 0, j = 0;
+	for (int row = 0; row < n; row++)
+	{
+		for (int col = 0; col < n; col++)
+		{
+			if (row != p && col != q)
+			{
+				temp[i][j++] = matrixEntries[row][col];
+				if (j == n - 1)
+				{
+					j = 0;
+					i++;
+				}
+			}
+		}
+	}
+}
 
+int matrix4::get_determinant(int a[4][4], int n)
+{
+	int D = 0; 
+	if (n == 1)
+		return a[0][0];
+
+	int temp[4][4];
+
+	int sign = 1;  
+	for (int f = 0; f < n; f++)
+	{
+		get_cofactor(temp, 0, f, n);
+		D += sign * a[0][f] * get_determinant(temp, n - 1);
+		sign = -sign;
+	}
+
+	return D;
+}
+
+int matrix4::get_determinant(int n) {
+	int D = 0;
+	if (n == 1)
+		return matrixEntries[0][0];
+
+	int temp[4][4];
+
+	int sign = 1;
+	for (int f = 0; f < n; f++)
+	{
+		get_cofactor(temp, 0, f, n);
+		D += sign * matrixEntries[0][f] * get_determinant(temp, n - 1);
+		sign = -sign;
+	}
+
+	return D;
+}
+
+void matrix4::get_adjoint(int adj[4][4])
+{
+	int sign = 1, temp[4][4];
+
+	for (int i = 0; i<4; i++)
+	{
+		for (int j = 0; j<4; j++)
+		{
+			get_cofactor(temp, i, j, 4);
+			sign = ((i + j) % 2 == 0) ? 1 : -1;
+			adj[j][i] = (sign)*(get_determinant(temp, 3));
+		}
+	}
+}
+
+bool matrix4::get_inverse(float inverse[4][4])
+{
+	int det = get_determinant(4);
+	if (det == 0)
+	{
+		return false;
+	}
+
+	int adj[4][4];
+	get_adjoint(adj);
+	for (int i = 0; i<4; i++)
+		for (int j = 0; j<4; j++)
+			inverse[i][j] = adj[i][j] / float(det);
+
+	return true;
+}
