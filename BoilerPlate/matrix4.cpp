@@ -1,4 +1,5 @@
 #include "matrix4.hpp"
+#include <math.h>
 
 matrix4::matrix4()
 {
@@ -43,6 +44,11 @@ matrix4::matrix4(float inputEntries[16])
 
 		}
 	}
+}
+
+float * matrix4::get()
+{
+	return *matrixEntries;
 }
 
 float matrix4::get_entry(int row, int column)
@@ -94,6 +100,30 @@ matrix4 matrix4::get_transpose()
 
 	return transpose;
 }
+
+vector3 matrix4::get_rotation(float& yaw, float& pitch, float& roll)
+{
+	vector3 angles;
+	if (matrixEntries[1][1] == 1.0f || matrixEntries[1][1] == -1.0f) {
+		yaw = atan2f(matrixEntries[1][3], matrixEntries[3][4]);
+		pitch = 0.0f;
+		roll = 0.0f;
+	}
+
+	else {
+		yaw = atan2f(-matrixEntries[3][1], matrixEntries[1][1]);
+		pitch = asinf(matrixEntries[2][1]);
+		roll = atan2f(-matrixEntries[2][3], matrixEntries[2][2]);
+	}
+
+	angles.x = yaw;
+	angles.y = pitch;
+	angles.z = roll;
+	
+	return angles;
+}
+
+
 
 std::ostream& operator<<(std::ostream& ostream, const matrix4& matrix)
 {
@@ -148,3 +178,17 @@ matrix4 matrix4::operator-(matrix4 rhs) {
 	}
 	return result;
 }
+
+matrix4 matrix4::operator*(matrix4 rhs) {
+	matrix4 result;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			for (int k = 0; k < 4; k++) {
+				result.matrixEntries[i][j] += matrixEntries[i][j] * rhs.matrixEntries[i][j];
+			}
+		}
+	}
+	return result;
+}
+
+

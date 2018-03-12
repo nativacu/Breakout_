@@ -1,4 +1,5 @@
 #include <iostream>
+#include "vector3.hpp"
 
 #pragma once
 #ifndef MATRIX4
@@ -14,13 +15,17 @@ public:
 	matrix4(float[16]);
 
 	/*PUBLIC FUNCTIONS*/
-		float get_entry(int, int);
+	float* get();
+	float get_entry(int, int);
 	void identity();
 	friend std::ostream& operator<<(std::ostream&, const matrix4&);
 	float operator[](float);
 	matrix4 operator+(matrix4);
 	matrix4 operator-(matrix4);
+	matrix4 operator*(matrix4);
 	matrix4 get_transpose();
+	vector3 get_rotation(float&, float&, float&);
+
 
 private:
 	/*PRIVATE MEMBERS*/
