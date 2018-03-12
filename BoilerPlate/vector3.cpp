@@ -14,7 +14,7 @@ vector3::vector3()
 
 /*Parameterized constructor. Sets the x, y and z values to the specified ones*/
 vector3::vector3(float xValue, float yValue, float zValue)
-{
+{	
 	x = xValue;
 	y = yValue;
 	z = zValue;
