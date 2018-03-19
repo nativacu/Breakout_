@@ -14,6 +14,9 @@
 #include <algorithm>
 #include <sstream>
 
+#define _STB_IMAGE_H_
+#include "stb_image.h"
+
 namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
@@ -22,6 +25,8 @@ namespace Engine
 	GLuint VertexArrayObject; //VAO
 	GLuint VertexBufferObject; //VBO
 	GLuint ProgramID; //holds shader compilation values
+
+
 
 	//
 	GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path) {
@@ -165,10 +170,10 @@ namespace Engine
 			0.5f,  0.5f, 0.0f,  // top right
 			0.5f, -0.5f, 0.0f,  // bottom right
 			-0.5f,  0.5f, 0.0f, // top left 
-			// second triangle
-			0.5f, -0.5f, 0.0f,  // bottom right
-			-0.5f, -0.5f, 0.0f, // bottom left
-			-0.5f,  0.5f, 0.0f  // top left
+								// second triangle
+								0.5f, -0.5f, 0.0f,  // bottom right
+								-0.5f, -0.5f, 0.0f, // bottom left
+								-0.5f,  0.5f, 0.0f  // top left
 		};
 
 		glGenVertexArrays(1, &VertexArrayObject);
@@ -238,10 +243,10 @@ namespace Engine
 	}
 
 	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
-	{		
+	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
-		default:			
+		default:
 			SDL_Log("%S was pressed.", keyBoardEvent.keysym.scancode);
 			break;
 		}
@@ -313,9 +318,9 @@ namespace Engine
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-		Uint32 flags =  SDL_WINDOW_OPENGL     | 
-						SDL_WINDOW_SHOWN      | 
-						SDL_WINDOW_RESIZABLE;
+		Uint32 flags = SDL_WINDOW_OPENGL |
+			SDL_WINDOW_SHOWN |
+			SDL_WINDOW_RESIZABLE;
 
 		m_mainWindow = SDL_CreateWindow(
 			m_title.c_str(),

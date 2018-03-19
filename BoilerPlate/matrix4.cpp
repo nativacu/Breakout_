@@ -7,83 +7,154 @@ matrix4::matrix4()
 }
 
 matrix4::matrix4(float entry0, float entry1, float entry2, float entry3, float entry4,
-	float entry5, float entry6, float entry7, float entry8, float entry9, float entry10, 
+	float entry5, float entry6, float entry7, float entry8, float entry9, float entry10,
 	float entry11, float entry12, float entry13, float entry14, float entry15)
 {
-	//First column
-	matrixEntries[0][0] = entry0;
-	matrixEntries[1][0] = entry1;
-	matrixEntries[2][0] = entry2;
-	matrixEntries[3][0] = entry3;
+	matrixEntries[0] = entry0;
+	matrixEntries[1] = entry1;
+	matrixEntries[2] = entry2;
+	matrixEntries[3] = entry3;
 
-	//Second column
-	matrixEntries[0][1] = entry4;
-	matrixEntries[1][1] = entry5;
-	matrixEntries[2][1] = entry6;
-	matrixEntries[3][1] = entry7;
+	matrixEntries[4] = entry4;
+	matrixEntries[5] = entry5;
+	matrixEntries[6] = entry6;
+	matrixEntries[7] = entry7;
 
-	//Third column
-	matrixEntries[0][2] = entry8;
-	matrixEntries[1][2] = entry9;
-	matrixEntries[2][2] = entry10;
-	matrixEntries[3][2] = entry11;
+	matrixEntries[8] = entry8;
+	matrixEntries[9] = entry9;
+	matrixEntries[10] = entry10;
+	matrixEntries[11] = entry11;
 
-	//Fourth column
-	matrixEntries[0][3] = entry12;
-	matrixEntries[1][3] = entry13;
-	matrixEntries[2][3] = entry14;
-	matrixEntries[3][3] = entry15;
+	matrixEntries[12] = entry12;
+	matrixEntries[13] = entry13;
+	matrixEntries[14] = entry14;
+	matrixEntries[15] = entry15;
 }
 
 matrix4::matrix4(float inputEntries[16])
 {
 	//First column
-	matrixEntries[0][0] = inputEntries[0];
-	matrixEntries[1][0] = inputEntries[1];
-	matrixEntries[2][0] = inputEntries[2];
-	matrixEntries[3][0] = inputEntries[3];
+	matrixEntries[0] = inputEntries[0];
+	matrixEntries[1] = inputEntries[1];
+	matrixEntries[2] = inputEntries[2];
+	matrixEntries[3] = inputEntries[3];
 
 	//Second column
-	matrixEntries[0][1] = inputEntries[4];
-	matrixEntries[1][1] = inputEntries[5];
-	matrixEntries[2][1] = inputEntries[6];
-	matrixEntries[3][1] = inputEntries[7];
+	matrixEntries[4] = inputEntries[4];
+	matrixEntries[5] = inputEntries[5];
+	matrixEntries[6] = inputEntries[6];
+	matrixEntries[7] = inputEntries[7];
 
 	//Third column
-	matrixEntries[0][2] = inputEntries[8];
-	matrixEntries[1][2] = inputEntries[9];
-	matrixEntries[2][2] = inputEntries[10];
-	matrixEntries[3][2] = inputEntries[11];
+	matrixEntries[8] = inputEntries[8];
+	matrixEntries[9] = inputEntries[9];
+	matrixEntries[10] = inputEntries[10];
+	matrixEntries[11] = inputEntries[11];
 
 	//Fourth column
-	matrixEntries[0][3] = inputEntries[12];
-	matrixEntries[1][3] = inputEntries[13];
-	matrixEntries[2][3] = inputEntries[14];
-	matrixEntries[3][3] = inputEntries[15];
+	matrixEntries[12] = inputEntries[12];
+	matrixEntries[13] = inputEntries[13];
+	matrixEntries[14] = inputEntries[14];
+	matrixEntries[15] = inputEntries[15];
 }
 
 float * matrix4::get()
 {
-	return *matrixEntries;
+	return matrixEntries;
 }
 
-float matrix4::get_entry(int row, int column)
+float matrix4::get_entry(int column, int row)
 {
-	return matrixEntries[row][column];
+	int linearIndex = row + (4 * column);
+	return matrixEntries[linearIndex];
 }
 
 void matrix4::identity()
 {
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			if (i == j)
-				matrixEntries[i][j] = 1.0f;
-			else
-				matrixEntries[i][j] = 0.0f;
-		}
-	}
+	//First column
+	matrixEntries[0] = 1;
+	matrixEntries[1] = 0;
+	matrixEntries[2] = 0;
+	matrixEntries[3] = 0;
+
+	//Second column
+	matrixEntries[4] = 0;
+	matrixEntries[5] = 1;
+	matrixEntries[6] = 0;
+	matrixEntries[7] = 0;
+
+	//Third column
+	matrixEntries[8] = 0;
+	matrixEntries[9] = 0;
+	matrixEntries[10] = 1;
+	matrixEntries[11] = 0;
+
+	//Fourth column
+	matrixEntries[12] = 0;
+	matrixEntries[13] = 0;
+	matrixEntries[14] = 0;
+	matrixEntries[15] = 1;
+}
+
+void matrix4::operator=(matrix4 rhs)
+{
+	matrixEntries[0] = rhs.matrixEntries[0];
+	matrixEntries[1] = rhs.matrixEntries[1];
+	matrixEntries[2] = rhs.matrixEntries[2];
+	matrixEntries[3] = rhs.matrixEntries[3];
+
+	matrixEntries[4] = rhs.matrixEntries[4];
+	matrixEntries[5] = rhs.matrixEntries[5];
+	matrixEntries[6] = rhs.matrixEntries[6];
+	matrixEntries[7] = rhs.matrixEntries[7];
+
+	matrixEntries[8] = rhs.matrixEntries[8];
+	matrixEntries[9] = rhs.matrixEntries[9];
+	matrixEntries[10] = rhs.matrixEntries[10];
+	matrixEntries[11] = rhs.matrixEntries[11];
+
+	matrixEntries[12] = rhs.matrixEntries[12];
+	matrixEntries[13] = rhs.matrixEntries[13];
+	matrixEntries[14] = rhs.matrixEntries[14];
+	matrixEntries[15] = rhs.matrixEntries[15];
+}
+
+float matrix4::operator[](int index)
+{
+	return matrixEntries[index];
+}
+
+std::ostream & operator<<(std::ostream& ostream, const matrix4& matrix)
+{
+	//First row
+	ostream << matrix.matrixEntries[0] << " ";
+	ostream << matrix.matrixEntries[4] << " ";
+	ostream << matrix.matrixEntries[8] << " ";
+	ostream << matrix.matrixEntries[12] << " ";
+	ostream << std::endl;
+
+	//Second row
+	ostream << matrix.matrixEntries[1] << " ";
+	ostream << matrix.matrixEntries[5] << " ";
+	ostream << matrix.matrixEntries[9] << " ";
+	ostream << matrix.matrixEntries[13] << " ";
+	ostream << std::endl;
+
+	//Third row
+	ostream << matrix.matrixEntries[2] << " ";
+	ostream << matrix.matrixEntries[6] << " ";
+	ostream << matrix.matrixEntries[10] << " ";
+	ostream << matrix.matrixEntries[14] << " ";
+	ostream << std::endl;
+
+	//Fourth row
+	ostream << matrix.matrixEntries[3] << " ";
+	ostream << matrix.matrixEntries[7] << " ";
+	ostream << matrix.matrixEntries[11] << " ";
+	ostream << matrix.matrixEntries[15] << " ";
+	ostream << std::endl;
+
+	return ostream;
 }
 
 matrix4 matrix4::get_transpose()
@@ -91,120 +162,180 @@ matrix4 matrix4::get_transpose()
 	matrix4 transpose;
 
 	//Set first column using original's first row
-	transpose.matrixEntries[0][0] = matrixEntries[0][0];
-	transpose.matrixEntries[1][0] = matrixEntries[0][1];
-	transpose.matrixEntries[2][0] = matrixEntries[0][2];
-	transpose.matrixEntries[3][0] = matrixEntries[0][3];
+	transpose.matrixEntries[0] = matrixEntries[0];
+	transpose.matrixEntries[1] = matrixEntries[4];
+	transpose.matrixEntries[2] = matrixEntries[8];
+	transpose.matrixEntries[3] = matrixEntries[12];
 
 	//Set second column using original's second row
-	transpose.matrixEntries[0][1] = matrixEntries[1][0];
-	transpose.matrixEntries[1][1] = matrixEntries[1][1];
-	transpose.matrixEntries[2][1] = matrixEntries[1][2];
-	transpose.matrixEntries[3][1] = matrixEntries[1][3];
+	transpose.matrixEntries[4] = matrixEntries[1];
+	transpose.matrixEntries[5] = matrixEntries[5];
+	transpose.matrixEntries[6] = matrixEntries[9];
+	transpose.matrixEntries[7] = matrixEntries[13];
 
 	//Set third column using original's third row
-	transpose.matrixEntries[0][2] = matrixEntries[2][0];
-	transpose.matrixEntries[1][2] = matrixEntries[2][1];
-	transpose.matrixEntries[2][2] = matrixEntries[2][2];
-	transpose.matrixEntries[3][2] = matrixEntries[2][3];
+	transpose.matrixEntries[8] = matrixEntries[2];
+	transpose.matrixEntries[9] = matrixEntries[6];
+	transpose.matrixEntries[10] = matrixEntries[10];
+	transpose.matrixEntries[11] = matrixEntries[14];
 
 	//Set fourth column using original's fourth row
-	transpose.matrixEntries[0][3] = matrixEntries[3][0];
-	transpose.matrixEntries[1][3] = matrixEntries[3][1];
-	transpose.matrixEntries[2][3] = matrixEntries[3][2];
-	transpose.matrixEntries[3][3] = matrixEntries[3][3];
+	transpose.matrixEntries[12] = matrixEntries[3];
+	transpose.matrixEntries[13] = matrixEntries[7];
+	transpose.matrixEntries[14] = matrixEntries[11];
+	transpose.matrixEntries[15] = matrixEntries[15];
 
 	return transpose;
 }
 
-vector3 matrix4::get_angle(float& yaw, float& pitch, float& roll)
+vector3 matrix4::get_angle()
 {
+	mathUtilities utility;
 	vector3 angles;
-	if (matrixEntries[1][1] == 1.0f || matrixEntries[1][1] == -1.0f) {
-		yaw = atan2f(matrixEntries[1][3], matrixEntries[3][4]);
+	float yaw, pitch, roll;
+	
+	//Get angles
+	if (matrixEntries[0] == 1.0f || matrixEntries[0] == -1.0f) {
+		yaw = atan2f(matrixEntries[8], matrixEntries[14]);
 		pitch = 0.0f;
 		roll = 0.0f;
 	}
 
 	else {
-		yaw = atan2f(-matrixEntries[3][1], matrixEntries[1][1]);
-		pitch = asinf(matrixEntries[2][1]);
-		roll = atan2f(-matrixEntries[2][3], matrixEntries[2][2]);
+		yaw = atan2f(-matrixEntries[2], matrixEntries[0]);
+		pitch = asinf(matrixEntries[1]);
+		roll = atan2f(-matrixEntries[9], matrixEntries[5]);
 	}
+
+	//Convert angles returned in radians to degrees
+	yaw = utility.to_degrees(yaw);
+	pitch = utility.to_degrees(pitch);
+	roll = utility.to_degrees(roll);
 
 	angles.x = yaw;
 	angles.y = pitch;
 	angles.z = roll;
-	
+
 	return angles;
 }
 
-float * matrix4::get_row(int rowIndex)
+float * matrix4::get_row(int row)
 {
 	float retrievedRow[4];
 
-	for (int i = 0; i < 4; i++)
-	{
-		retrievedRow[i] = matrixEntries[rowIndex][i];
-	}
+	retrievedRow[0] = matrixEntries[row];
+	retrievedRow[1] = matrixEntries[row += 4];
+	retrievedRow[2] = matrixEntries[row += 4];
+	retrievedRow[3] = matrixEntries[row += 4];
 
 	return retrievedRow;
 }
 
-float * matrix4::get_column(int columnIndex)
+float * matrix4::get_column(int column)
 {
 	float retrievedColumn[4];
 
-	for (int i = 0; i < 4; i++)
-	{
-		retrievedColumn[i] = matrixEntries[i][columnIndex];
-	}
+	retrievedColumn[0] = matrixEntries[column * 4];
+	retrievedColumn[1] = matrixEntries[(column * 4) + 1];
+	retrievedColumn[2] = matrixEntries[(column * 4) + 2];
+	retrievedColumn[3] = matrixEntries[(column * 4) + 3];
 
 	return retrievedColumn;
 }
 
-std::ostream& operator<<(std::ostream& ostream, const matrix4& matrix)
+bool matrix4::get_inverse(matrix4& result)
 {
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			ostream << matrix.matrixEntries[i][j] << " ";
-		}
-		ostream << std::endl;
+	float determinant;
+
+	result.get()[0] = matrixEntries[5] * matrixEntries[10] * matrixEntries[15] - matrixEntries[5] * matrixEntries[11] * matrixEntries[14] -
+		matrixEntries[9] * matrixEntries[6] * matrixEntries[15] + matrixEntries[9] * matrixEntries[7] * matrixEntries[14] +
+		matrixEntries[13] * matrixEntries[6] * matrixEntries[11] - matrixEntries[13] * matrixEntries[7] * matrixEntries[10];
+
+
+	result.get()[4] = -matrixEntries[4] * matrixEntries[10] * matrixEntries[15] + matrixEntries[4] * matrixEntries[11] * matrixEntries[14] +
+		matrixEntries[8] * matrixEntries[6] * matrixEntries[15] - matrixEntries[8] * matrixEntries[7] * matrixEntries[14] -
+		matrixEntries[12] * matrixEntries[6] * matrixEntries[11] + matrixEntries[12] * matrixEntries[7] * matrixEntries[10];
+
+	result.get()[8] = matrixEntries[4] * matrixEntries[9] * matrixEntries[15] - matrixEntries[4] * matrixEntries[11] * matrixEntries[13] -
+		matrixEntries[8] * matrixEntries[5] * matrixEntries[15] + matrixEntries[8] * matrixEntries[7] * matrixEntries[13] +
+		matrixEntries[12] * matrixEntries[5] * matrixEntries[11] - matrixEntries[12] * matrixEntries[7] * matrixEntries[9];
+
+	result.get()[12] = -matrixEntries[4] * matrixEntries[9] * matrixEntries[14] + matrixEntries[4] * matrixEntries[10] * matrixEntries[13] +
+		matrixEntries[8] * matrixEntries[5] * matrixEntries[14] - matrixEntries[8] * matrixEntries[6] * matrixEntries[13] -
+		matrixEntries[12] * matrixEntries[5] * matrixEntries[10] + matrixEntries[12] * matrixEntries[6] * matrixEntries[9];
+
+	result.get()[1] = -matrixEntries[1] * matrixEntries[10] * matrixEntries[15] + matrixEntries[1] * matrixEntries[11] * matrixEntries[14] +
+		matrixEntries[9] * matrixEntries[2] * matrixEntries[15] - matrixEntries[9] * matrixEntries[3] * matrixEntries[14] -
+		matrixEntries[13] * matrixEntries[2] * matrixEntries[11] + matrixEntries[13] * matrixEntries[3] * matrixEntries[10];
+
+	result.get()[5] = matrixEntries[0] * matrixEntries[10] * matrixEntries[15] - matrixEntries[0] * matrixEntries[11] * matrixEntries[14] -
+		matrixEntries[8] * matrixEntries[2] * matrixEntries[15] + matrixEntries[8] * matrixEntries[3] * matrixEntries[14] +
+		matrixEntries[12] * matrixEntries[2] * matrixEntries[11] - matrixEntries[12] * matrixEntries[3] * matrixEntries[10];
+
+	result.get()[9] = -matrixEntries[0] * matrixEntries[9] * matrixEntries[15] + matrixEntries[0] * matrixEntries[11] * matrixEntries[13] +
+		matrixEntries[8] * matrixEntries[1] * matrixEntries[15] - matrixEntries[8] * matrixEntries[3] * matrixEntries[13] -
+		matrixEntries[12] * matrixEntries[1] * matrixEntries[11] + matrixEntries[12] * matrixEntries[3] * matrixEntries[9];
+
+	result.get()[13] = matrixEntries[0] * matrixEntries[9] * matrixEntries[14] - matrixEntries[0] * matrixEntries[10] * matrixEntries[13] -
+		matrixEntries[8] * matrixEntries[1] * matrixEntries[14] + matrixEntries[8] * matrixEntries[2] * matrixEntries[13] +
+		matrixEntries[12] * matrixEntries[1] * matrixEntries[10] - matrixEntries[12] * matrixEntries[2] * matrixEntries[9];
+
+	result.get()[2] = matrixEntries[1] * matrixEntries[6] * matrixEntries[15] - matrixEntries[1] * matrixEntries[7] * matrixEntries[14] -
+		matrixEntries[5] * matrixEntries[2] * matrixEntries[15] + matrixEntries[5] * matrixEntries[3] * matrixEntries[14] +
+		matrixEntries[13] * matrixEntries[2] * matrixEntries[7] - matrixEntries[13] * matrixEntries[3] * matrixEntries[6];
+
+	result.get()[6] = -matrixEntries[0] * matrixEntries[6] * matrixEntries[15] + matrixEntries[0] * matrixEntries[7] * matrixEntries[14] +
+		matrixEntries[4] * matrixEntries[2] * matrixEntries[15] - matrixEntries[4] * matrixEntries[3] * matrixEntries[14] -
+		matrixEntries[12] * matrixEntries[2] * matrixEntries[7] + matrixEntries[12] * matrixEntries[3] * matrixEntries[6];
+
+	result.get()[10] = matrixEntries[0] * matrixEntries[5] * matrixEntries[15] - matrixEntries[0] * matrixEntries[7] * matrixEntries[13] -
+		matrixEntries[4] * matrixEntries[1] * matrixEntries[15] + matrixEntries[4] * matrixEntries[3] * matrixEntries[13] +
+		matrixEntries[12] * matrixEntries[1] * matrixEntries[7] - matrixEntries[12] * matrixEntries[3] * matrixEntries[5];
+
+	result.get()[14] = -matrixEntries[0] * matrixEntries[5] * matrixEntries[14] + matrixEntries[0] * matrixEntries[6] * matrixEntries[13] +
+		matrixEntries[4] * matrixEntries[1] * matrixEntries[14] - matrixEntries[4] * matrixEntries[2] * matrixEntries[13] -
+		matrixEntries[12] * matrixEntries[1] * matrixEntries[6] + matrixEntries[12] * matrixEntries[2] * matrixEntries[5];
+
+	result.get()[3] = -matrixEntries[1] * matrixEntries[6] * matrixEntries[11] + matrixEntries[1] * matrixEntries[7] * matrixEntries[10] +
+		matrixEntries[5] * matrixEntries[2] * matrixEntries[11] - matrixEntries[5] * matrixEntries[3] * matrixEntries[10] -
+		matrixEntries[9] * matrixEntries[2] * matrixEntries[7] + matrixEntries[9] * matrixEntries[3] * matrixEntries[6];
+
+	result.get()[7] = matrixEntries[0] * matrixEntries[6] * matrixEntries[11] - matrixEntries[0] * matrixEntries[7] * matrixEntries[10] -
+		matrixEntries[4] * matrixEntries[2] * matrixEntries[11] + matrixEntries[4] * matrixEntries[3] * matrixEntries[10] +
+		matrixEntries[8] * matrixEntries[2] * matrixEntries[7] - matrixEntries[8] * matrixEntries[3] * matrixEntries[6];
+
+	result.get()[11] = -matrixEntries[0] * matrixEntries[5] * matrixEntries[11] + matrixEntries[0] * matrixEntries[7] * matrixEntries[9] +
+		matrixEntries[4] * matrixEntries[1] * matrixEntries[11] - matrixEntries[4] * matrixEntries[3] * matrixEntries[9] -
+		matrixEntries[8] * matrixEntries[1] * matrixEntries[7] + matrixEntries[8] * matrixEntries[3] * matrixEntries[5];
+
+	result.get()[15] = matrixEntries[0] * matrixEntries[5] * matrixEntries[10] - matrixEntries[0] * matrixEntries[6] * matrixEntries[9] -
+		matrixEntries[4] * matrixEntries[1] * matrixEntries[10] + matrixEntries[4] * matrixEntries[2] * matrixEntries[9] +
+		matrixEntries[8] * matrixEntries[1] * matrixEntries[6] - matrixEntries[8] * matrixEntries[2] * matrixEntries[5];
+
+	determinant = matrixEntries[0] * result[0] + matrixEntries[1] * result[4] + matrixEntries[2] * result[8] + matrixEntries[3] * result[12];
+
+	if (determinant == 0) {
+		return false;
 	}
 
-	return ostream;
-}
-
-float matrix4::operator[](float desiredEntry) {
-	bool finished = false;
-	int counter = 0;
-	int row = 0;
-	int column = 0;
-	float entry;
-
-	while (!finished) {
-		entry = matrixEntries[row][column];
-		row++;
-		counter++;
-		if (row == 4) {
-			row = 0;
-			column++;
+	else {
+		determinant = 1 / determinant;
+		for (int i = 0; i < 16; i++) {
+			result.get()[i] = result[i] * determinant;
 		}
-		finished = (counter == desiredEntry);
+
+		return true;
 	}
-	return entry;
 }
 
 matrix4 matrix4::rotate_x(float angle)
 {
 	matrix4 xRotationMatrix;
 
-	xRotationMatrix.matrixEntries[1][1] = std::cosf(-angle);
-	xRotationMatrix.matrixEntries[2][1] = -std::sinf(-angle);
-	xRotationMatrix.matrixEntries[1][2] = std::sinf(-angle);
-	xRotationMatrix.matrixEntries[2][2] = std::cosf(-angle);
+	xRotationMatrix.matrixEntries[5] = std::cosf(-angle);
+	xRotationMatrix.matrixEntries[6] = -std::sinf(-angle);
+	xRotationMatrix.matrixEntries[9] = std::sinf(-angle);
+	xRotationMatrix.matrixEntries[10] = std::cosf(-angle);
 
 	return xRotationMatrix;
 }
@@ -213,10 +344,10 @@ matrix4 matrix4::rotate_y(float angle)
 {
 	matrix4 yRotationMatrix;
 
-	yRotationMatrix.matrixEntries[0][0] = std::cosf(-angle);
-	yRotationMatrix.matrixEntries[2][0] = std::sinf(-angle);
-	yRotationMatrix.matrixEntries[0][2] = -std::sinf(-angle);
-	yRotationMatrix.matrixEntries[2][2] = std::cosf(-angle);
+	yRotationMatrix.matrixEntries[0] = std::cosf(-angle);
+	yRotationMatrix.matrixEntries[2] = std::sinf(-angle);
+	yRotationMatrix.matrixEntries[8] = -std::sinf(-angle);
+	yRotationMatrix.matrixEntries[10] = std::cosf(-angle);
 
 	return yRotationMatrix;
 }
@@ -225,10 +356,10 @@ matrix4 matrix4::rotate_z(float angle)
 {
 	matrix4 zRotationMatrix;
 
-	zRotationMatrix.matrixEntries[0][0] = std::cosf(-angle);
-	zRotationMatrix.matrixEntries[1][0] = -std::sinf(-angle);
-	zRotationMatrix.matrixEntries[0][2] = std::sinf(-angle);
-	zRotationMatrix.matrixEntries[1][1] = std::cosf(-angle);
+	zRotationMatrix.matrixEntries[0] = std::cosf(-angle);
+	zRotationMatrix.matrixEntries[1] = -std::sinf(-angle);
+	zRotationMatrix.matrixEntries[4] = std::sinf(-angle);
+	zRotationMatrix.matrixEntries[5] = std::cosf(-angle);
 
 	return zRotationMatrix;
 }
@@ -237,132 +368,116 @@ matrix4 matrix4::get_translate_matrix(vector4 vector)
 {
 	matrix4 translated;
 
-	translated.matrixEntries[0][3] = vector.x;
-	translated.matrixEntries[1][3] = vector.y;
-	translated.matrixEntries[2][3] = vector.z;
+	translated.matrixEntries[12] = vector.x;
+	translated.matrixEntries[13] = vector.y;
+	translated.matrixEntries[14] = vector.z;
 
 
 	return translated;
 }
 
+void matrix4::translate_matrix(vector4 vector)
+{
+	*this = *this * this->get_translate_matrix(vector);
+}
 
-matrix4 matrix4::operator+(matrix4 rhs) {
+matrix4 matrix4::operator+(matrix4 rightHandSide) {
 	matrix4 result;
-	for (int i = 0; i<4; i++) {
-		for (int j = 0; j < 4; j++) {
-			result.matrixEntries[i][j] = get_entry(i, j) + rhs.get_entry(i, j);
-		}
-	}
+
+	result.get()[0] = matrixEntries[0] + rightHandSide[0];
+	result.get()[1] = matrixEntries[1] + rightHandSide[1];
+	result.get()[2] = matrixEntries[2] + rightHandSide[2];
+	result.get()[3] = matrixEntries[3] + rightHandSide[3];
+
+	result.get()[4] = matrixEntries[4] + rightHandSide[4];
+	result.get()[5] = matrixEntries[5] + rightHandSide[5];
+	result.get()[6] = matrixEntries[6] + rightHandSide[6];
+	result.get()[7] = matrixEntries[7] + rightHandSide[7];
+
+	result.get()[8] = matrixEntries[8] + rightHandSide[8];
+	result.get()[9] = matrixEntries[9] + rightHandSide[9];
+	result.get()[10] = matrixEntries[10] + rightHandSide[9];
+	result.get()[11] = matrixEntries[11] + rightHandSide[9];
+
+	result.get()[12] = matrixEntries[12] + rightHandSide[10];
+	result.get()[13] = matrixEntries[13] + rightHandSide[11];
+	result.get()[14] = matrixEntries[14] + rightHandSide[12];
+	result.get()[15] = matrixEntries[15] + rightHandSide[13];
+
 	return result;
 }
 
-matrix4 matrix4::operator-(matrix4 rhs) {
+matrix4 matrix4::operator-(matrix4 rightHandSide) {
 	matrix4 result;
-	for (int i = 0; i<4; i++) {
-		for (int j = 0; j < 4; j++) {
-			result.matrixEntries[i][j] = get_entry(i, j) - rhs.get_entry(i, j);
-		}
-	}
+
+	result.get()[0] = matrixEntries[0] - rightHandSide[0];
+	result.get()[1] = matrixEntries[1] - rightHandSide[1];
+	result.get()[2] = matrixEntries[2] - rightHandSide[2];
+	result.get()[3] = matrixEntries[3] - rightHandSide[3];
+
+	result.get()[4] = matrixEntries[4] - rightHandSide[4];
+	result.get()[5] = matrixEntries[5] - rightHandSide[5];
+	result.get()[6] = matrixEntries[6] - rightHandSide[6];
+	result.get()[7] = matrixEntries[7] - rightHandSide[7];
+
+	result.get()[8] = matrixEntries[8] - rightHandSide[8];
+	result.get()[9] = matrixEntries[9] - rightHandSide[9];
+	result.get()[10] = matrixEntries[10] - rightHandSide[9];
+	result.get()[11] = matrixEntries[11] - rightHandSide[9];
+
+	result.get()[12] = matrixEntries[12] - rightHandSide[10];
+	result.get()[13] = matrixEntries[13] - rightHandSide[11];
+	result.get()[14] = matrixEntries[14] - rightHandSide[12];
+	result.get()[15] = matrixEntries[15] - rightHandSide[13];
+
 	return result;
 }
 
-matrix4 matrix4::operator*(matrix4 rhs) {
+matrix4 matrix4::operator*(matrix4 rightHandSide) {
+	float resultEntries[16];
+
+	resultEntries[0] = matrixEntries[0] * rightHandSide[0] + matrixEntries[1] * rightHandSide[4] + matrixEntries[2] * rightHandSide[8] + matrixEntries[3] * rightHandSide[12];
+	resultEntries[1] = matrixEntries[0] * rightHandSide[1] + matrixEntries[1] * rightHandSide[5] + matrixEntries[2] * rightHandSide[9] + matrixEntries[3] * rightHandSide[13];
+	resultEntries[2] = matrixEntries[0] * rightHandSide[2] + matrixEntries[1] * rightHandSide[6] + matrixEntries[2] * rightHandSide[10] + matrixEntries[3] * rightHandSide[14];
+	resultEntries[3] = matrixEntries[0] * rightHandSide[3] + matrixEntries[1] * rightHandSide[7] + matrixEntries[2] * rightHandSide[11] + matrixEntries[3] * rightHandSide[15];
+
+	resultEntries[4] = matrixEntries[4] * rightHandSide[0] + matrixEntries[5] * rightHandSide[4] + matrixEntries[6] * rightHandSide[8] + matrixEntries[7] * rightHandSide[12];
+	resultEntries[5] = matrixEntries[4] * rightHandSide[1] + matrixEntries[5] * rightHandSide[5] + matrixEntries[6] * rightHandSide[9] + matrixEntries[7] * rightHandSide[13];
+	resultEntries[6] = matrixEntries[4] * rightHandSide[2] + matrixEntries[5] * rightHandSide[6] + matrixEntries[6] * rightHandSide[10] + matrixEntries[7] * rightHandSide[14];
+	resultEntries[7] = matrixEntries[4] * rightHandSide[3] + matrixEntries[5] * rightHandSide[7] + matrixEntries[6] * rightHandSide[11] + matrixEntries[7] * rightHandSide[15];
+
+	resultEntries[8] = matrixEntries[8] * rightHandSide[0] + matrixEntries[9] * rightHandSide[4] + matrixEntries[10] * rightHandSide[8] + matrixEntries[11] * rightHandSide[12];
+	resultEntries[9] = matrixEntries[8] * rightHandSide[1] + matrixEntries[9] * rightHandSide[5] + matrixEntries[10] * rightHandSide[9] + matrixEntries[11] * rightHandSide[13];
+	resultEntries[10] = matrixEntries[8] * rightHandSide[2] + matrixEntries[9] * rightHandSide[6] + matrixEntries[10] * rightHandSide[10] + matrixEntries[11] * rightHandSide[14];
+	resultEntries[11] = matrixEntries[8] * rightHandSide[3] + matrixEntries[9] * rightHandSide[7] + matrixEntries[10] * rightHandSide[11] + matrixEntries[11] * rightHandSide[15];
+
+	resultEntries[12] = matrixEntries[12] * rightHandSide[0] + matrixEntries[13] * rightHandSide[4] + matrixEntries[14] * rightHandSide[8] + matrixEntries[15] * rightHandSide[12];
+	resultEntries[13] = matrixEntries[12] * rightHandSide[1] + matrixEntries[13] * rightHandSide[5] + matrixEntries[14] * rightHandSide[9] + matrixEntries[15] * rightHandSide[13];
+	resultEntries[14] = matrixEntries[12] * rightHandSide[2] + matrixEntries[13] * rightHandSide[6] + matrixEntries[14] * rightHandSide[10] + matrixEntries[15] * rightHandSide[14];
+	resultEntries[15] = matrixEntries[12] * rightHandSide[3] + matrixEntries[13] * rightHandSide[7] + matrixEntries[14] * rightHandSide[11] + matrixEntries[15] * rightHandSide[15];
+
+	return matrix4(resultEntries);
+}
+
+void matrix4::rotate_using_degrees(float angle)
+{
+	mathUtilities utility;
+
+	*this = *this * this->rotate_z(utility.to_radians(angle));
+}
+
+void matrix4::rotate_using_radians(float angle)
+{
+	*this = *this * this->rotate_z(angle);
+}
+
+matrix4 matrix4::operator/(matrix4 rightHandSide) {
 	matrix4 result;
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			for (int k = 0; k < 4; k++) {
-				result.matrixEntries[i][j] += matrixEntries[i][j] * rhs.matrixEntries[i][j];
-			}
-		}
+	matrix4 rightHandSideInverse;
+
+	if (rightHandSide.get_inverse(rightHandSideInverse)) {
+		result = *this * rightHandSideInverse;
 	}
+
 	return result;
-}
-
-void matrix4::get_cofactor(int temp[4][4], int p, int q, int n)
-{
-	int i = 0, j = 0;
-	for (int row = 0; row < n; row++)
-	{
-		for (int col = 0; col < n; col++)
-		{
-			if (row != p && col != q)
-			{
-				temp[i][j++] = matrixEntries[row][col];
-				if (j == n - 1)
-				{
-					j = 0;
-					i++;
-				}
-			}
-		}
-	}
-}
-
-int matrix4::get_determinant(int a[4][4], int n)
-{
-	int D = 0; 
-	if (n == 1)
-		return a[0][0];
-
-	int temp[4][4];
-
-	int sign = 1;  
-	for (int f = 0; f < n; f++)
-	{
-		get_cofactor(temp, 0, f, n);
-		D += sign * a[0][f] * get_determinant(temp, n - 1);
-		sign = -sign;
-	}
-
-	return D;
-}
-
-int matrix4::get_determinant(int n) {
-	int D = 0;
-	if (n == 1)
-		return matrixEntries[0][0];
-
-	int temp[4][4];
-
-	int sign = 1;
-	for (int f = 0; f < n; f++)
-	{
-		get_cofactor(temp, 0, f, n);
-		D += sign * matrixEntries[0][f] * get_determinant(temp, n - 1);
-		sign = -sign;
-	}
-
-	return D;
-}
-
-void matrix4::get_adjoint(int adj[4][4])
-{
-	int sign = 1, temp[4][4];
-
-	for (int i = 0; i<4; i++)
-	{
-		for (int j = 0; j<4; j++)
-		{
-			get_cofactor(temp, i, j, 4);
-			sign = ((i + j) % 2 == 0) ? 1 : -1;
-			adj[j][i] = (sign)*(get_determinant(temp, 3));
-		}
-	}
-}
-
-bool matrix4::get_inverse(float inverse[4][4])
-{
-	int det = get_determinant(4);
-	if (det == 0)
-	{
-		return false;
-	}
-
-	int adj[4][4];
-	get_adjoint(adj);
-	for (int i = 0; i<4; i++)
-		for (int j = 0; j<4; j++)
-			inverse[i][j] = adj[i][j] / float(det);
-
-	return true;
 }
