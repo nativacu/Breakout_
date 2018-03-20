@@ -11,6 +11,7 @@
 #include "TimeManager.hpp"
 
 #include "matrix4.hpp"
+#include "shader.hpp"
 
 namespace Engine
 {

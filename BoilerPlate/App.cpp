@@ -13,6 +13,7 @@
 #include <fstream>
 #include <algorithm>
 #include <sstream>
+#include <utility>
 
 #define _STB_IMAGE_H_
 #include "stb_image.h"
@@ -26,10 +27,8 @@ namespace Engine
 	GLuint VertexBufferObject; //VBO
 	GLuint ProgramID; //holds shader compilation values
 
-
-
 	//
-	GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path) {
+	/*GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path) {
 
 		// Create the shaders
 		GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -122,7 +121,7 @@ namespace Engine
 		glDeleteShader(FragmentShaderID);
 
 		return ProgramID;
-	}
+	}*/
 
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)
@@ -155,8 +154,27 @@ namespace Engine
 
 		m_state = GameState::RUNNING;
 
+		// MANAGE SHADER INPUT PAIR LIST
+		std::vector <std::pair <std::string, GLenum>> shaderInputList;
+		std::pair<std::string, GLenum> firstShaderEntry;
+		std::pair<std::string, GLenum> secondShaderEntry;
+
+		firstShaderEntry.first = "vertex.glsl";
+		firstShaderEntry.second = GL_VERTEX_SHADER;
+
+		secondShaderEntry.first = "frag.glsl";
+		secondShaderEntry.second = GL_FRAGMENT_SHADER;
+
+		shaderInputList.push_back(firstShaderEntry);
+		shaderInputList.push_back(secondShaderEntry);
+
+		// INSTANCIATE SHADER MANAGER OBJECT
+		shader shaderObject = shader(shaderInputList);
+
+
 		// TODO: MOVE THIS OUT
-		ProgramID = LoadShaders("vertex.glsl", "frag.glsl");
+		//ProgramID = LoadShaders("vertex.glsl", "frag.glsl");
+		ProgramID = shaderObject.execute();
 
 		// set up vertex data (and buffer(s)) and configure vertex attributes
 		// ------------------------------------------------------------------
