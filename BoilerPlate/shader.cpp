@@ -135,3 +135,9 @@ int shader::display_error_message(std::string fileName, std::string fileLine, st
 	#endif
 	return msgboxID;
 }
+
+GLuint shader::get_uniform_id(GLuint program, const GLchar *name)
+{
+	GLuint id = glGetUniformLocation(program, name);
+	return id;
+}

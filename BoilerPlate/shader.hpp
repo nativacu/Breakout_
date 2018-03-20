@@ -24,7 +24,8 @@ struct shader
 	void link_program();
 	void clean_up();
 	GLuint execute();
-	int display_error_message(std::string fileName, std::string fileLine, std::string errorMessage, std::string rawErrorMessage);
+	int display_error_message(std::string, std::string, std::string , std::string);
+	GLuint get_uniform_id(GLuint, const GLchar*);
 
 	// MEMBERS
 	std::vector <std::pair <std::string, GLenum>> shaderList;

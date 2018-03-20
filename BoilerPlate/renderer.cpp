@@ -64,8 +64,11 @@ void renderer::set_vertex_data()
 		-0.5f,  0.5f, 0.0f  // top left
 	};
 
+	int indices[] = {0, 1, 2, 1, 3, 2};
+
 	glGenVertexArrays(1, &VertexArrayObject);
 	glGenBuffers(1, &VertexBufferObject);
+	glGenBuffers(1, &ElementsBufferObject);
 	// bind the Vertex Array Object first, 
 	// then bind and set vertex buffer(s), 
 	// and then configure vertex attributes(s).
@@ -88,10 +91,13 @@ void renderer::set_vertex_data()
 	// the call to glVertexAttribPointer registered VBO as the vertex attribute's bound 
 	//vertex buffer object so afterwards we can safely unbind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
 	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 	glBindVertexArray(0);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void renderer::toggle_wire_frame_view(bool status)

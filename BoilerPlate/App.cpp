@@ -6,15 +6,6 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 
-//
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <sstream>
-#include <utility>
-
 #define _STB_IMAGE_H_
 #include "stb_image.h"
 
@@ -22,10 +13,6 @@ namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
-
-	//GLuint VertexArrayObject; //VAO
-	//GLuint VertexBufferObject; //VBO
-	//GLuint ProgramID; //holds shader compilation values
 	
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)

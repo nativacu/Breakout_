@@ -17,6 +17,7 @@ public:
 private:
 	GLuint VertexArrayObject; //VAO
 	GLuint VertexBufferObject; //VBO
+	GLuint ElementsBufferObject; //EBO
 	GLuint ProgramID; //holds shader compilation values
 	shader shaderUtility;
 	bool usingWireFrameView;
