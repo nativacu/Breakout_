@@ -28,6 +28,7 @@ void renderer::get_program_ID()
 
 void renderer::draw_polygon()
 {
+	int indices[] = {0, 1, 2, 1, 3, 2};
 	if (usingWireFrameView)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
@@ -35,13 +36,15 @@ void renderer::draw_polygon()
 
 	glUseProgram(ProgramID);
 	glBindVertexArray(VertexArrayObject);
-	glDrawArrays(GL_TRIANGLES, 0, 6); //limit vector buffering
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBufferObject);
+	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0); //limit vector buffering
 }
 
 void renderer::clean_up()
 {
 	glDeleteBuffers(1, &VertexBufferObject);
 	glDeleteVertexArrays(1, &VertexArrayObject);
+	glDeleteVertexArrays(1, &ElementsBufferObject);
 }
 
 void renderer::set_vertex_data()
@@ -59,9 +62,7 @@ void renderer::set_vertex_data()
 		0.5f, -0.5f, 0.0f,  // bottom right
 		-0.5f,  0.5f, 0.0f, // top left 
 		// second triangle
-		0.5f, -0.5f, 0.0f,  // bottom right
 		-0.5f, -0.5f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f  // top left
 	};
 
 	int indices[] = {0, 1, 2, 1, 3, 2};
@@ -76,6 +77,8 @@ void renderer::set_vertex_data()
 
 	glBindBuffer(GL_ARRAY_BUFFER, VertexBufferObject);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBufferObject);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(
 		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
@@ -97,7 +100,6 @@ void renderer::set_vertex_data()
 	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 	glBindVertexArray(0);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void renderer::toggle_wire_frame_view(bool status)
