@@ -12,6 +12,8 @@
 
 #include "matrix4.hpp"
 #include "shader.hpp"
+#include "renderer.hpp"
+#include "inputManager.hpp"
 
 namespace Engine
 {
@@ -55,6 +57,7 @@ namespace Engine
 		void OnExit							( ) override;
 		void OnKeyDown						( SDL_KeyboardEvent keyBoardEvent ) override;
 		void OnKeyUp						( SDL_KeyboardEvent keyBoardEvent ) override;
+		void respond_to_input				(void);
 
 
 		/* =============================================================
@@ -69,7 +72,8 @@ namespace Engine
 		SDL_GLContext						m_context;
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
-
+		renderer							renderer;
+		inputManager						m_inputManager;
 	};
 }
 #endif /* GAME_HPP */

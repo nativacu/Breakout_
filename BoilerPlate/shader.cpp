@@ -1,5 +1,9 @@
 #include "shader.hpp"
 
+shader::shader()
+{
+}
+
 shader::shader(std::vector<std::pair<std::string, GLenum>> inputList)
 {
 	shaderList = inputList;
@@ -25,9 +29,8 @@ std::string shader::read_code_from_file(std::pair<std::string, GLenum> shader)
 		currentShaderStream.close();
 	}
 	else {
-		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", shader.first);
+		display_error_message(shader.first, "28", "Impossible to open file. Are you in the right directory? Don't forget to read the FAQ!\n", "Wrong File Path");
 		getchar();
-		// Behavior on failed attempt (message box perhaps?)
 	}
 
 	return currentShaderCode;
@@ -106,4 +109,29 @@ GLuint shader::execute()
 	clean_up();
 
 	return ProgramID;
+}
+
+int shader::display_error_message(std::string fileName, std::string fileLine, std::string errorMessage, std::string rawErrorMessage)
+{
+
+	std::string complete_message = "File Name: " + fileName + "\nFile Line: " + fileLine + "\n" + errorMessage
+		+ "\nUsing OpenGL 3.30 and GLSL 330 core";
+
+	#ifdef _WIN32
+	#include <Windows.h>
+	
+	LPCSTR display_message = complete_message.c_str();
+	int msgboxID = MessageBoxA(
+		NULL,
+		display_message,
+		rawErrorMessage.c_str(),
+		MB_ICONWARNING | MB_OK
+	);
+
+	#elif defined __unix__ || defined _APPLE_
+
+	std::cerr << complete_message;
+
+	#endif
+	return msgboxID;
 }

@@ -20,10 +20,13 @@
     <ClCompile Include="matrix4.cpp">
       <Filter>Engine\Source files</Filter>
     </ClCompile>
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="renderer.cpp">
       <Filter>Engine\Source files</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="inputManager.cpp">
+      <Filter>Engine\Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -49,6 +52,9 @@
       <Filter>Engine\Header files</Filter>
     </ClInclude>
     <ClInclude Include="shader.hpp">
+      <Filter>Engine\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="inputManager.hpp">
       <Filter>Engine\Header files</Filter>
     </ClInclude>
   </ItemGroup>
