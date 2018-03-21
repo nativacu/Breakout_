@@ -3,74 +3,99 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SDLEvent.cpp" />
-    <ClCompile Include="TimeManager.cpp" />
-    <ClCompile Include="vector2.cpp">
-      <Filter>Engine\Source files</Filter>
+    <ClCompile Include="inputManager.cpp">
+      <Filter>Engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="vector3.cpp">
-      <Filter>Engine\Source files</Filter>
+    <ClCompile Include="SDLEvent.cpp">
+      <Filter>Engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="vector4.cpp">
-      <Filter>Engine\Source files</Filter>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Engine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Engine\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="mathUtilities.cpp">
-      <Filter>Engine\Source files</Filter>
+      <Filter>Engine\Math</Filter>
     </ClCompile>
     <ClCompile Include="matrix4.cpp">
-      <Filter>Engine\Source files</Filter>
+      <Filter>Engine\Math</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="vector2.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector3.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector4.cpp">
+      <Filter>Engine\Math</Filter>
+    </ClCompile>
     <ClCompile Include="renderer.cpp">
-      <Filter>Engine\Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="inputManager.cpp">
-      <Filter>Engine\Source files</Filter>
+      <Filter>Engine\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
-    <ClInclude Include="SDLEvent.hpp" />
-    <ClInclude Include="TimeManager.hpp" />
-    <ClInclude Include="vector2.hpp">
-      <Filter>Engine\Header files</Filter>
+    <ClInclude Include="inputManager.hpp">
+      <Filter>Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="vector3.hpp">
-      <Filter>Engine\Header files</Filter>
+    <ClInclude Include="SDLEvent.hpp">
+      <Filter>Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="vector4.hpp">
-      <Filter>Engine\Header files</Filter>
+    <ClInclude Include="stb_image.h">
+      <Filter>Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="mathUtilities.hpp">
-      <Filter>Engine\Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix4.hpp">
-      <Filter>Engine\Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="renderer.hpp">
-      <Filter>Engine\Header files</Filter>
+    <ClInclude Include="TimeManager.hpp">
+      <Filter>Engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="shader.hpp">
-      <Filter>Engine\Header files</Filter>
+      <Filter>Engine\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="inputManager.hpp">
-      <Filter>Engine\Header files</Filter>
+    <ClInclude Include="mathUtilities.hpp">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix4.hpp">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2.hpp">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3.hpp">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector4.hpp">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.hpp">
+      <Filter>Engine\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
       <UniqueIdentifier>{6f9fb37f-e47b-46c3-8209-dbf486018555}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Source files">
-      <UniqueIdentifier>{0a3ec513-922c-4b14-83e3-98e1934fea74}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{ae1352e2-8c6b-438a-a13a-3c9f9de3c388}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header files">
-      <UniqueIdentifier>{da8cc683-e66e-46b9-be58-7d0e16e23f76}</UniqueIdentifier>
+    <Filter Include="Engine\Math">
+      <UniqueIdentifier>{e18c33ec-3830-409e-8248-7b5d4442d8fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Utils">
+      <UniqueIdentifier>{1fd3ac9b-6651-4be9-b9fc-707e643cbeeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{683f1f8f-7a5c-4cf6-8c8f-de51d053b08c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer">
+      <UniqueIdentifier>{a1fe27f4-6900-42c4-adb3-8c245505b286}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="frag.glsl" />
-    <None Include="vertex.glsl" />
+    <None Include="frag.glsl">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="vertex.glsl">
+      <Filter>Engine\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
