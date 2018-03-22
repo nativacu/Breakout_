@@ -3,6 +3,8 @@
 #include "vector2.hpp"
 #include "vector3.hpp"
 
+using namespace engine;
+using namespace math;
 /*Default constructor*/
 vector3::vector3()
 {

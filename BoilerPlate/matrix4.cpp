@@ -1,12 +1,12 @@
 #include "matrix4.hpp"
 #include <math.h>
 
-matrix4::matrix4()
+engine::math::matrix4::matrix4()
 {
 	identity();
 }
 
-matrix4::matrix4(float entry0, float entry1, float entry2, float entry3, float entry4,
+engine::math::matrix4::matrix4(float entry0, float entry1, float entry2, float entry3, float entry4,
 	float entry5, float entry6, float entry7, float entry8, float entry9, float entry10,
 	float entry11, float entry12, float entry13, float entry14, float entry15)
 {
@@ -31,7 +31,7 @@ matrix4::matrix4(float entry0, float entry1, float entry2, float entry3, float e
 	matrixEntries[15] = entry15;
 }
 
-matrix4::matrix4(float inputEntries[16])
+engine::math::matrix4::matrix4(float inputEntries[16])
 {
 	//First column
 	matrixEntries[0] = inputEntries[0];
@@ -58,18 +58,18 @@ matrix4::matrix4(float inputEntries[16])
 	matrixEntries[15] = inputEntries[15];
 }
 
-float * matrix4::get()
+float * engine::math::matrix4::get()
 {
 	return matrixEntries;
 }
 
-float matrix4::get_entry(int column, int row)
+float engine::math::matrix4::get_entry(int column, int row)
 {
 	int linearIndex = row + (4 * column);
 	return matrixEntries[linearIndex];
 }
 
-void matrix4::identity()
+void engine::math::matrix4::identity()
 {
 	//First column
 	matrixEntries[0] = 1;
@@ -96,7 +96,7 @@ void matrix4::identity()
 	matrixEntries[15] = 1;
 }
 
-void matrix4::operator=(matrix4 rhs)
+void engine::math::matrix4::operator=(matrix4 rhs)
 {
 	matrixEntries[0] = rhs.matrixEntries[0];
 	matrixEntries[1] = rhs.matrixEntries[1];
@@ -119,15 +119,15 @@ void matrix4::operator=(matrix4 rhs)
 	matrixEntries[15] = rhs.matrixEntries[15];
 }
 
-float matrix4::operator[](int index)
+float engine::math::matrix4::operator[](int index)
 {
 	return matrixEntries[index];
 }
 
-std::ostream & operator<<(std::ostream& ostream, const matrix4& matrix)
+std::ostream & engine::math::operator<<(std::ostream& ostream, const engine::math::matrix4& matrix)
 {
 	//First row
-	ostream << matrix.matrixEntries[0] << " ";
+	ostream << matrix.matrixEntries[0]<< " ";
 	ostream << matrix.matrixEntries[4] << " ";
 	ostream << matrix.matrixEntries[8] << " ";
 	ostream << matrix.matrixEntries[12] << " ";
@@ -157,7 +157,7 @@ std::ostream & operator<<(std::ostream& ostream, const matrix4& matrix)
 	return ostream;
 }
 
-matrix4 matrix4::get_transpose()
+engine::math::matrix4 engine::math::matrix4::get_transpose()
 {
 	matrix4 transpose;
 
@@ -188,9 +188,9 @@ matrix4 matrix4::get_transpose()
 	return transpose;
 }
 
-vector3 matrix4::get_angle()
+engine::math::vector3 engine::math::matrix4::get_angle()
 {
-	mathUtilities utility;
+	engine::math::mathUtilities utility;
 	vector3 angles;
 	float yaw, pitch, roll;
 	
@@ -219,7 +219,7 @@ vector3 matrix4::get_angle()
 	return angles;
 }
 
-float * matrix4::get_row(int row)
+float * engine::math::matrix4::get_row(int row)
 {
 	float retrievedRow[4];
 
@@ -231,7 +231,7 @@ float * matrix4::get_row(int row)
 	return retrievedRow;
 }
 
-float * matrix4::get_column(int column)
+float * engine::math::matrix4::get_column(int column)
 {
 	float retrievedColumn[4];
 
@@ -243,7 +243,7 @@ float * matrix4::get_column(int column)
 	return retrievedColumn;
 }
 
-bool matrix4::get_inverse(matrix4& result)
+bool engine::math::matrix4::get_inverse(engine::math::matrix4& result)
 {
 	float determinant;
 
@@ -328,7 +328,7 @@ bool matrix4::get_inverse(matrix4& result)
 	}
 }
 
-matrix4 matrix4::rotate_x(float angle)
+engine::math::matrix4 engine::math::matrix4::rotate_x(float angle)
 {
 	matrix4 xRotationMatrix;
 
@@ -340,7 +340,7 @@ matrix4 matrix4::rotate_x(float angle)
 	return xRotationMatrix;
 }
 
-matrix4 matrix4::rotate_y(float angle)
+engine::math::matrix4 engine::math::matrix4::rotate_y(float angle)
 {
 	matrix4 yRotationMatrix;
 
@@ -352,7 +352,7 @@ matrix4 matrix4::rotate_y(float angle)
 	return yRotationMatrix;
 }
 
-matrix4 matrix4::rotate_z(float angle)
+engine::math::matrix4 engine::math::matrix4::rotate_z(float angle)
 {
 	matrix4 zRotationMatrix;
 
@@ -364,7 +364,7 @@ matrix4 matrix4::rotate_z(float angle)
 	return zRotationMatrix;
 }
 
-matrix4 matrix4::get_translate_matrix(vector4 vector)
+engine::math::matrix4 engine::math::matrix4::get_translate_matrix(vector4 vector)
 {
 	matrix4 translated;
 
@@ -376,12 +376,12 @@ matrix4 matrix4::get_translate_matrix(vector4 vector)
 	return translated;
 }
 
-void matrix4::translate_matrix(vector4 vector)
+void engine::math::matrix4::translate_matrix(vector4 vector)
 {
 	*this = *this * this->get_translate_matrix(vector);
 }
 
-matrix4 matrix4::operator+(matrix4 rightHandSide) {
+engine::math::matrix4 engine::math::matrix4::operator+(matrix4 rightHandSide) {
 	matrix4 result;
 
 	result.get()[0] = matrixEntries[0] + rightHandSide[0];
@@ -407,7 +407,7 @@ matrix4 matrix4::operator+(matrix4 rightHandSide) {
 	return result;
 }
 
-matrix4 matrix4::operator-(matrix4 rightHandSide) {
+engine::math::matrix4 engine::math::matrix4::operator-(matrix4 rightHandSide) {
 	matrix4 result;
 
 	result.get()[0] = matrixEntries[0] - rightHandSide[0];
@@ -433,7 +433,7 @@ matrix4 matrix4::operator-(matrix4 rightHandSide) {
 	return result;
 }
 
-matrix4 matrix4::operator*(matrix4 rightHandSide) {
+engine::math::matrix4 engine::math::matrix4::operator*(engine::math::matrix4 rightHandSide) {
 	float resultEntries[16];
 
 	resultEntries[0] = matrixEntries[0] * rightHandSide[0] + matrixEntries[1] * rightHandSide[4] + matrixEntries[2] * rightHandSide[8] + matrixEntries[3] * rightHandSide[12];
@@ -459,19 +459,19 @@ matrix4 matrix4::operator*(matrix4 rightHandSide) {
 	return matrix4(resultEntries);
 }
 
-void matrix4::rotate_using_degrees(float angle)
+void engine::math::matrix4::rotate_using_degrees(float angle)
 {
-	mathUtilities utility;
+	engine::math::mathUtilities utility;
 
 	*this = *this * this->rotate_z(utility.to_radians(angle));
 }
 
-void matrix4::rotate_using_radians(float angle)
+void engine::math::matrix4::rotate_using_radians(float angle)
 {
 	*this = *this * this->rotate_z(angle);
 }
 
-matrix4 matrix4::operator/(matrix4 rightHandSide) {
+engine::math::matrix4 engine::math::matrix4::operator/(matrix4 rightHandSide) {
 	matrix4 result;
 	matrix4 rightHandSideInverse;
 

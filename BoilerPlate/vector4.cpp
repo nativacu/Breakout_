@@ -4,6 +4,8 @@
 #include "vector3.hpp"
 #include "vector4.hpp"
 
+using namespace engine;
+using namespace math;
 /*Default constructor*/
 vector4::vector4()
 {

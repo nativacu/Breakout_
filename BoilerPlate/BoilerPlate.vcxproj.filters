@@ -4,98 +4,98 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="inputManager.cpp">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClCompile>
     <ClCompile Include="SDLEvent.cpp">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClCompile>
     <ClCompile Include="shader.cpp">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>engine\shaders</Filter>
     </ClCompile>
     <ClCompile Include="mathUtilities.cpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClCompile>
     <ClCompile Include="matrix4.cpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClCompile>
     <ClCompile Include="vector2.cpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClCompile>
     <ClCompile Include="vector3.cpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClCompile>
     <ClCompile Include="vector4.cpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClCompile>
     <ClCompile Include="renderer.cpp">
-      <Filter>Engine\Renderer</Filter>
+      <Filter>engine\renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
     <ClInclude Include="inputManager.hpp">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="SDLEvent.hpp">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.hpp">
-      <Filter>Engine\Utils</Filter>
+      <Filter>engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="shader.hpp">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>engine\shaders</Filter>
     </ClInclude>
     <ClInclude Include="mathUtilities.hpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClInclude>
     <ClInclude Include="matrix4.hpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClInclude>
     <ClInclude Include="vector2.hpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClInclude>
     <ClInclude Include="vector3.hpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClInclude>
     <ClInclude Include="vector4.hpp">
-      <Filter>Engine\Math</Filter>
+      <Filter>engine\math</Filter>
     </ClInclude>
     <ClInclude Include="renderer.hpp">
-      <Filter>Engine\Renderer</Filter>
+      <Filter>engine\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{6f9fb37f-e47b-46c3-8209-dbf486018555}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{ae1352e2-8c6b-438a-a13a-3c9f9de3c388}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Math">
+    <Filter Include="engine">
+      <UniqueIdentifier>{6f9fb37f-e47b-46c3-8209-dbf486018555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\math">
       <UniqueIdentifier>{e18c33ec-3830-409e-8248-7b5d4442d8fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Utils">
-      <UniqueIdentifier>{1fd3ac9b-6651-4be9-b9fc-707e643cbeeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Shaders">
+    <Filter Include="engine\shaders">
       <UniqueIdentifier>{683f1f8f-7a5c-4cf6-8c8f-de51d053b08c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Renderer">
+    <Filter Include="engine\renderer">
       <UniqueIdentifier>{a1fe27f4-6900-42c4-adb3-8c245505b286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\utils">
+      <UniqueIdentifier>{1fd3ac9b-6651-4be9-b9fc-707e643cbeeb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="frag.glsl">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>engine\shaders</Filter>
     </None>
     <None Include="vertex.glsl">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>engine\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

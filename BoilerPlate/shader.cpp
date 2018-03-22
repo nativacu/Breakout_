@@ -1,15 +1,15 @@
 #include "shader.hpp"
 
-shader::shader()
+engine::shaders::shader::shader()
 {
 }
 
-shader::shader(std::vector<std::pair<std::string, GLenum>> inputList)
+engine::shaders::shader::shader(std::vector<std::pair<std::string, GLenum>> inputList)
 {
 	shaderList = inputList;
 }
 
-GLuint shader::create_handle(std::pair<std::string, GLenum> shader)
+GLuint engine::shaders::shader::create_handle(std::pair<std::string, GLenum> shader)
 {
 	GLuint currentShaderID;
 	currentShaderID = glCreateShader(shader.second);
@@ -17,7 +17,7 @@ GLuint shader::create_handle(std::pair<std::string, GLenum> shader)
 	return currentShaderID;
 }
 
-std::string shader::read_code_from_file(std::pair<std::string, GLenum> shader)
+std::string engine::shaders::shader::read_code_from_file(std::pair<std::string, GLenum> shader)
 {
 	// Read the Vertex Shader code from the file
 	std::string currentShaderCode;
@@ -36,7 +36,7 @@ std::string shader::read_code_from_file(std::pair<std::string, GLenum> shader)
 	return currentShaderCode;
 }
 
-void shader::compile_shader(GLuint shaderHandler, std::string shaderCode, std::string filePath)
+void engine::shaders::shader::compile_shader(GLuint shaderHandler, std::string shaderCode, std::string filePath)
 {
 	printf("Compiling shader : %s\n", filePath);
 	char const * shaderSourcePointer = shaderCode.c_str();
@@ -53,7 +53,7 @@ void shader::compile_shader(GLuint shaderHandler, std::string shaderCode, std::s
 	}
 }
 
-void shader::link_program()
+void engine::shaders::shader::link_program()
 {
 	printf("Linking program\n");
 	ProgramID = glCreateProgram();
@@ -76,7 +76,7 @@ void shader::link_program()
 	}
 }
 
-void shader::clean_up()
+void engine::shaders::shader::clean_up()
 {
 	for(int i = 0; i < shaderHandlerList.size(); i++)
 	{ 
@@ -86,7 +86,7 @@ void shader::clean_up()
 	}
 }
 
-GLuint shader::execute()
+GLuint engine::shaders::shader::execute()
 {
 	for (int i = 0; i < shaderList.size(); i++)
 	{
@@ -111,7 +111,7 @@ GLuint shader::execute()
 	return ProgramID;
 }
 
-int shader::display_error_message(std::string fileName, std::string fileLine, std::string errorMessage, std::string rawErrorMessage)
+int engine::shaders::shader::display_error_message(std::string fileName, std::string fileLine, std::string errorMessage, std::string rawErrorMessage)
 {
 
 	std::string complete_message = "File Name: " + fileName + "\nFile Line: " + fileLine + "\n" + errorMessage
@@ -136,7 +136,7 @@ int shader::display_error_message(std::string fileName, std::string fileLine, st
 	return msgboxID;
 }
 
-GLuint shader::get_uniform_id(GLuint program, const GLchar *name)
+GLuint engine::shaders::shader::get_uniform_id(GLuint program, const GLchar *name)
 {
 	GLuint id = glGetUniformLocation(program, name);
 	return id;

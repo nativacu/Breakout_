@@ -1,6 +1,6 @@
 #include "renderer.hpp"
 
-renderer::renderer()
+engine::renderer::renderer::renderer()
 {
 	// MANAGE SHADER INPUT PAIR LIST (ADITIONAL SHADER PATHS AND TYPES SHOULD BE ADDED HERE
 	std::vector <std::pair <std::string, GLenum>> shaderInputList;
@@ -16,17 +16,17 @@ renderer::renderer()
 	shaderInputList.push_back(firstShaderEntry);
 	shaderInputList.push_back(secondShaderEntry);
 
-	shaderUtility = shader(shaderInputList);
+	shaderUtility = engine::shaders::shader(shaderInputList);
 
 	usingWireFrameView = false;
 }
 
-void renderer::get_program_ID()
+void engine::renderer::renderer::get_program_ID()
 {
 	ProgramID = shaderUtility.execute();
 }
 
-void renderer::draw_polygon()
+void engine::renderer::renderer::draw_polygon()
 {
 	int indices[] = {0, 1, 2, 1, 3, 2};
 	if (usingWireFrameView)
@@ -40,14 +40,14 @@ void renderer::draw_polygon()
 	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0); //limit vector buffering
 }
 
-void renderer::clean_up()
+void engine::renderer::renderer::clean_up()
 {
 	glDeleteBuffers(1, &VertexBufferObject);
 	glDeleteVertexArrays(1, &VertexArrayObject);
 	glDeleteVertexArrays(1, &ElementsBufferObject);
 }
 
-void renderer::set_vertex_data()
+void engine::renderer::renderer::set_vertex_data()
 {
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
@@ -102,7 +102,7 @@ void renderer::set_vertex_data()
 
 }
 
-void renderer::toggle_wire_frame_view(bool status)
+void engine::renderer::renderer::toggle_wire_frame_view(bool status)
 {
 	usingWireFrameView = status;
 }

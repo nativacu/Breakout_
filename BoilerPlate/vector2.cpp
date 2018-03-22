@@ -1,7 +1,8 @@
 #include <cmath>
-
 #include "vector2.hpp"
 
+using namespace engine;
+using namespace math;
 vector2 vector2::Origin = vector2();
 
 /*Default constructor*/
