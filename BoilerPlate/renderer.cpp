@@ -2,6 +2,10 @@
 
 engine::renderer::renderer::renderer()
 {
+}
+
+engine::renderer::renderer::renderer(int width, int height)
+{
 	// MANAGE SHADER INPUT PAIR LIST (ADITIONAL SHADER PATHS AND TYPES SHOULD BE ADDED HERE
 	std::vector <std::pair <std::string, GLenum>> shaderInputList;
 	std::pair<std::string, GLenum> firstShaderEntry;
@@ -19,6 +23,11 @@ engine::renderer::renderer::renderer()
 	shaderUtility = engine::shaders::shader(shaderInputList);
 
 	usingWireFrameView = false;
+
+	//Added this
+
+	mScreenHeight = height;
+	mScreenWidth = width;
 }
 
 void engine::renderer::renderer::get_program_ID()
@@ -34,9 +43,7 @@ void engine::renderer::renderer::draw_polygon()
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glUseProgram(ProgramID);
 	glBindVertexArray(VertexArrayObject);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBufferObject);
 	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0); //limit vector buffering
 }
 
@@ -47,6 +54,7 @@ void engine::renderer::renderer::clean_up()
 	glDeleteVertexArrays(1, &ElementsBufferObject);
 }
 
+//Pretty much changed all this to make sure the thing interpreted the new vertices array and stuff
 void engine::renderer::renderer::set_vertex_data()
 {
 	// set up vertex data (and buffer(s)) and configure vertex attributes
@@ -56,53 +64,106 @@ void engine::renderer::renderer::set_vertex_data()
 	//	0.5f, -0.5f, 0.0f, // right 
 	//	0.0f,  0.5f, 0.0f  // top   
 	//};
-	float vertices[] = {
+	/*float vertices[] = {
 		// first triangle
 		0.5f,  0.5f, 0.0f,  // top right
 		0.5f, -0.5f, 0.0f,  // bottom right
 		-0.5f,  0.5f, 0.0f, // top left 
 		// second triangle
 		-0.5f, -0.5f, 0.0f, // bottom left
+	};*/
+
+	float vertices[] = {
+		// positions          // colors           // texture coords
+		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+		-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
 	};
 
-	int indices[] = {0, 1, 2, 1, 3, 2};
+	unsigned int indices[] = {  // note that we start from 0!
+		0, 1, 3,  // first Triangle
+		1, 2, 3   // second Triangle
+	};
 
 	glGenVertexArrays(1, &VertexArrayObject);
 	glGenBuffers(1, &VertexBufferObject);
 	glGenBuffers(1, &ElementsBufferObject);
-	// bind the Vertex Array Object first, 
-	// then bind and set vertex buffer(s), 
-	// and then configure vertex attributes(s).
+
 	glBindVertexArray(VertexArrayObject);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VertexBufferObject);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBufferObject);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(
-		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		3 * sizeof(float),  // stride
-		(void*)0            // array buffer offset
-	);
+	// vertex position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// note that this is allowed, 
-	// the call to glVertexAttribPointer registered VBO as the vertex attribute's bound 
-	//vertex buffer object so afterwards we can safely unbind
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	// texture coord attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 	glBindVertexArray(0);
-
 }
 
 void engine::renderer::renderer::toggle_wire_frame_view(bool status)
 {
 	usingWireFrameView = status;
+}
+
+//And this
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
+GLuint engine::renderer::renderer::load_texture(const char * texture_path)
+{
+	// https://open.gl/textures
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	// set the texture wrapping/filtering options (on the currently bound texture object)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+	int width, height, nrChannels;
+	stbi_set_flip_vertically_on_load(true);
+
+	// Load the texture
+	unsigned char *data = stbi_load(texture_path, &width, &height, &nrChannels, 0);
+	if (data)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		std::cout << "Failed to load texture" << std::endl;
+		return -1;
+	}
+	stbi_image_free(data);
+
+	return texture;
+}
+
+void engine::renderer::renderer::set_texture_resolution(void)
+{
+	glUseProgram(ProgramID);
+
+	// Remember this needs to be set after the program is activated
+	glUniform1i(glGetUniformLocation(ProgramID, "texture1"), 0);
+
+	float resolution[] = { static_cast<float>(mScreenWidth), static_cast<float>(mScreenWidth) };
+	glUniform2fv(glGetUniformLocation(ProgramID, "resolution"), 1, resolution);
 }

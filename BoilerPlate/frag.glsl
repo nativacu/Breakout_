@@ -1,9 +1,13 @@
 #version 330 core
 
-// Ouput data
-out vec3 color;
+in vec3 Color;
+in vec2 Texcoord;
+
+out vec4 outColor;
+
+uniform sampler2D texture1;
 
 void main()
 {
-	color = vec3(1.0f, 0.0f, 0.0f);
+    outColor = texture(texture1, Texcoord) * vec4(Color, 1.0);
 }

@@ -33,6 +33,9 @@
     <ClCompile Include="renderer.cpp">
       <Filter>engine\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="resoruceManager.cpp">
+      <Filter>engine\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -69,6 +72,9 @@
     <ClInclude Include="renderer.hpp">
       <Filter>engine\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="resoruceManager.hpp">
+      <Filter>engine\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -97,5 +103,8 @@
     <None Include="vertex.glsl">
       <Filter>engine\shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test.png" />
   </ItemGroup>
 </Project>

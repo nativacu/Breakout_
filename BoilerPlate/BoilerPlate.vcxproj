@@ -177,6 +177,7 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClCompile Include="mathUtilities.cpp" />
     <ClCompile Include="matrix4.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="resoruceManager.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="TimeManager.cpp" />
@@ -190,6 +191,7 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClInclude Include="mathUtilities.hpp" />
     <ClInclude Include="matrix4.hpp" />
     <ClInclude Include="renderer.hpp" />
+    <ClInclude Include="resoruceManager.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="stb_image.h" />
@@ -201,6 +203,9 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
   <ItemGroup>
     <None Include="frag.glsl" />
     <None Include="vertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

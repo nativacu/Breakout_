@@ -72,7 +72,7 @@ namespace Engine
 		SDL_GLContext						m_context;
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
-		engine::renderer::renderer			renderer;
+		engine::renderer::renderer			mRenderer;
 		inputManager						m_inputManager;
 	};
 }
