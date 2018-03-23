@@ -1,15 +1,15 @@
-#include "shader.hpp"
+#include "shaderUtility.hpp"
 
-engine::shaders::shader::shader()
+engine::utilities::shaderUtility::shaderUtility()
 {
 }
 
-engine::shaders::shader::shader(std::vector<std::pair<std::string, GLenum>> inputList)
+engine::utilities::shaderUtility::shaderUtility(std::vector<std::pair<std::string, GLenum>> inputList)
 {
 	shaderList = inputList;
 }
 
-GLuint engine::shaders::shader::create_handle(std::pair<std::string, GLenum> shader)
+GLuint engine::utilities::shaderUtility::create_handle(std::pair<std::string, GLenum> shader)
 {
 	GLuint currentShaderID;
 	currentShaderID = glCreateShader(shader.second);
@@ -17,7 +17,7 @@ GLuint engine::shaders::shader::create_handle(std::pair<std::string, GLenum> sha
 	return currentShaderID;
 }
 
-std::string engine::shaders::shader::read_code_from_file(std::pair<std::string, GLenum> shader)
+std::string engine::utilities::shaderUtility::read_code_from_file(std::pair<std::string, GLenum> shader)
 {
 	// Read the Vertex Shader code from the file
 	std::string currentShaderCode;
@@ -36,9 +36,8 @@ std::string engine::shaders::shader::read_code_from_file(std::pair<std::string, 
 	return currentShaderCode;
 }
 
-void engine::shaders::shader::compile_shader(GLuint shaderHandler, std::string shaderCode, std::string filePath)
+void engine::utilities::shaderUtility::compile_shader(GLuint shaderHandler, std::string shaderCode, std::string filePath)
 {
-	printf("Compiling shader : %s\n", filePath);
 	char const * shaderSourcePointer = shaderCode.c_str();
 	glShaderSource(shaderHandler, 1, &shaderSourcePointer, NULL);
 	glCompileShader(shaderHandler);
@@ -53,9 +52,8 @@ void engine::shaders::shader::compile_shader(GLuint shaderHandler, std::string s
 	}
 }
 
-void engine::shaders::shader::link_program()
+void engine::utilities::shaderUtility::link_program()
 {
-	printf("Linking program\n");
 	ProgramID = glCreateProgram();
 	for(int i = 0; i < shaderHandlerList.size(); i++)
 	{ 
@@ -76,7 +74,7 @@ void engine::shaders::shader::link_program()
 	}
 }
 
-void engine::shaders::shader::clean_up()
+void engine::utilities::shaderUtility::clean_up()
 {
 	for(int i = 0; i < shaderHandlerList.size(); i++)
 	{ 
@@ -86,7 +84,7 @@ void engine::shaders::shader::clean_up()
 	}
 }
 
-GLuint engine::shaders::shader::execute()
+GLuint engine::utilities::shaderUtility::execute()
 {
 	for (int i = 0; i < shaderList.size(); i++)
 	{
@@ -111,7 +109,7 @@ GLuint engine::shaders::shader::execute()
 	return ProgramID;
 }
 
-int engine::shaders::shader::display_error_message(std::string fileName, std::string fileLine, std::string errorMessage, std::string rawErrorMessage)
+int engine::utilities::shaderUtility::display_error_message(std::string fileName, std::string fileLine, std::string errorMessage, std::string rawErrorMessage)
 {
 
 	std::string complete_message = "File Name: " + fileName + "\nFile Line: " + fileLine + "\n" + errorMessage
@@ -136,7 +134,7 @@ int engine::shaders::shader::display_error_message(std::string fileName, std::st
 	return msgboxID;
 }
 
-GLuint engine::shaders::shader::get_uniform_id(GLuint program, const GLchar *name)
+GLuint engine::utilities::shaderUtility::get_uniform_id(GLuint program, const GLchar *name)
 {
 	GLuint id = glGetUniformLocation(program, name);
 	return id;

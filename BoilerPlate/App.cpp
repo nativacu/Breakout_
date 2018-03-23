@@ -6,13 +6,12 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 
-#define _STB_IMAGE_H_
-#include "stb_image.h"
-
 namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
+
+	GLuint Texture1;
 	
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)
@@ -22,14 +21,15 @@ namespace Engine
 		, m_timer(new TimeManager)
 		, m_mainWindow(nullptr)
 	{
+		mRenderer = engine::renderer::renderer(m_width, m_height);
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
-		m_inputManager = inputManager();
+		m_inputManager = engine::utilities::inputManager::inputManager();
 	}
 
 	App::~App()
 	{
-		renderer.clean_up();
+		mRenderer.clean_up();
 
 		CleanupSDL();
 	}
@@ -44,8 +44,10 @@ namespace Engine
 
 		m_state = GameState::RUNNING;
 
-		renderer.get_program_ID();
-		renderer.set_vertex_data();
+		mRenderer.get_program_ID();
+		Texture1 = mRenderer.load_texture("test.png");
+		mRenderer.set_vertex_data();
+		mRenderer.set_texture_resolution();
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -85,12 +87,12 @@ namespace Engine
 	{
 		if (m_inputManager.get_w_key_status())
 		{
-			renderer.toggle_wire_frame_view(true);
+			mRenderer.toggle_wire_frame_view(true);
 		}
 
 		if (!m_inputManager.get_w_key_status())
 		{
-			renderer.toggle_wire_frame_view(false);
+			mRenderer.toggle_wire_frame_view(false);
 		}
 	}
 
@@ -154,11 +156,12 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		renderer.draw_polygon();
+		// bind Texture
+		
+		mRenderer.set_texture1(Texture1);
+		//glBindTexture(GL_TEXTURE_2D, Texture1);
 
-		/*glUseProgram(ProgramID);
-		glBindVertexArray(VertexArrayObject);
-		glDrawArrays(GL_TRIANGLES, 0, 6); //limit vector buffering*/
+		mRenderer.draw_polygon();
 
 		SDL_GL_SwapWindow(m_mainWindow);
 	}

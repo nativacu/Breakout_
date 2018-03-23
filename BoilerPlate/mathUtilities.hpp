@@ -4,8 +4,10 @@
 #ifndef MATH_UTILITIES
 #define MATH_UTILITIES
 
-namespace engine {
-	namespace math {
+namespace engine 
+{
+	namespace math 
+	{
 		class mathUtilities
 		{
 		public:

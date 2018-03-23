@@ -11,7 +11,7 @@
 #include "TimeManager.hpp"
 
 #include "matrix4.hpp"
-#include "shader.hpp"
+#include "shaderUtility.hpp"
 #include "renderer.hpp"
 #include "inputManager.hpp"
 
@@ -72,8 +72,8 @@ namespace Engine
 		SDL_GLContext						m_context;
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
-		engine::renderer::renderer			renderer;
-		inputManager						m_inputManager;
+		engine::renderer::renderer			mRenderer;
+		engine::utilities::inputManager						m_inputManager;
 	};
 }
 #endif /* GAME_HPP */

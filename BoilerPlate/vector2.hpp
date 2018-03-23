@@ -3,8 +3,10 @@
 #ifndef VECTOR2
 #define VECTOR2
 
-namespace engine{
-	namespace math{
+namespace engine
+{
+	namespace math
+	{
 		struct vector2
 		{
 			/*STATIC*/

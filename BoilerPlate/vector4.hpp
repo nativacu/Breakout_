@@ -2,8 +2,10 @@
 #ifndef VECTOR4
 #define VECTOR4
 
- namespace engine {
-	 namespace math {
+ namespace engine 
+ {
+	 namespace math 
+	 {
 		struct vector2;
 		struct vector3;
 		struct vector4
