@@ -8,26 +8,28 @@
 #include <Windows.h>
 #include <SDL2/SDL_opengl.h>
 
-//Added this thing that does nothing
-
-
 #pragma once
 #ifndef _RESOURCE_MANAGER_HPP_
 #define _RESOURCE_MANAGER_HPP_
 
-//Manages all thins related to sound, textures, and text renderization? 
-class resourceManager
+namespace engine 
 {
-	// PUBLIC FUNCTIONS
-		// TEXT MANAGING FUNCTIONS
-	bool initialize_library();
-	void clean_up_library();
-	unsigned int power_two_floor(unsigned int);
-	//void render_text(std::string, SDL_Color, float, float, int);
+	namespace utilities
+	{
+		//Manages all thins related to sound, textures, and text renderization
+		class resourceManager
+		{
+			// PUBLIC FUNCTIONS
+			// TEXT MANAGING FUNCTIONS
+			bool initialize_library();
+			void clean_up_library();
+			unsigned int power_two_floor(unsigned int);
 
-		// AUDIO MANAGING FUNCTIONS
+			// AUDIO MANAGING FUNCTIONS
 
-};
+		};
+	}
+}
 
 #endif // !_RESOURCE_MANAGER_HPP_
 

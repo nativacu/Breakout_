@@ -11,7 +11,7 @@
 #include "TimeManager.hpp"
 
 #include "matrix4.hpp"
-#include "shader.hpp"
+#include "shaderUtility.hpp"
 #include "renderer.hpp"
 #include "inputManager.hpp"
 
@@ -73,7 +73,7 @@ namespace Engine
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
 		engine::renderer::renderer			mRenderer;
-		inputManager						m_inputManager;
+		engine::utilities::inputManager						m_inputManager;
 	};
 }
 #endif /* GAME_HPP */

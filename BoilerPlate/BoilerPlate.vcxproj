@@ -172,6 +172,8 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="component.cpp" />
+    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="inputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mathUtilities.cpp" />
@@ -179,23 +181,29 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="resoruceManager.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
-    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="shaderUtility.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="uniqueID.cpp" />
     <ClCompile Include="vector2.cpp" />
     <ClCompile Include="vector3.cpp" />
     <ClCompile Include="vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
+    <ClInclude Include="component.hpp" />
+    <ClInclude Include="gameObject.hpp" />
     <ClInclude Include="inputManager.hpp" />
+    <ClInclude Include="iRender.hpp" />
+    <ClInclude Include="iUpdate.hpp" />
     <ClInclude Include="mathUtilities.hpp" />
     <ClInclude Include="matrix4.hpp" />
     <ClInclude Include="renderer.hpp" />
     <ClInclude Include="resoruceManager.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
-    <ClInclude Include="shader.hpp" />
+    <ClInclude Include="shaderUtility.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TimeManager.hpp" />
+    <ClInclude Include="uniqueID.hpp" />
     <ClInclude Include="vector2.hpp" />
     <ClInclude Include="vector3.hpp" />
     <ClInclude Include="vector4.hpp" />

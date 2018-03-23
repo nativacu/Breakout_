@@ -3,11 +3,26 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="shader.cpp">
-      <Filter>engine\shaders</Filter>
+    <ClCompile Include="SDLEvent.cpp" />
+    <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="mathUtilities.cpp" />
+    <ClCompile Include="component.cpp">
+      <Filter>engine\core</Filter>
     </ClCompile>
-    <ClCompile Include="mathUtilities.cpp">
-      <Filter>engine\math</Filter>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqueID.cpp">
+      <Filter>engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>engine\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="inputManager.cpp">
+      <Filter>engine\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="resoruceManager.cpp">
+      <Filter>engine\utilities</Filter>
     </ClCompile>
     <ClCompile Include="matrix4.cpp">
       <Filter>engine\math</Filter>
@@ -21,21 +36,41 @@
     <ClCompile Include="vector4.cpp">
       <Filter>engine\math</Filter>
     </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>engine\renderer</Filter>
+    <ClCompile Include="shaderUtility.cpp">
+      <Filter>engine\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="TimeManager.cpp" />
-    <ClCompile Include="inputManager.cpp" />
-    <ClCompile Include="resoruceManager.cpp" />
-    <ClCompile Include="SDLEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
-    <ClInclude Include="shader.hpp">
-      <Filter>engine\shaders</Filter>
+    <ClInclude Include="SDLEvent.hpp" />
+    <ClInclude Include="renderer.hpp" />
+    <ClInclude Include="mathUtilities.hpp" />
+    <ClInclude Include="component.hpp">
+      <Filter>engine\core</Filter>
     </ClInclude>
-    <ClInclude Include="mathUtilities.hpp">
-      <Filter>engine\math</Filter>
+    <ClInclude Include="gameObject.hpp">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="iRender.hpp">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="iUpdate.hpp">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqueID.hpp">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>engine\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.hpp">
+      <Filter>engine\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="inputManager.hpp">
+      <Filter>engine\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resoruceManager.hpp">
+      <Filter>engine\utilities</Filter>
     </ClInclude>
     <ClInclude Include="matrix4.hpp">
       <Filter>engine\math</Filter>
@@ -49,41 +84,44 @@
     <ClInclude Include="vector4.hpp">
       <Filter>engine\math</Filter>
     </ClInclude>
-    <ClInclude Include="renderer.hpp">
-      <Filter>engine\renderer</Filter>
+    <ClInclude Include="shaderUtility.hpp">
+      <Filter>engine\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="TimeManager.hpp" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="inputManager.hpp" />
-    <ClInclude Include="resoruceManager.hpp" />
-    <ClInclude Include="SDLEvent.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Game">
-      <UniqueIdentifier>{ae1352e2-8c6b-438a-a13a-3c9f9de3c388}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="engine">
-      <UniqueIdentifier>{6f9fb37f-e47b-46c3-8209-dbf486018555}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="engine\math">
-      <UniqueIdentifier>{e18c33ec-3830-409e-8248-7b5d4442d8fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="engine\shaders">
-      <UniqueIdentifier>{683f1f8f-7a5c-4cf6-8c8f-de51d053b08c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="engine\renderer">
-      <UniqueIdentifier>{a1fe27f4-6900-42c4-adb3-8c245505b286}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="frag.glsl">
-      <Filter>engine\shaders</Filter>
-    </None>
     <None Include="vertex.glsl">
       <Filter>engine\shaders</Filter>
     </None>
+    <None Include="frag.glsl">
+      <Filter>engine\shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test.png" />
+    <Filter Include="engine">
+      <UniqueIdentifier>{98ec6cec-fe69-4472-a0e2-8847b922547c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\core">
+      <UniqueIdentifier>{7303cefe-d08f-4420-a6d0-4291fd5b0371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\shaders">
+      <UniqueIdentifier>{3fcb50e2-c148-44d4-b4bf-c46e09466aab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\utilities">
+      <UniqueIdentifier>{df7e5444-dad9-4583-a5c0-f3207557ca93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\math">
+      <UniqueIdentifier>{decf93a2-1284-4c52-b4c0-2e657e948c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{64c5b5b5-04c3-4b1d-849c-0d3f07a2f267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\assets">
+      <UniqueIdentifier>{98ef59a7-b8a2-4e32-81e9-0ec6c9b0379a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test.png">
+      <Filter>game\assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

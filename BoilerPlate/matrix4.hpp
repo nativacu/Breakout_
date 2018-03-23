@@ -7,8 +7,10 @@
 #ifndef MATRIX4
 #define MATRIX4
 
-namespace engine {
-	namespace math {
+namespace engine 
+{
+	namespace math 
+	{
 		class matrix4
 		{
 		public:

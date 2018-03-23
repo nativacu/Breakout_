@@ -1,4 +1,4 @@
-#include "shader.hpp"
+#include "shaderUtility.hpp"
 
 #pragma once
 #ifndef RENDERER_H
@@ -26,7 +26,7 @@ namespace engine {
 			GLuint VertexBufferObject; //VBO
 			GLuint ElementsBufferObject; //EBO
 			GLuint ProgramID; //holds shader compilation values
-			engine::shaders::shader shaderUtility;
+			engine::utilities::shaderUtility shaderUtility;
 			bool usingWireFrameView;
 
 			//Added this

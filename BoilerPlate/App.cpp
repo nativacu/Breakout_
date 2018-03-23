@@ -24,7 +24,7 @@ namespace Engine
 		mRenderer = engine::renderer::renderer(m_width, m_height);
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
-		m_inputManager = inputManager();
+		m_inputManager = engine::utilities::inputManager::inputManager();
 	}
 
 	App::~App()

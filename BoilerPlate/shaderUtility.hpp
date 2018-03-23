@@ -14,12 +14,12 @@
 #define SHADER_H
 
 namespace engine{
-	namespace shaders {
-		struct shader
+	namespace utilities {
+		struct shaderUtility
 		{
 			// FUNCTIONS
-			shader();
-			shader(std::vector <std::pair <std::string, GLenum>>);
+			shaderUtility();
+			shaderUtility(std::vector <std::pair <std::string, GLenum>>);
 			GLuint create_handle(std::pair <std::string, GLenum>);
 			std::string  read_code_from_file(std::pair <std::string, GLenum>);
 			void compile_shader(GLuint, std::string, std::string);

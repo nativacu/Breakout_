@@ -20,7 +20,7 @@ engine::renderer::renderer::renderer(int width, int height)
 	shaderInputList.push_back(firstShaderEntry);
 	shaderInputList.push_back(secondShaderEntry);
 
-	shaderUtility = engine::shaders::shader(shaderInputList);
+	shaderUtility = engine::utilities::shaderUtility(shaderInputList);
 
 	usingWireFrameView = false;
 
