@@ -481,3 +481,56 @@ engine::math::matrix4 engine::math::matrix4::operator/(matrix4 rightHandSide) {
 
 	return result;
 }
+
+engine::math::matrix4 engine::math::matrix4::look_at(vector3 currentPosition, vector3 newPosition)
+{
+	matrix4 result;
+	vector3 up, forward, right, temporary(0.0, 1.0, 0.0);
+	forward = currentPosition - newPosition;
+	forward.normalize();
+	right = temporary * forward;
+	right.normalize();
+	up = forward * right;
+
+	result.get()[0] = right.x;
+	result.get()[4] = right.y;
+	result.get()[8] = right.z;
+	result.get()[1] = up.x;
+	result.get()[5] = up.y;
+	result.get()[9] = up.z;
+	result.get()[2] = forward.x;
+	result.get()[6] = forward.y;
+	result.get()[10] = forward.z;
+
+	result.get()[3] = currentPosition.x;
+	result.get()[7] = currentPosition.y;
+	result.get()[11] = newPosition.z;
+
+	return result;
+}
+
+engine::math::matrix4 engine::math::matrix4::make_perspective_matrix(float sceneSize, float ratio, float near, float far)
+{
+	matrix4 result;
+	sceneSize = 1.0f / tanf(sceneSize * 0.5f);
+	float inverse_factor = 1.0f / (near - far);
+
+	result.get()[0] = sceneSize / ratio;
+	result.get()[6] = sceneSize;
+	result.get()[10] = (near + far) * inverse_factor;
+	result.get()[11] = (2.0f * near * far) * inverse_factor;
+	result.get()[14] = -1.0f;
+
+	return result;
+}
+
+engine::math::matrix4 engine::math::matrix4::make_orthographic_matrix(float width, float height, float near, float far)
+{
+	matrix4 result;
+	result.get()[0] = 2 / width;
+	result.get()[5] = 2 / height;
+	result.get()[10] = -2 / (far - near);
+	result.get()[11] = -(far + near) / (far - near);
+
+	return result;
+}

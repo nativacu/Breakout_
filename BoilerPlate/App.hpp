@@ -73,7 +73,7 @@ namespace Engine
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
 		engine::renderer::renderer			mRenderer;
-		engine::utilities::inputManager						m_inputManager;
+		engine::utilities::inputManager		mInputManager;
 	};
 }
 #endif /* GAME_HPP */
