@@ -123,5 +123,11 @@
     <Image Include="test.png">
       <Filter>game\assets</Filter>
     </Image>
+    <Image Include="assets\ball.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="assets\block.png">
+      <Filter>game\assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>
