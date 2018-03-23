@@ -6,6 +6,7 @@
 // C++ STL
 #include <cassert>
 #include <iostream>
+#include <cstdlib>
 
 // 
 #include "App.hpp"

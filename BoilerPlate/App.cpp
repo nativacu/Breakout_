@@ -11,6 +11,8 @@ namespace Engine
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 
+	GLuint Texture1;
+	
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)
 		, m_width(width)
@@ -19,12 +21,16 @@ namespace Engine
 		, m_timer(new TimeManager)
 		, m_mainWindow(nullptr)
 	{
+		mRenderer = engine::renderer::renderer(m_width, m_height);
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
+		mInputManager = engine::utilities::inputManager::inputManager();
 	}
 
 	App::~App()
 	{
+		mRenderer.clean_up();
+
 		CleanupSDL();
 	}
 
@@ -37,6 +43,11 @@ namespace Engine
 		}
 
 		m_state = GameState::RUNNING;
+
+		mRenderer.get_program_ID();
+		Texture1 = mRenderer.load_texture("test.png");
+		mRenderer.set_vertex_data();
+		mRenderer.set_texture_resolution();
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -65,10 +76,6 @@ namespace Engine
 			return false;
 		}
 
-		// Setup the viewport
-		//
-		SetupViewport();
-
 		// Change game state
 		//
 		m_state = GameState::INIT_SUCCESSFUL;
@@ -76,11 +83,28 @@ namespace Engine
 		return true;
 	}
 
+	void App::respond_to_input()
+	{
+		if (mInputManager.get_w_key_status())
+		{
+			mRenderer.toggle_wire_frame_view(true);
+		}
+
+		if (!mInputManager.get_w_key_status())
+		{
+			mRenderer.toggle_wire_frame_view(false);
+		}
+	}
+
 	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
-	{		
+	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
-		default:			
+		case SDL_SCANCODE_W:
+			mInputManager.set_w_key_pressed_status(true);
+			break;
+
+		default:
 			SDL_Log("%S was pressed.", keyBoardEvent.keysym.scancode);
 			break;
 		}
@@ -90,6 +114,10 @@ namespace Engine
 	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
+		case SDL_SCANCODE_W:
+			mInputManager.set_w_key_pressed_status(false);
+			break;
+
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
 			break;
@@ -105,6 +133,7 @@ namespace Engine
 
 		// Update code goes here
 		//
+		respond_to_input();
 
 		double endTime = m_timer->GetElapsedTimeInSeconds();
 		double nextTimeFrame = startTime + DESIRED_FRAME_TIME;
@@ -126,13 +155,10 @@ namespace Engine
 	{
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		mRenderer.set_texture1(Texture1);
 
-		glBegin(GL_LINE_LOOP);
-		glVertex2f(50.0, 50.0);
-		glVertex2f(50.0, -50.0);
-		glVertex2f(-50.0, -50.0);
-		glVertex2f(-50.0, 50.0);
-		glEnd();
+		mRenderer.draw_polygon();
 
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
@@ -147,12 +173,17 @@ namespace Engine
 			return false;
 		}
 
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-		Uint32 flags =  SDL_WINDOW_OPENGL     | 
-						SDL_WINDOW_SHOWN      | 
-						SDL_WINDOW_RESIZABLE;
+		Uint32 flags = SDL_WINDOW_OPENGL |
+			SDL_WINDOW_SHOWN |
+			SDL_WINDOW_RESIZABLE;
 
 		m_mainWindow = SDL_CreateWindow(
 			m_title.c_str(),
@@ -206,6 +237,7 @@ namespace Engine
 
 	bool App::GlewInit()
 	{
+		glewExperimental = GL_TRUE;
 		GLenum err = glewInit();
 		if (GLEW_OK != err)
 		{
