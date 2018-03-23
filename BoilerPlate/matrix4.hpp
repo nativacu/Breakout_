@@ -44,7 +44,9 @@ namespace engine
 			matrix4 operator/(matrix4);
 
 			bool get_inverse(matrix4&);
-
+			matrix4 look_at(vector3 currentPosition, vector3 newPosition);
+			matrix4 make_perspective_matrix(float sceneSize, float ratio, float near, float far);
+			matrix4 make_orthographic_matrix(float width, float height, float near, float far);
 
 		private:
 			/*PRIVATE MEMBERS*/

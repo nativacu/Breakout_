@@ -24,7 +24,7 @@ namespace Engine
 		mRenderer = engine::renderer::renderer(m_width, m_height);
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
-		m_inputManager = engine::utilities::inputManager::inputManager();
+		mInputManager = engine::utilities::inputManager::inputManager();
 	}
 
 	App::~App()
@@ -85,12 +85,12 @@ namespace Engine
 
 	void App::respond_to_input()
 	{
-		if (m_inputManager.get_w_key_status())
+		if (mInputManager.get_w_key_status())
 		{
 			mRenderer.toggle_wire_frame_view(true);
 		}
 
-		if (!m_inputManager.get_w_key_status())
+		if (!mInputManager.get_w_key_status())
 		{
 			mRenderer.toggle_wire_frame_view(false);
 		}
@@ -101,7 +101,7 @@ namespace Engine
 		switch (keyBoardEvent.keysym.scancode)
 		{
 		case SDL_SCANCODE_W:
-			m_inputManager.set_w_key_pressed_status(true);
+			mInputManager.set_w_key_pressed_status(true);
 			break;
 
 		default:
@@ -115,7 +115,7 @@ namespace Engine
 		switch (keyBoardEvent.keysym.scancode)
 		{
 		case SDL_SCANCODE_W:
-			m_inputManager.set_w_key_pressed_status(false);
+			mInputManager.set_w_key_pressed_status(false);
 			break;
 
 		case SDL_SCANCODE_ESCAPE:
@@ -155,11 +155,8 @@ namespace Engine
 	{
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		// bind Texture
 		
 		mRenderer.set_texture1(Texture1);
-		//glBindTexture(GL_TEXTURE_2D, Texture1);
 
 		mRenderer.draw_polygon();
 

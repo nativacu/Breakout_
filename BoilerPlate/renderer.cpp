@@ -24,8 +24,6 @@ engine::renderer::renderer::renderer(int width, int height)
 
 	usingWireFrameView = false;
 
-	//Added this
-
 	mScreenHeight = height;
 	mScreenWidth = width;
 }
@@ -57,7 +55,6 @@ void engine::renderer::renderer::clean_up()
 	glDeleteVertexArrays(1, &ElementsBufferObject);
 }
 
-//Pretty much changed all this to make sure the thing interpreted the new vertices array and stuff
 void engine::renderer::renderer::set_vertex_data()
 {
 	float vertices[] = {
@@ -68,7 +65,7 @@ void engine::renderer::renderer::set_vertex_data()
 		-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
 	};
 
-	unsigned int indices[] = {  // note that we start from 0!
+	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle
 	};
@@ -98,7 +95,6 @@ void engine::renderer::renderer::set_vertex_data()
 	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
 }
@@ -108,7 +104,6 @@ void engine::renderer::renderer::toggle_wire_frame_view(bool status)
 	usingWireFrameView = status;
 }
 
-//And this
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -153,10 +148,5 @@ void engine::renderer::renderer::set_texture1(GLuint a)
 void engine::renderer::renderer::set_texture_resolution(void)
 {
 	glUseProgram(ProgramID);
-
-	// Remember this needs to be set after the program is activated
 	glUniform1i(glGetUniformLocation(ProgramID, "texture1"), 0);
-
-	float resolution[] = { static_cast<float>(mScreenWidth), static_cast<float>(mScreenWidth) };
-	glUniform2fv(glGetUniformLocation(ProgramID, "resolution"), 1, resolution);
 }

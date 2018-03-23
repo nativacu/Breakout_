@@ -5,7 +5,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
     <ClCompile Include="renderer.cpp" />
-    <ClCompile Include="mathUtilities.cpp" />
     <ClCompile Include="component.cpp">
       <Filter>engine\core</Filter>
     </ClCompile>
@@ -39,12 +38,20 @@
     <ClCompile Include="shaderUtility.cpp">
       <Filter>engine\utilities</Filter>
     </ClCompile>
+    <ClCompile Include="block.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="ball.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="mathUtilities.cpp">
+      <Filter>engine\utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
     <ClInclude Include="renderer.hpp" />
-    <ClInclude Include="mathUtilities.hpp" />
     <ClInclude Include="component.hpp">
       <Filter>engine\core</Filter>
     </ClInclude>
@@ -87,6 +94,15 @@
     <ClInclude Include="shaderUtility.hpp">
       <Filter>engine\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="ball.hpp">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="block.hpp">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="mathUtilities.hpp">
+      <Filter>engine\utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -121,6 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="assets\ball.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="assets\block.png">
       <Filter>game\assets</Filter>
     </Image>
   </ItemGroup>
