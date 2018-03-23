@@ -3,15 +3,6 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="inputManager.cpp">
-      <Filter>engine\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="SDLEvent.cpp">
-      <Filter>engine\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>engine\utils</Filter>
-    </ClCompile>
     <ClCompile Include="shader.cpp">
       <Filter>engine\shaders</Filter>
     </ClCompile>
@@ -33,24 +24,13 @@
     <ClCompile Include="renderer.cpp">
       <Filter>engine\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="resoruceManager.cpp">
-      <Filter>engine\utils</Filter>
-    </ClCompile>
+    <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="inputManager.cpp" />
+    <ClCompile Include="resoruceManager.cpp" />
+    <ClCompile Include="SDLEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
-    <ClInclude Include="inputManager.hpp">
-      <Filter>engine\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="SDLEvent.hpp">
-      <Filter>engine\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>engine\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.hpp">
-      <Filter>engine\utils</Filter>
-    </ClInclude>
     <ClInclude Include="shader.hpp">
       <Filter>engine\shaders</Filter>
     </ClInclude>
@@ -72,9 +52,11 @@
     <ClInclude Include="renderer.hpp">
       <Filter>engine\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="resoruceManager.hpp">
-      <Filter>engine\utils</Filter>
-    </ClInclude>
+    <ClInclude Include="TimeManager.hpp" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="inputManager.hpp" />
+    <ClInclude Include="resoruceManager.hpp" />
+    <ClInclude Include="SDLEvent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -91,9 +73,6 @@
     </Filter>
     <Filter Include="engine\renderer">
       <UniqueIdentifier>{a1fe27f4-6900-42c4-adb3-8c245505b286}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="engine\utils">
-      <UniqueIdentifier>{1fd3ac9b-6651-4be9-b9fc-707e643cbeeb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

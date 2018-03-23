@@ -17,6 +17,7 @@ namespace engine {
 			void set_vertex_data();
 			void toggle_wire_frame_view(bool);
 			GLuint load_texture(const char * texture_path);
+			void set_texture1(GLuint a);
 			// And this
 			void set_texture_resolution(void);
 
@@ -30,6 +31,7 @@ namespace engine {
 
 			//Added this
 			GLuint mTextures[16];
+			GLuint texture1;
 			int mScreenWidth;
 			int mScreenHeight;
 		};

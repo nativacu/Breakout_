@@ -157,8 +157,9 @@ namespace Engine
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// bind Texture
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture1);
+		
+		mRenderer.set_texture1(Texture1);
+		//glBindTexture(GL_TEXTURE_2D, Texture1);
 
 		mRenderer.draw_polygon();
 

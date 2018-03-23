@@ -38,7 +38,6 @@ std::string engine::shaders::shader::read_code_from_file(std::pair<std::string, 
 
 void engine::shaders::shader::compile_shader(GLuint shaderHandler, std::string shaderCode, std::string filePath)
 {
-	printf("Compiling shader : %s\n", filePath);
 	char const * shaderSourcePointer = shaderCode.c_str();
 	glShaderSource(shaderHandler, 1, &shaderSourcePointer, NULL);
 	glCompileShader(shaderHandler);
@@ -55,7 +54,6 @@ void engine::shaders::shader::compile_shader(GLuint shaderHandler, std::string s
 
 void engine::shaders::shader::link_program()
 {
-	printf("Linking program\n");
 	ProgramID = glCreateProgram();
 	for(int i = 0; i < shaderHandlerList.size(); i++)
 	{ 

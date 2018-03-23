@@ -44,6 +44,9 @@ void engine::renderer::renderer::draw_polygon()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glBindVertexArray(VertexArrayObject);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+
 	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0); //limit vector buffering
 }
 
@@ -57,22 +60,6 @@ void engine::renderer::renderer::clean_up()
 //Pretty much changed all this to make sure the thing interpreted the new vertices array and stuff
 void engine::renderer::renderer::set_vertex_data()
 {
-	// set up vertex data (and buffer(s)) and configure vertex attributes
-	// ------------------------------------------------------------------
-	//float vertices[] = {
-	//	-0.5f, -0.5f, 0.0f, // left  
-	//	0.5f, -0.5f, 0.0f, // right 
-	//	0.0f,  0.5f, 0.0f  // top   
-	//};
-	/*float vertices[] = {
-		// first triangle
-		0.5f,  0.5f, 0.0f,  // top right
-		0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f,  0.5f, 0.0f, // top left 
-		// second triangle
-		-0.5f, -0.5f, 0.0f, // bottom left
-	};*/
-
 	float vertices[] = {
 		// positions          // colors           // texture coords
 		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
@@ -111,6 +98,7 @@ void engine::renderer::renderer::set_vertex_data()
 	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
 }
@@ -155,6 +143,11 @@ GLuint engine::renderer::renderer::load_texture(const char * texture_path)
 	stbi_image_free(data);
 
 	return texture;
+}
+
+void engine::renderer::renderer::set_texture1(GLuint a)
+{
+	texture1 = a;
 }
 
 void engine::renderer::renderer::set_texture_resolution(void)
