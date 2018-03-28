@@ -22,7 +22,7 @@ void game::game::execute(void)
 void game::game::render(void)
 {
 	mRenderer.set_texture1(Texture1);
-
+	mRenderer.get_program_ID();
 	mRenderer.draw_polygon();
 }
 

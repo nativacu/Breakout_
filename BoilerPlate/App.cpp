@@ -46,11 +46,6 @@ namespace Engine
 
 		m_state = GameState::RUNNING;
 
-		mRenderer.get_program_ID();
-		Texture1 = mRenderer.load_texture("assets/ball.png");
-		mRenderer.set_vertex_data();
-		mRenderer.set_texture_resolution();
-
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
 		{
