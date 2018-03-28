@@ -93,5 +93,19 @@ namespace engine
 				}
 			}
 		}
+		bool gameObject::get_alpha_status(void)
+		{
+			return mIsUsingAlpha;
+		}
+		
+		const char * gameObject::get_texture_path()
+		{
+			return mTexturePath;
+		}
+
+		float * gameObject::get_vertices()
+		{
+			return nullptr;
+		}
 	}
 }

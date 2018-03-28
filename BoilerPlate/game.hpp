@@ -4,6 +4,8 @@
 
 #include "renderer.hpp"
 #include "ball.hpp"
+#include "block.hpp"
+#include <vector>
 
 namespace game
 {
@@ -21,8 +23,8 @@ namespace game
 			engine::renderer::renderer	mRenderer;
 			int mWidth;
 			int mHeight;
-
-			GLuint Texture1;
+			std::vector<block> mBlocks;
+			GLuint mCurrentTexture;
 			game::ball mBall;
 	};
 }

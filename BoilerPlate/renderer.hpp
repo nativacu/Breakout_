@@ -14,10 +14,11 @@ namespace engine {
 			void get_program_ID();
 			void draw_polygon();
 			void clean_up();
-			void set_vertex_data();
+			void set_vertex_data(float* pVertices);
 			void toggle_wire_frame_view(bool);
-			GLuint load_texture(const char * texture_path);
+			GLuint load_texture(const char * texture_path, bool isUsingAlpha);
 			void set_texture1(GLuint a);
+			
 			// And this
 			void set_texture_resolution(void);
 
@@ -25,13 +26,12 @@ namespace engine {
 			GLuint mVertexArrayObject; //VAO
 			GLuint mVertexBufferObject; //VBO
 			GLuint mElementsBufferObject; //EBO
-			GLuint mProgramID; //holds shader compilation values
+			GLuint mProgramID; //holds shader complation values
 			engine::utilities::shaderUtility mShaderUtility;
 			bool mUsingWireFrameView;
+			GLuint texture1;
 
 			//Added this
-			GLuint mTextures[16];
-			GLuint texture1;
 			int mScreenWidth;
 			int mScreenHeight;
 		};

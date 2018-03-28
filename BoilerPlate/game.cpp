@@ -9,19 +9,26 @@ game::game::game(int width, int height)
 	mWidth = width;
 	mHeight = height;
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
+	mBlocks.push_back(block());
 }
 
 void game::game::execute(void)
 {
 	mRenderer.get_program_ID();
-	Texture1 = mRenderer.load_texture("Assets/block.png");
-	mRenderer.set_vertex_data();
+	for (int i = 0; i < mBlocks.size(); i++) {
+		mCurrentTexture = mRenderer.load_texture(mBlocks[i].get_texture_path(), mBlocks[i].get_alpha_status());
+		mRenderer.set_vertex_data(mBlocks[i].get_vertices());
+		mRenderer.set_texture_resolution();
+	}
+
+	mCurrentTexture = mRenderer.load_texture(mBall.get_texture_path(), mBall.get_alpha_status());
+	mRenderer.set_vertex_data(mBall.get_vertices());
 	mRenderer.set_texture_resolution();
 }
 
 void game::game::render(void)
 {
-	mRenderer.set_texture1(Texture1);
+	//mRenderer.set_texture1(mCurrentTexture);
 	mRenderer.draw_polygon();
 }
 

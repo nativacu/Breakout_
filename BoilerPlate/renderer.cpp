@@ -57,18 +57,26 @@ void engine::renderer::renderer::clean_up()
 	glDeleteVertexArrays(1, &mElementsBufferObject);
 }
 
-void engine::renderer::renderer::set_vertex_data()
+void engine::renderer::renderer::set_vertex_data(float* pVertices)
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-	float vertices[] = {
+	float vertices[36];
+
+	for (int i = 0; i < 36; i++)
+	{
+		vertices[i] = pVertices[i];
+	}
+
+	/*float vertices[] = 
+	{
 		// positions          // colors					// texture coords
 		0.05f,  0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
 		0.05f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,	 1.0f, 0.0f,   // bottom right
 		-0.05f, -0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,	 0.0f, 0.0f,   // bottom left
 		-0.05f,  0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
-	};
+	};*/
 
 	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
@@ -112,7 +120,7 @@ void engine::renderer::renderer::toggle_wire_frame_view(bool status)
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-GLuint engine::renderer::renderer::load_texture(const char * texture_path)
+GLuint engine::renderer::renderer::load_texture(const char * texture_path, bool isUsingAlpha)
 {
 	// https://open.gl/textures
 	unsigned int texture;
@@ -132,7 +140,7 @@ GLuint engine::renderer::renderer::load_texture(const char * texture_path)
 	unsigned char *data = stbi_load(texture_path, &width, &height, &nrChannels, 0);
 	if (data)
 	{
-		if(texture_path == "Assets/block.png" || texture_path == "Assets/block_solig.png")
+		if(!isUsingAlpha)
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		else
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
