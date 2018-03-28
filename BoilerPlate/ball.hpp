@@ -11,20 +11,17 @@ namespace game
 	{
 	public:
 		ball();
+		float* get_vertices() override;
 
 	private:
-		float mVertices[32]{
-			// positions          // colors           // texture coords
-			0.2f,  0.2f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-			0.2f, -0.2f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-			-0.2f, -0.2f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-			-0.2f,  0.2f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+		float mVertices[36]{
+			// positions          // colors					// texture coords
+			0.05f,  0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
+			0.05f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,	 1.0f, 0.0f,   // bottom right
+			-0.05f, -0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,	 0.0f, 0.0f,   // bottom left
+			-0.05f,  0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 		};
-
-		float mIndices[6];
-		std::string mTexturePath;
 	};
 }
 
 #endif // !_BALL_HPP_
-

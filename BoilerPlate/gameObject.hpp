@@ -30,9 +30,12 @@ namespace engine
 			void render() override;
 
 			// GETTER FUNCTIONS
+			bool get_alpha_status(void);
+			const char* get_texture_path();
 			std::vector<component*>get_components() const { return mComponents; }
 			std::vector<gameObject*> get_children() const { return mChildren; }
 			gameObject* get_parent() const { return mParent; }
+			virtual float* get_vertices();
 
 			template<typename T>
 			T* get_component()
@@ -58,8 +61,9 @@ namespace engine
 			std::vector<component*>	mComponents;
 			std::vector<gameObject*> mChildren;
 			gameObject* mParent;
+			const char* mTexturePath;
+			bool mIsUsingAlpha;
 		};
-
 	}
 }
 
