@@ -14,7 +14,7 @@ game::game::game(int width, int height)
 void game::game::execute(void)
 {
 	mRenderer.get_program_ID();
-	Texture1 = mRenderer.load_texture("Assets/ball.png");
+	Texture1 = mRenderer.load_texture("Assets/block.png");
 	mRenderer.set_vertex_data();
 	mRenderer.set_texture_resolution();
 }
@@ -22,7 +22,6 @@ void game::game::execute(void)
 void game::game::render(void)
 {
 	mRenderer.set_texture1(Texture1);
-
 	mRenderer.draw_polygon();
 }
 
