@@ -47,6 +47,9 @@
     <ClCompile Include="mathUtilities.cpp">
       <Filter>engine\utilities</Filter>
     </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -103,6 +106,9 @@
     <ClInclude Include="mathUtilities.hpp">
       <Filter>engine\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="game.hpp">
+      <Filter>game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -143,6 +149,12 @@
       <Filter>game\assets</Filter>
     </Image>
     <Image Include="assets\block.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="Assets\paddle.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="Assets\block_solid.png">
       <Filter>game\assets</Filter>
     </Image>
   </ItemGroup>

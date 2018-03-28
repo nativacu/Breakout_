@@ -22,12 +22,12 @@ namespace engine {
 			void set_texture_resolution(void);
 
 		private:
-			GLuint VertexArrayObject; //VAO
-			GLuint VertexBufferObject; //VBO
-			GLuint ElementsBufferObject; //EBO
-			GLuint ProgramID; //holds shader compilation values
-			engine::utilities::shaderUtility shaderUtility;
-			bool usingWireFrameView;
+			GLuint mVertexArrayObject; //VAO
+			GLuint mVertexBufferObject; //VBO
+			GLuint mElementsBufferObject; //EBO
+			GLuint mProgramID; //holds shader compilation values
+			engine::utilities::shaderUtility mShaderUtility;
+			bool mUsingWireFrameView;
 
 			//Added this
 			GLuint mTextures[16];

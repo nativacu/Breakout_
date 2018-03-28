@@ -11,7 +11,7 @@ namespace Engine
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 
-	GLuint Texture1;
+	
 	
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)
@@ -21,7 +21,7 @@ namespace Engine
 		, m_timer(new TimeManager)
 		, m_mainWindow(nullptr)
 	{
-		mRenderer = engine::renderer::renderer(m_width, m_height);
+		mGame = game::game(m_width, m_height);
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
 		mInputManager = engine::utilities::inputManager::inputManager();
@@ -29,13 +29,15 @@ namespace Engine
 
 	App::~App()
 	{
-		mRenderer.clean_up();
+		mGame.clean_up();
 
 		CleanupSDL();
 	}
 
 	void App::Execute()
 	{
+		mGame.execute();
+
 		if (m_state != GameState::INIT_SUCCESSFUL)
 		{
 			std::cerr << "Game INIT was not successful." << std::endl;
@@ -43,11 +45,6 @@ namespace Engine
 		}
 
 		m_state = GameState::RUNNING;
-
-		mRenderer.get_program_ID();
-		Texture1 = mRenderer.load_texture("test.png");
-		mRenderer.set_vertex_data();
-		mRenderer.set_texture_resolution();
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -87,12 +84,12 @@ namespace Engine
 	{
 		if (mInputManager.get_w_key_status())
 		{
-			mRenderer.toggle_wire_frame_view(true);
+			//mRenderer.toggle_wire_frame_view(true);
 		}
 
 		if (!mInputManager.get_w_key_status())
 		{
-			mRenderer.toggle_wire_frame_view(false);
+			//mRenderer.toggle_wire_frame_view(false);
 		}
 	}
 
@@ -156,9 +153,7 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		
-		mRenderer.set_texture1(Texture1);
-
-		mRenderer.draw_polygon();
+		mGame.render();
 
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
