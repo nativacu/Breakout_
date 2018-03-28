@@ -20,9 +20,9 @@ engine::renderer::renderer::renderer(int width, int height)
 	shaderInputList.push_back(firstShaderEntry);
 	shaderInputList.push_back(secondShaderEntry);
 
-	shaderUtility = engine::utilities::shaderUtility(shaderInputList);
+	mShaderUtility = engine::utilities::shaderUtility(shaderInputList);
 
-	usingWireFrameView = false;
+	mUsingWireFrameView = false;
 
 	mScreenHeight = height;
 	mScreenWidth = width;
@@ -30,18 +30,20 @@ engine::renderer::renderer::renderer(int width, int height)
 
 void engine::renderer::renderer::get_program_ID()
 {
-	ProgramID = shaderUtility.execute();
+	mProgramID = mShaderUtility.execute();
 }
 
 void engine::renderer::renderer::draw_polygon()
 {
 	int indices[] = {0, 1, 2, 1, 3, 2};
-	if (usingWireFrameView)
+	if (mUsingWireFrameView)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glBindVertexArray(VertexArrayObject);
+	glBindVertexArray(mVertexArrayObject);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementsBufferObject);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
 
@@ -50,48 +52,59 @@ void engine::renderer::renderer::draw_polygon()
 
 void engine::renderer::renderer::clean_up()
 {
-	glDeleteBuffers(1, &VertexBufferObject);
-	glDeleteVertexArrays(1, &VertexArrayObject);
-	glDeleteVertexArrays(1, &ElementsBufferObject);
+	glDeleteBuffers(1, &mVertexBufferObject);
+	glDeleteVertexArrays(1, &mVertexArrayObject);
+	glDeleteVertexArrays(1, &mElementsBufferObject);
 }
 
-void engine::renderer::renderer::set_vertex_data()
+void engine::renderer::renderer::set_vertex_data(float* pVertices)
 {
-	float vertices[] = {
-		// positions          // colors           // texture coords
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
-	};
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
+	float vertices[36];
+
+	for (int i = 0; i < 36; i++)
+	{
+		vertices[i] = pVertices[i];
+	}
+
+	/*float vertices[] = 
+	{
+		// positions          // colors					// texture coords
+		0.05f,  0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
+		0.05f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,	 1.0f, 0.0f,   // bottom right
+		-0.05f, -0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,	 0.0f, 0.0f,   // bottom left
+		-0.05f,  0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
+	};*/
 
 	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle
 	};
 
-	glGenVertexArrays(1, &VertexArrayObject);
-	glGenBuffers(1, &VertexBufferObject);
-	glGenBuffers(1, &ElementsBufferObject);
+	glGenVertexArrays(1, &mVertexArrayObject);
+	glGenBuffers(1, &mVertexBufferObject);
+	glGenBuffers(1, &mElementsBufferObject);
 
-	glBindVertexArray(VertexArrayObject);
+	glBindVertexArray(mVertexArrayObject);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VertexBufferObject);
+	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferObject);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBufferObject);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementsBufferObject);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// vertex position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
 	// color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
 	// texture coord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(7 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -101,13 +114,13 @@ void engine::renderer::renderer::set_vertex_data()
 
 void engine::renderer::renderer::toggle_wire_frame_view(bool status)
 {
-	usingWireFrameView = status;
+	mUsingWireFrameView = status;
 }
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-GLuint engine::renderer::renderer::load_texture(const char * texture_path)
+GLuint engine::renderer::renderer::load_texture(const char * texture_path, bool isUsingAlpha)
 {
 	// https://open.gl/textures
 	unsigned int texture;
@@ -127,7 +140,11 @@ GLuint engine::renderer::renderer::load_texture(const char * texture_path)
 	unsigned char *data = stbi_load(texture_path, &width, &height, &nrChannels, 0);
 	if (data)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		if(!isUsingAlpha)
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		else
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
@@ -147,6 +164,6 @@ void engine::renderer::renderer::set_texture1(GLuint a)
 
 void engine::renderer::renderer::set_texture_resolution(void)
 {
-	glUseProgram(ProgramID);
-	glUniform1i(glGetUniformLocation(ProgramID, "texture1"), 0);
+	glUseProgram(mProgramID);
+	glUniform1i(glGetUniformLocation(mProgramID, "texture1"), 0);
 }

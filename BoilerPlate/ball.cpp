@@ -2,5 +2,11 @@
 
 game::ball::ball()
 {
-	mTexturePath = "assets/ball.png";
+	mTexturePath = "Assets/ball.png";
+	mIsUsingAlpha = true;
+}
+
+float * game::ball::get_vertices()
+{
+	return mVertices;
 }
