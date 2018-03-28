@@ -151,6 +151,8 @@
     <Image Include="assets\block.png">
       <Filter>game\assets</Filter>
     </Image>
+
+    <Image Include="Assets\background.jpg">
     <Image Include="Assets\paddle.png">
       <Filter>game\assets</Filter>
     </Image>
