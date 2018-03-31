@@ -26,13 +26,39 @@ void game::game::execute(void)
 	mRenderer.set_texture_resolution();
 }
 
+void game::game::update(void)
+{
+	respond_to_input();
+}
+
 void game::game::render(void)
 {
-	//mRenderer.set_texture1(mCurrentTexture);
+	mRenderer.set_texture1(mCurrentTexture);
 	mRenderer.draw_polygon();
 }
 
 void game::game::clean_up()
 {
 	mRenderer.clean_up();
+}
+
+void game::game::respond_to_input()
+{
+	if (mInputManager.get_w_key_status())	{
+		mRenderer.toggle_wire_frame_view(true);
+	}
+
+	if (!mInputManager.get_w_key_status()){
+		mRenderer.toggle_wire_frame_view(false);
+	}
+}
+
+void game::game::set_input(char pInput)
+{
+	if (pInput == 'w') {
+		mInputManager.set_w_key_pressed_status(true);
+	}
+	else{
+		mInputManager.set_w_key_pressed_status(false);
+	}
 }
