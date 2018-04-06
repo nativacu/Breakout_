@@ -42,10 +42,10 @@ void engine::renderer::renderer::draw_polygon()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glBindVertexArray(mVertexArrayObject);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementsBufferObject);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementsBufferObject);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture1);
+	glBindTexture(GL_TEXTURE_2D, mTexture);
 
 	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0); //limit vector buffering
 }
@@ -68,15 +68,6 @@ void engine::renderer::renderer::set_vertex_data(float* pVertices)
 	{
 		vertices[i] = pVertices[i];
 	}
-
-	/*float vertices[] = 
-	{
-		// positions          // colors					// texture coords
-		0.05f,  0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
-		0.05f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,	 1.0f, 0.0f,   // bottom right
-		-0.05f, -0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,	 0.0f, 0.0f,   // bottom left
-		-0.05f,  0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
-	};*/
 
 	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
@@ -159,11 +150,11 @@ GLuint engine::renderer::renderer::load_texture(const char * texture_path, bool 
 
 void engine::renderer::renderer::set_texture1(GLuint a)
 {
-	texture1 = a;
+	mTexture = a;
 }
 
 void engine::renderer::renderer::set_texture_resolution(void)
 {
 	glUseProgram(mProgramID);
-	glUniform1i(glGetUniformLocation(mProgramID, "texture1"), 0);
+	glUniform1i(glGetUniformLocation(mProgramID, "mTexture"), 0);
 }

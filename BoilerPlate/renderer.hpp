@@ -15,6 +15,7 @@ namespace engine {
 			void draw_polygon();
 			void clean_up();
 			void set_vertex_data(float* pVertices);
+			void render_texture(float* pVertices, float pIndices, float pTextureCount);
 			void toggle_wire_frame_view(bool);
 			GLuint load_texture(const char * texture_path, bool isUsingAlpha);
 			void set_texture1(GLuint a);
@@ -29,7 +30,7 @@ namespace engine {
 			GLuint mProgramID; //holds shader complation values
 			engine::utilities::shaderUtility mShaderUtility;
 			bool mUsingWireFrameView;
-			GLuint texture1;
+			GLuint mTexture;
 
 			//Added this
 			int mScreenWidth;

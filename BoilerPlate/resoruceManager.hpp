@@ -28,7 +28,7 @@ namespace engine
 			// AUDIO MANAGING FUNCTIONS
 
 		};
-	}
+	}	
 }
 
 #endif // !_RESOURCE_MANAGER_HPP_
