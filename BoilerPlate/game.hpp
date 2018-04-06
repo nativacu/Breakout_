@@ -3,6 +3,7 @@
 #define _GAME_HPP_
 
 #include "renderer.hpp"
+#include "inputManager.hpp"
 #include "ball.hpp"
 #include "block.hpp"
 #include <vector>
@@ -19,6 +20,8 @@ namespace game
 			void update(void);
 			void render(void);
 			void clean_up();
+			void respond_to_input();
+			void set_input(char pInput);
 		private:
 			engine::renderer::renderer	mRenderer;
 			int mWidth;
@@ -26,6 +29,7 @@ namespace game
 			std::vector<block> mBlocks;
 			GLuint mCurrentTexture;
 			game::ball mBall;
+			engine::utilities::inputManager mInputManager;
 	};
 }
 

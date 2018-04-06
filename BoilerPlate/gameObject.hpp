@@ -27,7 +27,7 @@ namespace engine
 			void add_child(gameObject*);
 			void remove_child(gameObject*);
 			void update(double deltaTime) override;
-			void render() override;
+			virtual void render() override;
 
 			// GETTER FUNCTIONS
 			bool get_alpha_status(void);

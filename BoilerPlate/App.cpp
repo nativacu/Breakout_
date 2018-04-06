@@ -10,8 +10,6 @@ namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
-
-	
 	
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)
@@ -24,7 +22,6 @@ namespace Engine
 		mGame = game::game(m_width, m_height);
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
-		mInputManager = engine::utilities::inputManager::inputManager();
 	}
 
 	App::~App()
@@ -82,15 +79,7 @@ namespace Engine
 
 	void App::respond_to_input()
 	{
-		if (mInputManager.get_w_key_status())
-		{
-			//mRenderer.toggle_wire_frame_view(true);
-		}
-
-		if (!mInputManager.get_w_key_status())
-		{
-			//mRenderer.toggle_wire_frame_view(false);
-		}
+//		
 	}
 
 	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
@@ -98,11 +87,10 @@ namespace Engine
 		switch (keyBoardEvent.keysym.scancode)
 		{
 		case SDL_SCANCODE_W:
-			mInputManager.set_w_key_pressed_status(true);
+			mGame.set_input('w');
 			break;
 
 		default:
-			SDL_Log("%S was pressed.", keyBoardEvent.keysym.scancode);
 			break;
 		}
 	}
@@ -111,15 +99,11 @@ namespace Engine
 	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
-		case SDL_SCANCODE_W:
-			mInputManager.set_w_key_pressed_status(false);
-			break;
-
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
 			break;
 		default:
-			//DO NOTHING
+			mGame.set_input(NULL);
 			break;
 		}
 	}
@@ -130,7 +114,7 @@ namespace Engine
 
 		// Update code goes here
 		//
-		respond_to_input();
+		mGame.update();
 
 		double endTime = m_timer->GetElapsedTimeInSeconds();
 		double nextTimeFrame = startTime + DESIRED_FRAME_TIME;
@@ -150,8 +134,6 @@ namespace Engine
 
 	void App::Render()
 	{
-		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
 		
 		mGame.render();
 
