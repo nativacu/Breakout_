@@ -20,9 +20,6 @@
     <ClCompile Include="inputManager.cpp">
       <Filter>engine\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="resoruceManager.cpp">
-      <Filter>engine\utilities</Filter>
-    </ClCompile>
     <ClCompile Include="matrix4.cpp">
       <Filter>engine\math</Filter>
     </ClCompile>
@@ -49,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="resourceManager.cpp">
+      <Filter>engine\utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +79,6 @@
     <ClInclude Include="inputManager.hpp">
       <Filter>engine\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="resoruceManager.hpp">
-      <Filter>engine\utilities</Filter>
-    </ClInclude>
     <ClInclude Include="matrix4.hpp">
       <Filter>engine\math</Filter>
     </ClInclude>
@@ -108,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="game.hpp">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="resourceManager.hpp">
+      <Filter>engine\utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
