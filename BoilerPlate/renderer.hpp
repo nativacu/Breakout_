@@ -1,4 +1,5 @@
 #include "shaderUtility.hpp"
+#include "matrix4.hpp" 
 
 #pragma once
 #ifndef RENDERER_H
@@ -14,7 +15,7 @@ namespace engine {
 			void get_program_ID();
 			void draw_polygon();
 			void clean_up();
-			void set_vertex_data(float* pVertices);
+			void set_vertex_data(float* pVertices, engine::math::matrix4* pModelMatrix);
 			void render_texture(float* pVertices, float pIndices, float pTextureCount);
 			void toggle_wire_frame_view(bool);
 			GLuint load_texture(const char * texture_path, bool isUsingAlpha);

@@ -36,17 +36,18 @@ namespace engine
 			float* get_column(int);
 			void rotate_using_degrees(float);
 			void rotate_using_radians(float);
-			matrix4 rotate_x(float);
-			matrix4 rotate_y(float);
-			matrix4 rotate_z(float);
-			matrix4 get_translate_matrix(vector4);
+			void rotate_x(float);
+			void rotate_y(float);
+			void rotate_z(float);
 			void translate_matrix(vector4);
 			matrix4 operator/(matrix4);
 
 			bool get_inverse(matrix4&);
 			matrix4 look_at(vector3 currentPosition, vector3 newPosition);
-			matrix4 make_perspective_matrix(float sceneSize, float ratio, float near, float far);
-			matrix4 make_orthographic_matrix(float width, float height, float near, float far);
+			void make_perspective_matrix(const float&, const float&, const float&, const float&);
+			void make_orthographic_matrix(float, float, float, float, float, float);
+			void scale_matrix(float, float, float);
+			void set_matrix(float[16]);
 
 		private:
 			/*PRIVATE MEMBERS*/

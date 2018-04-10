@@ -8,6 +8,7 @@
 #include "iUpdate.hpp"
 #include "iRender.hpp"
 #include "uniqueID.hpp"
+#include "matrix4.hpp"
 
 namespace engine
 {
@@ -56,6 +57,8 @@ namespace engine
 
 				return nullptr;
 			}
+
+			engine::math::matrix4* get_model_matrix();
 		protected:
 			// MEMBERS
 			std::vector<component*>	mComponents;
@@ -63,6 +66,7 @@ namespace engine
 			gameObject* mParent;
 			const char* mTexturePath;
 			bool mIsUsingAlpha;
+			engine::math::matrix4 mModelMatrix;
 		};
 	}
 }

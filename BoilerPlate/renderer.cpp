@@ -1,4 +1,5 @@
 #include "renderer.hpp"
+#include "matrix4.hpp"
 
 engine::renderer::renderer::renderer()
 {
@@ -57,7 +58,7 @@ void engine::renderer::renderer::clean_up()
 	glDeleteVertexArrays(1, &mElementsBufferObject);
 }
 
-void engine::renderer::renderer::set_vertex_data(float* pVertices)
+void engine::renderer::renderer::set_vertex_data(float* pVertices, engine::math::matrix4* pModelMatrix)
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
@@ -79,7 +80,7 @@ void engine::renderer::renderer::set_vertex_data(float* pVertices)
 	glGenBuffers(1, &mElementsBufferObject);
 
 	glBindVertexArray(mVertexArrayObject);
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferObject);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -101,6 +102,32 @@ void engine::renderer::renderer::set_vertex_data(float* pVertices)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+
+	// create transformations
+	engine::math::matrix4 model;
+	engine::math::matrix4 view;
+	engine::math::matrix4 projection;
+
+	view.translate_matrix(engine::math::vector4(0.0f, 0.0f, -3.0f, 1.0f));
+	view.rotate_using_radians(0.0f);
+
+	projection.make_perspective_matrix(35.0f, 0.1f, 100.0f, static_cast<float> (1136 / 640));
+
+	GLuint modelLoc = glGetUniformLocation(mProgramID, "model");
+	GLuint viewLoc = glGetUniformLocation(mProgramID, "view");
+	GLuint projectionLoc = glGetUniformLocation(mProgramID, "projection");
+
+	float modelMatrix[16];
+	float viewMatrix[16];
+	float projectionMatrix[16];
+
+	pModelMatrix->set_matrix(modelMatrix);
+	view.set_matrix(viewMatrix);
+	projection.set_matrix(projectionMatrix);
+
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix);
 }
 
 void engine::renderer::renderer::toggle_wire_frame_view(bool status)
