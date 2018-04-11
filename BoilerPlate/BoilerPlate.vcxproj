@@ -176,6 +176,7 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClCompile Include="block.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameLevel.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="inputManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -199,6 +200,7 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClInclude Include="block.hpp" />
     <ClInclude Include="component.hpp" />
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="gameLevel.hpp" />
     <ClInclude Include="gameObject.hpp" />
     <ClInclude Include="inputManager.hpp" />
     <ClInclude Include="iRender.hpp" />
@@ -228,6 +230,9 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <Image Include="Assets\block_solid.png" />
     <Image Include="Assets\paddle.png" />
     <Image Include="test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\lvl_1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,7 +11,7 @@ game::game::game(int width, int height)
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
 	mBlocks.push_back(block());
 
-	mBlocks[0].get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, 0.3f, 0.0f, 0.0f));
+	mBlocks[0].get_model_matrix()->translate_matrix(mBlocks[0].get_component("position")->get_position());
 	mBlocks[0].get_model_matrix()->rotate_using_radians(0.0f);
 	mBlocks[0].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 
@@ -27,6 +27,8 @@ game::game::game(int width, int height)
 void game::game::execute(void)
 {
 	mRenderer.get_program_ID();
+	mLevel.load("levels/lvl_1.txt", 3.12, 0.9);
+	//mBlocks = mLevel.mBlocks;
 }
 
 void game::game::update(void)

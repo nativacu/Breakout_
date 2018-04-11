@@ -9,6 +9,7 @@
 #include "paddle.hpp"
 #include <vector>
 #include "mathUtilities.hpp"
+#include "gameLevel.hpp"
 
 namespace game
 {
@@ -33,6 +34,7 @@ namespace game
 			game::ball mBall;
 			game::paddle mPaddle;
 			engine::utilities::inputManager mInputManager;
+			game::gameLevel mLevel;
 	};
 }
 
