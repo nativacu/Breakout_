@@ -11,12 +11,6 @@ game::game::game(int width, int height)
 	mHeight = height;
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
 
-	for (int i = 0; i < mBlocks.size(); i++) {
-		mBlocks[i].get_model_matrix()->translate_matrix(mBlocks[i].get_component("position")->get_position());
-		mBlocks[i].get_model_matrix()->rotate_using_radians(0.0f);
-		mBlocks[i].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
-	}
-
 	mBall.get_model_matrix()->translate_matrix(mBall.get_component("position")->get_position());
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
 	mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
@@ -28,11 +22,14 @@ game::game::game(int width, int height)
 
 void game::game::execute(void)
 {
-	mLevelManager.load("levels/level1", 3.12, 0.9);
-	mBlocks = mLevelManager.get_blocks();
+	mBlocks = mLevel.mBlocks;
 	mRenderer.get_program_ID();
 	mLevel.load("levels/lvl_1.txt", 3.12, 0.9);
-	//mBlocks = mLevel.mBlocks;
+	for (int i = 0; i < mBlocks.size(); i++) {
+		mBlocks[i]->get_model_matrix()->translate_matrix(mBlocks[i]->get_component("position")->get_position());
+		mBlocks[i]->get_model_matrix()->rotate_using_radians(0.0f);
+		mBlocks[i]->get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+	}
 }
 
 void game::game::update(void)
@@ -76,7 +73,7 @@ void game::game::render(void)
 	glClear(GL_COLOR_BUFFER_BIT );
 
 	for (int i = 0; i < mBlocks.size(); i++) {
-		mRenderer.render_object(mBlocks[i]);
+		mRenderer.render_object(*mLevel.mBlocks[i]);
 	}
 
 	mRenderer.render_object(mBall);

@@ -32,7 +32,6 @@ namespace game
 		bool mIsFree = false;
 		bool mIsGoingDown = false;
 		float radius;
-		bool mIsFree;
 
 	};
 }

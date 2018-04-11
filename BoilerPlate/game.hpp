@@ -8,7 +8,6 @@
 #include "block.hpp"
 #include "paddle.hpp"
 #include "background.hpp"
-#include "gameLevelManager.hpp"
 #include <vector>
 #include "mathUtilities.hpp"
 #include "gameLevel.hpp"
@@ -31,12 +30,11 @@ namespace game
 			engine::renderer::renderer	mRenderer;
 			int mWidth;
 			int mHeight;
-			std::vector<block> mBlocks;
+			std::vector<block*> mBlocks;
 			GLuint mCurrentTexture;
 			game::ball mBall;
 			game::paddle mPaddle;
 			background mBackground;
-			game::gameLevelManager mLevelManager;
 			engine::utilities::inputManager mInputManager;
 			game::gameLevel mLevel;
 	};

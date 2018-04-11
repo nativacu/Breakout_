@@ -10,7 +10,7 @@ game::ball::ball()
 
 	attach_component(positionComponent);
 
-	mIsFree = true;
+	mIsFree = false;
 	mVelocity = engine::math::vector4(0.05f, 0.05f, 0.0f, 0.0f);
 }
 
@@ -20,7 +20,6 @@ game::ball::ball(engine::math::vector4 velocity)
 
 float * game::ball::get_vertices()
 {
-	float mHey[16];
 	return mVertices;
 }
 
@@ -42,6 +41,8 @@ void game::ball::release_ball()
 void game::ball::set_is_going_down(bool orientation)
 {
 	mIsGoingDown = orientation;
+}
+
 engine::math::vector4 game::ball::move_ball()
 {
 	engine::math::vector4 currentBallPosition = get_component("position")->get_position();
