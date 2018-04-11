@@ -18,6 +18,7 @@ namespace game
 		bool get_is_going_down();
 		void release_ball();
 		void set_is_going_down(bool orientation);
+		float get_radius();
 		engine::math::vector4 move_ball();
 
 	private:

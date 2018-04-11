@@ -43,6 +43,11 @@ void game::ball::set_is_going_down(bool orientation)
 	mIsGoingDown = orientation;
 }
 
+float game::ball::get_radius()
+{
+	return radius;
+}
+
 engine::math::vector4 game::ball::move_ball()
 {
 	engine::math::vector4 currentBallPosition = get_component("position")->get_position();

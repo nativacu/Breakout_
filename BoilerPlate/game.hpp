@@ -11,6 +11,7 @@
 #include <vector>
 #include "mathUtilities.hpp"
 #include "gameLevel.hpp"
+#include <irrKlang.h>
 
 namespace game
 {
@@ -38,6 +39,7 @@ namespace game
 			background mBackground;
 			engine::utilities::inputManager mInputManager;
 			game::gameLevel mLevel;
+			irrklang::ISoundEngine*				mSoundEngine;
 	};
 }
 
