@@ -1,5 +1,6 @@
 #include "matrix4.hpp"
 #include <math.h>
+#include "mathUtilities.hpp"
 
 engine::math::matrix4::matrix4()
 {
@@ -328,7 +329,7 @@ bool engine::math::matrix4::get_inverse(engine::math::matrix4& result)
 	}
 }
 
-engine::math::matrix4 engine::math::matrix4::rotate_x(float angle)
+void engine::math::matrix4::rotate_x(float angle)
 {
 	matrix4 xRotationMatrix;
 
@@ -337,10 +338,10 @@ engine::math::matrix4 engine::math::matrix4::rotate_x(float angle)
 	xRotationMatrix.matrixEntries[9] = std::sinf(-angle);
 	xRotationMatrix.matrixEntries[10] = std::cosf(-angle);
 
-	return xRotationMatrix;
+	*this = *this * xRotationMatrix;
 }
 
-engine::math::matrix4 engine::math::matrix4::rotate_y(float angle)
+void engine::math::matrix4::rotate_y(float angle)
 {
 	matrix4 yRotationMatrix;
 
@@ -349,10 +350,10 @@ engine::math::matrix4 engine::math::matrix4::rotate_y(float angle)
 	yRotationMatrix.matrixEntries[8] = -std::sinf(-angle);
 	yRotationMatrix.matrixEntries[10] = std::cosf(-angle);
 
-	return yRotationMatrix;
+	*this = *this * yRotationMatrix;
 }
 
-engine::math::matrix4 engine::math::matrix4::rotate_z(float angle)
+void engine::math::matrix4::rotate_z(float angle)
 {
 	matrix4 zRotationMatrix;
 
@@ -361,10 +362,10 @@ engine::math::matrix4 engine::math::matrix4::rotate_z(float angle)
 	zRotationMatrix.matrixEntries[4] = std::sinf(-angle);
 	zRotationMatrix.matrixEntries[5] = std::cosf(-angle);
 
-	return zRotationMatrix;
+	*this = *this * zRotationMatrix;
 }
 
-engine::math::matrix4 engine::math::matrix4::get_translate_matrix(vector4 vector)
+void engine::math::matrix4::translate_matrix(vector4 vector)
 {
 	matrix4 translated;
 
@@ -373,12 +374,7 @@ engine::math::matrix4 engine::math::matrix4::get_translate_matrix(vector4 vector
 	translated.matrixEntries[14] = vector.z;
 
 
-	return translated;
-}
-
-void engine::math::matrix4::translate_matrix(vector4 vector)
-{
-	*this = *this * this->get_translate_matrix(vector);
+	*this = *this * translated;
 }
 
 engine::math::matrix4 engine::math::matrix4::operator+(matrix4 rightHandSide) {
@@ -463,12 +459,12 @@ void engine::math::matrix4::rotate_using_degrees(float angle)
 {
 	engine::math::mathUtilities utility;
 
-	*this = *this * this->rotate_z(utility.to_radians(angle));
+	rotate_z(utility.to_radians(angle));
 }
 
 void engine::math::matrix4::rotate_using_radians(float angle)
 {
-	*this = *this * this->rotate_z(angle);
+	rotate_z(angle);
 }
 
 engine::math::matrix4 engine::math::matrix4::operator/(matrix4 rightHandSide) {
@@ -509,28 +505,66 @@ engine::math::matrix4 engine::math::matrix4::look_at(vector3 currentPosition, ve
 	return result;
 }
 
-engine::math::matrix4 engine::math::matrix4::make_perspective_matrix(float sceneSize, float ratio, float near, float far)
+void engine::math::matrix4::make_perspective_matrix(const float &angleOfView, const float &nearClippingPane, const float &farClippingPane, const float &imageAspectRatio)
 {
-	matrix4 result;
-	sceneSize = 1.0f / tanf(sceneSize * 0.5f);
-	float inverse_factor = 1.0f / (near - far);
+	mathUtilities utility;
 
-	result.get()[0] = sceneSize / ratio;
-	result.get()[6] = sceneSize;
-	result.get()[10] = (near + far) * inverse_factor;
-	result.get()[11] = (2.0f * near * far) * inverse_factor;
-	result.get()[14] = -1.0f;
+	float sceneScale = static_cast<float> (1.0f / std::tanf(utility.to_radians(angleOfView * 0.5f)));
+	float deltaClippingPane = farClippingPane - nearClippingPane;
+	float inverseDelta = 1.0f / deltaClippingPane;
 
-	return result;
+	matrixEntries[0] = sceneScale * imageAspectRatio;
+	matrixEntries[5] = sceneScale;
+	matrixEntries[10] = -farClippingPane * inverseDelta;
+	matrixEntries[11] = -1.0f;
+	matrixEntries[14] = -farClippingPane * nearClippingPane * inverseDelta;
+	matrixEntries[15] = 0;
 }
 
-engine::math::matrix4 engine::math::matrix4::make_orthographic_matrix(float width, float height, float near, float far)
+void engine::math::matrix4::make_orthographic_matrix(float maxWidth, float minWidth, float maxHeight, float minHeight, float maxZ, float minZ)
 {
-	matrix4 result;
-	result.get()[0] = 2 / width;
-	result.get()[5] = 2 / height;
-	result.get()[10] = -2 / (far - near);
-	result.get()[11] = -(far + near) / (far - near);
+	//https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/orthographic-projection-matrix
+	matrixEntries[0] = 2.0f / (maxWidth - minWidth);
+	matrixEntries[5] = 2.0f / (maxHeight - minHeight);
+	matrixEntries[10] = -2.0f / (maxZ - minZ);
+	matrixEntries[12] = -(maxWidth + minWidth) / (maxWidth - minWidth);
+	matrixEntries[13] = -(maxHeight + minHeight) / maxHeight - minHeight;
+	matrixEntries[14] = -(maxZ + minZ) / (maxZ - minZ);
+}
 
-	return result;
+void engine::math::matrix4::scale_matrix(float pX, float pY, float pZ)
+{
+	matrix4 scalingMatrix;
+	scalingMatrix.matrixEntries[0] = pX;
+	scalingMatrix.matrixEntries[5] = pY;
+	scalingMatrix.matrixEntries[10] = pZ;
+
+	*this = *this * scalingMatrix;
+}
+
+void engine::math::matrix4::set_matrix(float newMatrix[16])
+{
+	//First column
+	newMatrix[0] = matrixEntries[0];
+	newMatrix[1] = matrixEntries[1];
+	newMatrix[2] = matrixEntries[2];
+	newMatrix[3] = matrixEntries[3];
+
+	//Second column
+	newMatrix[4] = matrixEntries[4];
+	newMatrix[5] = matrixEntries[5];
+	newMatrix[6] = matrixEntries[6];
+	newMatrix[7] = matrixEntries[7];
+
+	//Third column
+	newMatrix[8] = matrixEntries[8];
+	newMatrix[9] = matrixEntries[9];
+	newMatrix[10] = matrixEntries[10];
+	newMatrix[11] = matrixEntries[11];
+
+	//Fourth column
+	newMatrix[12] = matrixEntries[12];
+	newMatrix[13] = matrixEntries[13];
+	newMatrix[14] = matrixEntries[14];
+	newMatrix[15] = matrixEntries[15];
 }

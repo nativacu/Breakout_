@@ -13,7 +13,6 @@
 #include "matrix4.hpp"
 #include "shaderUtility.hpp"
 #include "renderer.hpp"
-#include "inputManager.hpp"
 #include "game.hpp"
 
 namespace Engine
@@ -73,7 +72,6 @@ namespace Engine
 		SDL_GLContext						m_context;
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
-		engine::utilities::inputManager		mInputManager;
 		game::game							mGame;
 	};
 }

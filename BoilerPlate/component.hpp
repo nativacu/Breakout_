@@ -6,6 +6,7 @@
 
 //
 #include "IUpdate.hpp"
+#include "vector4.hpp"
 
 namespace engine
 {
@@ -16,6 +17,7 @@ namespace engine
 		{
 		public:
 			// PUBLIC FUNCTIONS
+			explicit component();
 			explicit component(const std::string& name);
 			~component();
 			void update(double deltaTime) override;
@@ -24,6 +26,9 @@ namespace engine
 			void set_owner(gameObject* owner) { mOwner = owner; }
 			gameObject* get_owner() const { return mOwner; }
 			std::string get_name() const { return mName; }
+			virtual engine::math::vector4 get_position() = 0;
+			virtual void set_position(engine::math::vector4) = 0;
+
 		protected:
 			// MEMBERS
 			gameObject*	mOwner;

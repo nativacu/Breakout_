@@ -1,4 +1,5 @@
 #include "renderer.hpp"
+#include "matrix4.hpp"
 
 engine::renderer::renderer::renderer()
 {
@@ -42,10 +43,10 @@ void engine::renderer::renderer::draw_polygon()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glBindVertexArray(mVertexArrayObject);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementsBufferObject);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementsBufferObject);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture1);
+	glBindTexture(GL_TEXTURE_2D, mTexture);
 
 	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0); //limit vector buffering
 }
@@ -57,7 +58,46 @@ void engine::renderer::renderer::clean_up()
 	glDeleteVertexArrays(1, &mElementsBufferObject);
 }
 
-void engine::renderer::renderer::set_vertex_data(float* pVertices)
+void engine::renderer::renderer::render_object(engine::core::gameObject & pObject)
+{
+	set_texture1(load_texture(pObject.get_texture_path(),pObject.get_alpha_status()));
+	set_vertex_data(pObject.get_vertices(), pObject.get_model_matrix());
+	set_texture_resolution();
+	draw_polygon();
+}
+
+void engine::renderer::renderer::set_vertex_data(float* pVertices, engine::math::matrix4* pModelMatrix)
+{
+	
+	set_vertex_data(pVertices);
+	// create transformations
+	engine::math::matrix4 model;
+	engine::math::matrix4 view;
+	engine::math::matrix4 projection;
+
+	view.translate_matrix(engine::math::vector4(0.0f, 0.0f, -3.0f, 1.0f));
+	view.rotate_using_radians(0.0f);
+
+	projection.make_perspective_matrix(35.0f, 0.1f, 100.0f, static_cast<float> (1136 / 640));
+
+	GLuint modelLoc = glGetUniformLocation(mProgramID, "model");
+	GLuint viewLoc = glGetUniformLocation(mProgramID, "view");
+	GLuint projectionLoc = glGetUniformLocation(mProgramID, "projection");
+
+	float modelMatrix[16];
+	float viewMatrix[16];
+	float projectionMatrix[16];
+
+	pModelMatrix->set_matrix(modelMatrix);
+	view.set_matrix(viewMatrix);
+	projection.set_matrix(projectionMatrix);
+
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix);
+}
+
+void engine::renderer::renderer::set_vertex_data(float * pVertices)
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
@@ -67,16 +107,8 @@ void engine::renderer::renderer::set_vertex_data(float* pVertices)
 	for (int i = 0; i < 36; i++)
 	{
 		vertices[i] = pVertices[i];
-	}
 
-	/*float vertices[] = 
-	{
-		// positions          // colors					// texture coords
-		0.05f,  0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
-		0.05f, -0.05f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,	 1.0f, 0.0f,   // bottom right
-		-0.05f, -0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,	 0.0f, 0.0f,   // bottom left
-		-0.05f,  0.05f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
-	};*/
+	}
 
 	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
@@ -159,11 +191,11 @@ GLuint engine::renderer::renderer::load_texture(const char * texture_path, bool 
 
 void engine::renderer::renderer::set_texture1(GLuint a)
 {
-	texture1 = a;
+	mTexture = a;
 }
 
 void engine::renderer::renderer::set_texture_resolution(void)
 {
 	glUseProgram(mProgramID);
-	glUniform1i(glGetUniformLocation(mProgramID, "texture1"), 0);
+	glUniform1i(glGetUniformLocation(mProgramID, "mTexture"), 0);
 }

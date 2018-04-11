@@ -8,6 +8,7 @@
 #include "iUpdate.hpp"
 #include "iRender.hpp"
 #include "uniqueID.hpp"
+#include "matrix4.hpp"
 
 namespace engine
 {
@@ -27,7 +28,7 @@ namespace engine
 			void add_child(gameObject*);
 			void remove_child(gameObject*);
 			void update(double deltaTime) override;
-			void render() override;
+			virtual void render() override;
 
 			// GETTER FUNCTIONS
 			bool get_alpha_status(void);
@@ -36,26 +37,11 @@ namespace engine
 			std::vector<gameObject*> get_children() const { return mChildren; }
 			gameObject* get_parent() const { return mParent; }
 			virtual float* get_vertices();
+			float get_size();
 
-			template<typename T>
-			T* get_component()
-			{
-				// If no components have been attached then return nothing
-				//
-				if (mComponents.size() == 0) return nullptr;
+			component *get_component(std::string pComponentName);
 
-				std::vector< component* >::iterator comp = mComponents.begin();
-				for (; comp != mComponents.end(); ++comp)
-				{
-					T* theComponent = dynamic_cast<T*>(*comp);
-					if (theComponent)
-					{
-						return theComponent;
-					}
-				}
-
-				return nullptr;
-			}
+			engine::math::matrix4* get_model_matrix();
 		protected:
 			// MEMBERS
 			std::vector<component*>	mComponents;
@@ -63,6 +49,9 @@ namespace engine
 			gameObject* mParent;
 			const char* mTexturePath;
 			bool mIsUsingAlpha;
+			engine::math::matrix4 mModelMatrix;
+			float mSize;
+			engine::math::vector4 mVelocity;
 		};
 	}
 }
