@@ -56,10 +56,12 @@
     <ClCompile Include="positionComponent.cpp">
       <Filter>engine\components</Filter>
     </ClCompile>
-    <ClCompile Include="gameLevelManager.cpp">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="gameLevel.cpp">
+      <Filter>game\levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -125,10 +127,12 @@
     <ClInclude Include="positionComponent.hpp">
       <Filter>engine\components</Filter>
     </ClInclude>
-    <ClInclude Include="gameLevelManager.hpp">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="Background.hpp" />
+    <ClInclude Include="gameLevel.hpp">
+      <Filter>game\levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -163,6 +167,9 @@
     <Filter Include="engine\components">
       <UniqueIdentifier>{42b63eef-6c26-4200-b516-d946a48fd2d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\levels">
+      <UniqueIdentifier>{707824e0-ad26-4377-a776-7b11ba559df5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -183,5 +190,10 @@
     <Image Include="Assets\background.jpg">
       <Filter>game\assets</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\lvl_1.txt">
+      <Filter>game\levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>

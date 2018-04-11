@@ -10,6 +10,8 @@
 #include "background.hpp"
 #include "gameLevelManager.hpp"
 #include <vector>
+#include "mathUtilities.hpp"
+#include "gameLevel.hpp"
 
 namespace game
 {
@@ -36,6 +38,7 @@ namespace game
 			background mBackground;
 			game::gameLevelManager mLevelManager;
 			engine::utilities::inputManager mInputManager;
+			game::gameLevel mLevel;
 	};
 }
 

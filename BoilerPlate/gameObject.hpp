@@ -50,6 +50,7 @@ namespace engine
 			bool mIsUsingAlpha;
 			engine::math::matrix4 mModelMatrix;
 			float mSize;
+			engine::math::vector4 mVelocity;
 		};
 	}
 }

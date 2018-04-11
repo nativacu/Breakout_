@@ -12,12 +12,13 @@ namespace game
 	{
 	public:
 		ball();
+		ball(engine::math::vector4 velocity);
 		float* get_vertices() override;
 		bool get_status();
 		bool get_is_going_down();
 		void release_ball();
 		void set_is_going_down(bool orientation);
-		void ball_renderer();
+		engine::math::vector4 move_ball();
 
 	private:
 		float mVertices[36]{
@@ -30,6 +31,9 @@ namespace game
 
 		bool mIsFree = false;
 		bool mIsGoingDown = false;
+		float radius;
+		bool mIsFree;
+
 	};
 }
 

@@ -6,7 +6,7 @@
 
 namespace engine 
 {
-	namespace math 
+	namespace math
 	{
 		class mathUtilities
 		{
