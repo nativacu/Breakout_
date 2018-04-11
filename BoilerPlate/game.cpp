@@ -22,6 +22,8 @@ game::game::game(int width, int height)
 	mPaddle.get_model_matrix()->translate_matrix(mPaddle.get_component("position")->get_position());
 	mPaddle.get_model_matrix()->rotate_using_radians(0.0f);
 	mPaddle.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+
+	mSoundEngine = irrklang::createIrrKlangDevice();
 }
 
 void game::game::execute(void)
@@ -72,6 +74,8 @@ void game::game::clean_up()
 
 void game::game::respond_to_input()
 {
+	mSoundEngine->play2D("sounds/bagLarge.wav"); //sound
+
 	if (mInputManager.get_w_key_status())	{
 		mRenderer.toggle_wire_frame_view(true);
 	}

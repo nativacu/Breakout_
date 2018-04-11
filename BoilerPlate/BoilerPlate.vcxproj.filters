@@ -59,6 +59,7 @@
     <ClCompile Include="gameLevel.cpp">
       <Filter>game\levels</Filter>
     </ClCompile>
+    <ClCompile Include="collisionComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -127,6 +128,9 @@
     <ClInclude Include="gameLevel.hpp">
       <Filter>game\levels</Filter>
     </ClInclude>
+    <ClInclude Include="collisionComponent.hpp">
+      <Filter>engine\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -186,5 +190,10 @@
     <Text Include="levels\lvl_1.txt">
       <Filter>game\levels</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sounds\bangLarge.wav">
+      <Filter>game</Filter>
+    </Media>
   </ItemGroup>
 </Project>

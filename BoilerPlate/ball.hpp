@@ -16,6 +16,7 @@ namespace game
 		float* get_vertices() override;
 		bool get_status();
 		void release_ball();
+		float get_radius();
 		engine::math::vector4 move_ball();
 
 	private:

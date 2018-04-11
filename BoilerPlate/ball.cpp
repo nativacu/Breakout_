@@ -34,6 +34,11 @@ void game::ball::release_ball()
 	mIsFree = true;
 }
 
+float game::ball::get_radius()
+{
+	return radius;
+}
+
 engine::math::vector4 game::ball::move_ball()
 {
 	engine::math::vector4 currentBallPosition = get_component("position")->get_position();
