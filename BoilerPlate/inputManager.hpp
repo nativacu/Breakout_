@@ -14,12 +14,19 @@ namespace engine
 
 			// Public functions
 			void set_w_key_pressed_status(bool);
+			void set_a_key_pressed_status(bool);
+			void set_d_key_pressed_status(bool);
 			bool get_w_key_status(void);
+			bool get_a_key_status(void);
+			bool get_d_key_status(void);
 
 
 		private:
 			// Private members
 			bool wKeyPressedStatus;
+			bool aKeyPressedStatus;
+			bool dKeyPressedStatus;
+
 		};
 	}
 }

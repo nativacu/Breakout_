@@ -1,5 +1,6 @@
 #pragma once
 #include "gameObject.hpp"
+#include "positionComponent.hpp"
 
 #pragma once
 #ifndef _PADDLE_HPP_

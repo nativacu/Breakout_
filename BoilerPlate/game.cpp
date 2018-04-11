@@ -19,7 +19,7 @@ game::game::game(int width, int height)
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
 	mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 
-	mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.9f, 0.0f, 0.0f));
+	mPaddle.get_model_matrix()->translate_matrix(mPaddle.get_component("position")->get_position());
 	mPaddle.get_model_matrix()->rotate_using_radians(0.0f);
 	mPaddle.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 }
@@ -61,14 +61,47 @@ void game::game::respond_to_input()
 	if (!mInputManager.get_w_key_status()){
 		mRenderer.toggle_wire_frame_view(false);
 	}
+
+	if (mInputManager.get_a_key_status())
+	{
+		engine::math::vector4 currentPosition = mPaddle.get_component("position")->get_position();
+		if (currentPosition.x >= -1 + 0.18f)
+		{
+			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
+			currentPosition.x -= 0.02f;
+			mPaddle.get_component("position")->set_position(currentPosition);
+		}
+	}
+
+	if (mInputManager.get_d_key_status())
+	{
+		engine::math::vector4 currentPosition = mPaddle.get_component("position")->get_position();
+		if (currentPosition.x <= 1 - 0.18f)
+		{
+			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(+0.02f, 0.0f, 0.0f, 0.0f));
+			currentPosition.x += 0.02f;
+			mPaddle.get_component("position")->set_position(currentPosition);
+		}
+	}
 }
 
 void game::game::set_input(char pInput)
 {
-	if (pInput == 'w') {
+	if (pInput == 'w') 
+	{
 		mInputManager.set_w_key_pressed_status(true);
+	}
+	else if (pInput == 'a') 
+	{
+		mInputManager.set_a_key_pressed_status(true);
+	}
+	else if (pInput == 'd')
+	{
+		mInputManager.set_d_key_pressed_status(true);
 	}
 	else{
 		mInputManager.set_w_key_pressed_status(false);
+		mInputManager.set_a_key_pressed_status(false);
+		mInputManager.set_d_key_pressed_status(false);
 	}
 }

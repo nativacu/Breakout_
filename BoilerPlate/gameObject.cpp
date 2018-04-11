@@ -18,7 +18,7 @@ namespace engine
 		{
 			// Delete all attached components
 			//
-			while (!mComponents.empty()) delete mComponents.back(), mComponents.pop_back();
+			//while (!mComponents.empty()) delete mComponents.back(), mComponents.pop_back();
 
 			// Delete all attached children
 			//
@@ -106,6 +106,19 @@ namespace engine
 		float * gameObject::get_vertices()
 		{
 			return nullptr;
+		}
+
+		component * gameObject::get_component(std::string pComponentName)
+		{
+			for (int i = 0; i < mComponents.size(); i++)
+			{
+				if (mComponents[i]->get_name() == pComponentName)
+				{
+					return mComponents[i];
+				}
+			}
+
+			return NULL;
 		}
 
 		engine::math::matrix4* gameObject::get_model_matrix()

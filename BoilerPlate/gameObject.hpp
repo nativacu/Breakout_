@@ -38,25 +38,7 @@ namespace engine
 			gameObject* get_parent() const { return mParent; }
 			virtual float* get_vertices();
 
-			template<typename T>
-			T* get_component()
-			{
-				// If no components have been attached then return nothing
-				//
-				if (mComponents.size() == 0) return nullptr;
-
-				std::vector< component* >::iterator comp = mComponents.begin();
-				for (; comp != mComponents.end(); ++comp)
-				{
-					T* theComponent = dynamic_cast<T*>(*comp);
-					if (theComponent)
-					{
-						return theComponent;
-					}
-				}
-
-				return nullptr;
-			}
+			component *get_component(std::string pComponentName);
 
 			engine::math::matrix4* get_model_matrix();
 		protected:
@@ -67,6 +49,7 @@ namespace engine
 			const char* mTexturePath;
 			bool mIsUsingAlpha;
 			engine::math::matrix4 mModelMatrix;
+			float mSize;
 		};
 	}
 }

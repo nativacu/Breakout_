@@ -50,7 +50,12 @@
     <ClCompile Include="resourceManager.cpp">
       <Filter>engine\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="paddle.cpp" />
+    <ClCompile Include="paddle.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="positionComponent.cpp">
+      <Filter>engine\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -110,7 +115,12 @@
     <ClInclude Include="resourceManager.hpp">
       <Filter>engine\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="paddle.hpp" />
+    <ClInclude Include="paddle.hpp">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="positionComponent.hpp">
+      <Filter>engine\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -141,6 +151,9 @@
     </Filter>
     <Filter Include="game\assets">
       <UniqueIdentifier>{98ef59a7-b8a2-4e32-81e9-0ec6c9b0379a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\components">
+      <UniqueIdentifier>{42b63eef-6c26-4200-b516-d946a48fd2d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
