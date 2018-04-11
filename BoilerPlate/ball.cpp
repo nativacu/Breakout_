@@ -38,6 +38,11 @@ void game::ball::release_ball()
 	mIsFree = true;
 }
 
+float game::ball::get_radius()
+{
+	return radius;
+}
+
 void game::ball::set_is_going_down(bool orientation)
 {
 	mIsGoingDown = orientation;

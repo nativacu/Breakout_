@@ -108,6 +108,11 @@ namespace engine
 			return nullptr;
 		}
 
+		float gameObject::get_size()
+		{
+			return mSize;
+		}
+
 		component * gameObject::get_component(std::string pComponentName)
 		{
 			for (int i = 0; i < mComponents.size(); i++)

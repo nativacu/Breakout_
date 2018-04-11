@@ -37,6 +37,7 @@ namespace engine
 			std::vector<gameObject*> get_children() const { return mChildren; }
 			gameObject* get_parent() const { return mParent; }
 			virtual float* get_vertices();
+			float get_size();
 
 			component *get_component(std::string pComponentName);
 
