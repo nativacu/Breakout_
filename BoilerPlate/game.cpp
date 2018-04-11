@@ -15,7 +15,7 @@ game::game::game(int width, int height)
 	mBlocks[0].get_model_matrix()->rotate_using_radians(0.0f);
 	mBlocks[0].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 
-	mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.7f, 0.0f, 0.0f));
+	mBall.get_model_matrix()->translate_matrix(mBall.get_component("position")->get_position());
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
 	mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 
@@ -64,23 +64,31 @@ void game::game::respond_to_input()
 
 	if (mInputManager.get_a_key_status())
 	{
-		engine::math::vector4 currentPosition = mPaddle.get_component("position")->get_position();
-		if (currentPosition.x >= -1 + 0.18f)
+		engine::math::vector4 currentPaddlePosition = mPaddle.get_component("position")->get_position();
+		engine::math::vector4 currentBallPosition = mBall.get_component("position")->get_position();
+		if (currentPaddlePosition.x >= -1 + 0.18f)
 		{
 			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
-			currentPosition.x -= 0.02f;
-			mPaddle.get_component("position")->set_position(currentPosition);
+			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
+			currentPaddlePosition.x -= 0.02f;
+			currentBallPosition.x -= 0.02f;
+			mPaddle.get_component("position")->set_position(currentPaddlePosition);
+			mBall.get_component("position")->set_position(currentBallPosition);
 		}
 	}
 
 	if (mInputManager.get_d_key_status())
 	{
-		engine::math::vector4 currentPosition = mPaddle.get_component("position")->get_position();
-		if (currentPosition.x <= 1 - 0.18f)
+		engine::math::vector4 currentPaddlePosition = mPaddle.get_component("position")->get_position();
+		engine::math::vector4 currentBallPosition = mBall.get_component("position")->get_position();
+		if (currentPaddlePosition.x <= 1 - 0.18f)
 		{
-			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(+0.02f, 0.0f, 0.0f, 0.0f));
-			currentPosition.x += 0.02f;
-			mPaddle.get_component("position")->set_position(currentPosition);
+			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
+			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
+			currentPaddlePosition.x += 0.02f;
+			currentBallPosition.x += 0.02f;
+			mPaddle.get_component("position")->set_position(currentPaddlePosition);
+			mBall.get_component("position")->set_position(currentBallPosition);
 		}
 	}
 }
