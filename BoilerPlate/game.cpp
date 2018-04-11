@@ -11,6 +11,10 @@ game::game::game(int width, int height)
 	mHeight = height;
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
 
+	mTestBlock.get_model_matrix()->translate_matrix(mTestBlock.get_component("position")->get_position());
+	mTestBlock.get_model_matrix()->rotate_using_radians(0.0f);
+	mTestBlock.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+
 	mBall.get_model_matrix()->translate_matrix(mBall.get_component("position")->get_position());
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
 	mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
@@ -76,6 +80,7 @@ void game::game::render(void)
 		mRenderer.render_object(*mLevel.mBlocks[i]);
 	}
 
+	mRenderer.render_object(mTestBlock);
 	mRenderer.render_object(mBall);
 	mRenderer.render_object(mPaddle);
 	//mBackground.render();

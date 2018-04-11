@@ -31,6 +31,7 @@ namespace game
 			int mWidth;
 			int mHeight;
 			std::vector<block*> mBlocks;
+			game::block mTestBlock;
 			GLuint mCurrentTexture;
 			game::ball mBall;
 			game::paddle mPaddle;

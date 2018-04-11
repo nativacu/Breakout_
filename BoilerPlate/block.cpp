@@ -7,7 +7,7 @@ game::block::block()
 	mIsUsingAlpha = false;
 
 	engine::components::positionComponent *positionComponent =
-		new engine::components::positionComponent("position", engine::math::vector4(0.0f, 0.3f, 0.0f, 0.0f));
+		new engine::components::positionComponent("position", engine::math::vector4(-0.5f, 0.3f, 0.0f, 0.0f));
 
 	attach_component(positionComponent);
 }
