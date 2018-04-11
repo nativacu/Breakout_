@@ -8,6 +8,7 @@
 #include "block.hpp"
 #include "paddle.hpp"
 #include <vector>
+#include "mathUtilities.hpp"
 
 namespace game
 {

@@ -12,9 +12,11 @@ namespace game
 	{
 	public:
 		ball();
+		ball(engine::math::vector4 velocity);
 		float* get_vertices() override;
 		bool get_status();
 		void release_ball();
+		engine::math::vector4 move_ball();
 
 	private:
 		float mVertices[36]{
@@ -25,6 +27,7 @@ namespace game
 			-0.02f,  0.03f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 		};
 
+		float radius;
 		bool mIsFree;
 	};
 }

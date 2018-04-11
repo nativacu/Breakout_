@@ -31,7 +31,23 @@ void game::game::execute(void)
 
 void game::game::update(void)
 {
+	engine::math::mathUtilities utility;
 	respond_to_input();
+
+
+	/*engine::math::vector4 currentBallPosition = mBall.get_component("position")->get_position();
+	// If not stuck to player board
+	if (mBall.get_status())
+	{
+		// Move the ball
+		currentBallPosition.x -= (0.02f * std::sinf(utility.to_radians(45)));
+		currentBallPosition.y += (0.02f * std::cosf(utility.to_radians(45)));
+
+		//mBall.get_model_matrix()->identity();
+		mBall.get_model_matrix()->translate_matrix(currentBallPosition);
+		mBall.get_model_matrix()->rotate_z(0.0f);
+		mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+	}*/
 }
 
 void game::game::render(void)
