@@ -50,6 +50,19 @@
     <ClCompile Include="resourceManager.cpp">
       <Filter>engine\utilities</Filter>
     </ClCompile>
+    <ClCompile Include="paddle.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="positionComponent.cpp">
+      <Filter>engine\components</Filter>
+    </ClCompile>
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="gameLevel.cpp">
+      <Filter>game\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="collisionComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -109,6 +122,21 @@
     <ClInclude Include="resourceManager.hpp">
       <Filter>engine\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="paddle.hpp">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="positionComponent.hpp">
+      <Filter>engine\components</Filter>
+    </ClInclude>
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.hpp" />
+    <ClInclude Include="gameLevel.hpp">
+      <Filter>game\levels</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionComponent.hpp">
+      <Filter>engine\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -140,6 +168,12 @@
     <Filter Include="game\assets">
       <UniqueIdentifier>{98ef59a7-b8a2-4e32-81e9-0ec6c9b0379a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\components">
+      <UniqueIdentifier>{42b63eef-6c26-4200-b516-d946a48fd2d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\levels">
+      <UniqueIdentifier>{707824e0-ad26-4377-a776-7b11ba559df5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -157,5 +191,18 @@
     <Image Include="Assets\block_solid.png">
       <Filter>game\assets</Filter>
     </Image>
+    <Image Include="Assets\background.jpg">
+      <Filter>game\assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\lvl_1.txt">
+      <Filter>game\levels</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sounds\bangLarge.wav">
+      <Filter>game</Filter>
+    </Media>
   </ItemGroup>
 </Project>

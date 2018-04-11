@@ -18,6 +18,7 @@ namespace engine {
 			void clean_up();
 			void render_object(engine::core::gameObject& pObject);
 			void set_vertex_data(float* pVertices, engine::math::matrix4* pModelMatrix);
+			void set_vertex_data(float* pVertices);
 			void render_texture(float* pVertices, float pIndices, float pTextureCount);
 			void toggle_wire_frame_view(bool);
 			GLuint load_texture(const char * texture_path, bool isUsingAlpha);

@@ -90,6 +90,16 @@ namespace Engine
 			mGame.set_input('w');
 			break;
 
+		case SDL_SCANCODE_A:
+			mGame.set_input('a');
+			break;
+
+		case SDL_SCANCODE_D:
+			mGame.set_input('d');
+			break;
+		
+		case SDL_SCANCODE_SPACE:
+			mGame.set_input('s');
 		default:
 			break;
 		}

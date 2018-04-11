@@ -1,4 +1,5 @@
 #include "gameObject.hpp"
+#include "positionComponent.hpp"
 
 #pragma once
 #ifndef _BLOCK_HPP_
@@ -11,6 +12,7 @@ namespace game
 	{
 	public:
 		block();
+		block(engine::math::vector4 color);
 		float* get_vertices() override;
 
 	private:
