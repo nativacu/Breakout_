@@ -24,7 +24,17 @@ bool game::ball::get_status()
 	return mIsFree;
 }
 
+bool game::ball::get_is_going_down()
+{
+	return mIsGoingDown;
+}
+
 void game::ball::release_ball()
 {
 	mIsFree = true;
+}
+
+void game::ball::set_is_going_down(bool orientation)
+{
+	mIsGoingDown = orientation;
 }

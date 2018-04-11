@@ -59,6 +59,7 @@
     <ClCompile Include="gameLevelManager.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="gameLevelManager.hpp">
       <Filter>game</Filter>
     </ClInclude>
+    <ClInclude Include="Background.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -176,6 +178,9 @@
       <Filter>game\assets</Filter>
     </Image>
     <Image Include="Assets\block_solid.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="Assets\background.jpg">
       <Filter>game\assets</Filter>
     </Image>
   </ItemGroup>

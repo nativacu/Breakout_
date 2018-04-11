@@ -9,6 +9,7 @@ namespace engine
 			wKeyPressedStatus = false;
 			aKeyPressedStatus = false;
 			dKeyPressedStatus = false;
+			spaceKeyPressedStatus = false;
 		}
 
 		void inputManager::set_w_key_pressed_status(bool status)
@@ -26,17 +27,29 @@ namespace engine
 			dKeyPressedStatus = status;
 		}
 
+		void inputManager::set_space_key_pressed_status(bool status)
+		{
+			spaceKeyPressedStatus = status;
+		}
+
 		bool inputManager::get_w_key_status(void)
 		{
 			return wKeyPressedStatus;
 		}
+
 		bool inputManager::get_a_key_status(void)
 		{
 			return aKeyPressedStatus;
 		}
+
 		bool inputManager::get_d_key_status(void)
 		{
 			return dKeyPressedStatus;
+		}
+
+		bool inputManager::get_space_key_status(void)
+		{
+			return spaceKeyPressedStatus;
 		}
 	}
 }

@@ -6,6 +6,7 @@ game::game::game()
 
 game::game::game(int width, int height)
 {
+
 	mWidth = width;
 	mHeight = height;
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
@@ -35,6 +36,20 @@ void game::game::execute(void)
 void game::game::update(void)
 {
 	respond_to_input();
+	if (mBall.get_status()) {
+		engine::math::vector4 currentBallPosition = mBall.get_component("position")->get_position();
+		
+		if (currentBallPosition.y < 3.6f && !mBall.get_is_going_down()) {
+			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, 0.02f, 0.0f, 0.0f));
+			currentBallPosition.y += 0.05f;
+		}
+		else {
+			mBall.set_is_going_down(true);
+			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.02f, 0.0f, 0.0f));
+			currentBallPosition.y -= 0.05f;
+		}
+		mBall.get_component("position")->set_position(currentBallPosition);
+	}
 }
 
 void game::game::render(void)
@@ -48,6 +63,7 @@ void game::game::render(void)
 
 	mRenderer.render_object(mBall);
 	mRenderer.render_object(mPaddle);
+	//mBackground.render();
 }
 
 void game::game::clean_up()
@@ -72,11 +88,14 @@ void game::game::respond_to_input()
 		if (currentPaddlePosition.x >= -1 + 0.18f)
 		{
 			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
-			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
 			currentPaddlePosition.x -= 0.02f;
-			currentBallPosition.x -= 0.02f;
 			mPaddle.get_component("position")->set_position(currentPaddlePosition);
-			mBall.get_component("position")->set_position(currentBallPosition);
+			
+			if (!mBall.get_status()) {
+				mBall.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
+				currentBallPosition.x -= 0.02f;
+				mBall.get_component("position")->set_position(currentBallPosition);
+			}
 		}
 	}
 
@@ -87,12 +106,19 @@ void game::game::respond_to_input()
 		if (currentPaddlePosition.x <= 1 - 0.18f)
 		{
 			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
-			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
 			currentPaddlePosition.x += 0.02f;
-			currentBallPosition.x += 0.02f;
 			mPaddle.get_component("position")->set_position(currentPaddlePosition);
-			mBall.get_component("position")->set_position(currentBallPosition);
+		
+			if (!mBall.get_status()) {
+				mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
+				currentBallPosition.x += 0.02f;
+				mBall.get_component("position")->set_position(currentBallPosition);
+			}
 		}
+	}
+
+	if (mInputManager.get_space_key_status()) {
+		mBall.release_ball();
 	}
 }
 
@@ -102,17 +128,25 @@ void game::game::set_input(char pInput)
 	{
 		mInputManager.set_w_key_pressed_status(true);
 	}
+
 	else if (pInput == 'a') 
 	{
 		mInputManager.set_a_key_pressed_status(true);
 	}
+
 	else if (pInput == 'd')
 	{
 		mInputManager.set_d_key_pressed_status(true);
 	}
+
+	else if (pInput == 's') {
+		mInputManager.set_space_key_pressed_status(true);
+	}
+
 	else{
 		mInputManager.set_w_key_pressed_status(false);
 		mInputManager.set_a_key_pressed_status(false);
 		mInputManager.set_d_key_pressed_status(false);
+		mInputManager.set_space_key_pressed_status(false);
 	}
 }

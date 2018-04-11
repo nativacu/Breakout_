@@ -14,7 +14,10 @@ namespace game
 		ball();
 		float* get_vertices() override;
 		bool get_status();
+		bool get_is_going_down();
 		void release_ball();
+		void set_is_going_down(bool orientation);
+		void ball_renderer();
 
 	private:
 		float mVertices[36]{
@@ -25,7 +28,8 @@ namespace game
 			-0.02f,  0.03f, 0.0f,  1.0f, 1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 		};
 
-		bool mIsFree;
+		bool mIsFree = false;
+		bool mIsGoingDown = false;
 	};
 }
 
