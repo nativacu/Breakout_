@@ -9,11 +9,12 @@ game::game::game(int width, int height)
 	mWidth = width;
 	mHeight = height;
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
-	mBlocks.push_back(block());
 
-	mBlocks[0].get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, 0.3f, 0.0f, 0.0f));
-	mBlocks[0].get_model_matrix()->rotate_using_radians(0.0f);
-	mBlocks[0].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+	for (int i = 0; i < mBlocks.size(); i++) {
+		mBlocks[i].get_model_matrix()->translate_matrix(mBlocks[i].get_component("position")->get_position());
+		mBlocks[i].get_model_matrix()->rotate_using_radians(0.0f);
+		mBlocks[i].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+	}
 
 	mBall.get_model_matrix()->translate_matrix(mBall.get_component("position")->get_position());
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
@@ -26,6 +27,8 @@ game::game::game(int width, int height)
 
 void game::game::execute(void)
 {
+	mLevelManager.load("levels/level1", 3.12, 0.9);
+	mBlocks = mLevelManager.get_blocks();
 	mRenderer.get_program_ID();
 }
 

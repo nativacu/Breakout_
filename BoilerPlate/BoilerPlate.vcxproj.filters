@@ -56,6 +56,9 @@
     <ClCompile Include="positionComponent.cpp">
       <Filter>engine\components</Filter>
     </ClCompile>
+    <ClCompile Include="gameLevelManager.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -120,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="positionComponent.hpp">
       <Filter>engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="gameLevelManager.hpp">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

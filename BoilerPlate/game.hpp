@@ -7,6 +7,7 @@
 #include "ball.hpp"
 #include "block.hpp"
 #include "paddle.hpp"
+#include "gameLevelManager.hpp"
 #include <vector>
 
 namespace game
@@ -31,6 +32,7 @@ namespace game
 			GLuint mCurrentTexture;
 			game::ball mBall;
 			game::paddle mPaddle;
+			game::gameLevelManager mLevelManager;
 			engine::utilities::inputManager mInputManager;
 	};
 }

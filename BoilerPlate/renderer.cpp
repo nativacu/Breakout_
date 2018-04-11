@@ -60,7 +60,6 @@ void engine::renderer::renderer::clean_up()
 
 void engine::renderer::renderer::render_object(engine::core::gameObject & pObject)
 {
-
 	set_texture1(load_texture(pObject.get_texture_path(),pObject.get_alpha_status()));
 	set_vertex_data(pObject.get_vertices(), pObject.get_model_matrix());
 	set_texture_resolution();
