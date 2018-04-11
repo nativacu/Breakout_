@@ -18,6 +18,10 @@ game::game::game(int width, int height)
 	mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.7f, 0.0f, 0.0f));
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
 	mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+
+	mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.9f, 0.0f, 0.0f));
+	mPaddle.get_model_matrix()->rotate_using_radians(0.0f);
+	mPaddle.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 }
 
 void game::game::execute(void)
@@ -40,6 +44,7 @@ void game::game::render(void)
 	}
 
 	mRenderer.render_object(mBall);
+	mRenderer.render_object(mPaddle);
 }
 
 void game::game::clean_up()

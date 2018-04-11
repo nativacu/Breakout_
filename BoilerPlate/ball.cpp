@@ -8,5 +8,6 @@ game::ball::ball()
 
 float * game::ball::get_vertices()
 {
+	float mHey[16];
 	return mVertices;
 }

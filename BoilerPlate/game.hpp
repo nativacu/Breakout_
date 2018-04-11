@@ -6,6 +6,7 @@
 #include "inputManager.hpp"
 #include "ball.hpp"
 #include "block.hpp"
+#include "paddle.hpp"
 #include <vector>
 
 namespace game
@@ -29,6 +30,7 @@ namespace game
 			std::vector<block> mBlocks;
 			GLuint mCurrentTexture;
 			game::ball mBall;
+			game::paddle mPaddle;
 			engine::utilities::inputManager mInputManager;
 	};
 }

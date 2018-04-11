@@ -50,6 +50,7 @@
     <ClCompile Include="resourceManager.cpp">
       <Filter>engine\utilities</Filter>
     </ClCompile>
+    <ClCompile Include="paddle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="resourceManager.hpp">
       <Filter>engine\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="paddle.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
