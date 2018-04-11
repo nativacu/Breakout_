@@ -1,4 +1,5 @@
 #include "block.hpp"
+#include "positionComponent.hpp"
 
 game::block::block()
 {

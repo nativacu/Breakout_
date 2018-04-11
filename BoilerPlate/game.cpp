@@ -6,14 +6,16 @@ game::game::game()
 
 game::game::game(int width, int height)
 {
+
 	mWidth = width;
 	mHeight = height;
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
-	mBlocks.push_back(block());
 
-	mBlocks[0].get_model_matrix()->translate_matrix(mBlocks[0].get_component("position")->get_position());
-	mBlocks[0].get_model_matrix()->rotate_using_radians(0.0f);
-	mBlocks[0].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+	for (int i = 0; i < mBlocks.size(); i++) {
+		mBlocks[i].get_model_matrix()->translate_matrix(mBlocks[i].get_component("position")->get_position());
+		mBlocks[i].get_model_matrix()->rotate_using_radians(0.0f);
+		mBlocks[i].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+	}
 
 	mBall.get_model_matrix()->translate_matrix(mBall.get_component("position")->get_position());
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
@@ -26,6 +28,8 @@ game::game::game(int width, int height)
 
 void game::game::execute(void)
 {
+	mLevelManager.load("levels/level1", 3.12, 0.9);
+	mBlocks = mLevelManager.get_blocks();
 	mRenderer.get_program_ID();
 	mLevel.load("levels/lvl_1.txt", 3.12, 0.9);
 	//mBlocks = mLevel.mBlocks;
@@ -35,7 +39,20 @@ void game::game::update(void)
 {
 	engine::math::mathUtilities utility;
 	respond_to_input();
-
+	if (mBall.get_status()) {
+		engine::math::vector4 currentBallPosition = mBall.get_component("position")->get_position();
+		
+		if (currentBallPosition.y < 3.6f && !mBall.get_is_going_down()) {
+			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, 0.02f, 0.0f, 0.0f));
+			currentBallPosition.y += 0.05f;
+		}
+		else {
+			mBall.set_is_going_down(true);
+			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.02f, 0.0f, 0.0f));
+			currentBallPosition.y -= 0.05f;
+		}
+		mBall.get_component("position")->set_position(currentBallPosition);
+	}
 
 	/*engine::math::vector4 currentBallPosition = mBall.get_component("position")->get_position();
 	// If not stuck to player board
@@ -50,6 +67,7 @@ void game::game::update(void)
 		mBall.get_model_matrix()->rotate_z(0.0f);
 		mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 	}*/
+
 }
 
 void game::game::render(void)
@@ -63,6 +81,7 @@ void game::game::render(void)
 
 	mRenderer.render_object(mBall);
 	mRenderer.render_object(mPaddle);
+	//mBackground.render();
 }
 
 void game::game::clean_up()
@@ -87,11 +106,14 @@ void game::game::respond_to_input()
 		if (currentPaddlePosition.x >= -1 + 0.18f)
 		{
 			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
-			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
 			currentPaddlePosition.x -= 0.02f;
-			currentBallPosition.x -= 0.02f;
 			mPaddle.get_component("position")->set_position(currentPaddlePosition);
-			mBall.get_component("position")->set_position(currentBallPosition);
+			
+			if (!mBall.get_status()) {
+				mBall.get_model_matrix()->translate_matrix(engine::math::vector4(-0.02f, 0.0f, 0.0f, 0.0f));
+				currentBallPosition.x -= 0.02f;
+				mBall.get_component("position")->set_position(currentBallPosition);
+			}
 		}
 	}
 
@@ -102,12 +124,19 @@ void game::game::respond_to_input()
 		if (currentPaddlePosition.x <= 1 - 0.18f)
 		{
 			mPaddle.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
-			mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
 			currentPaddlePosition.x += 0.02f;
-			currentBallPosition.x += 0.02f;
 			mPaddle.get_component("position")->set_position(currentPaddlePosition);
-			mBall.get_component("position")->set_position(currentBallPosition);
+		
+			if (!mBall.get_status()) {
+				mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.02f, 0.0f, 0.0f, 0.0f));
+				currentBallPosition.x += 0.02f;
+				mBall.get_component("position")->set_position(currentBallPosition);
+			}
 		}
+	}
+
+	if (mInputManager.get_space_key_status()) {
+		mBall.release_ball();
 	}
 }
 
@@ -117,17 +146,25 @@ void game::game::set_input(char pInput)
 	{
 		mInputManager.set_w_key_pressed_status(true);
 	}
+
 	else if (pInput == 'a') 
 	{
 		mInputManager.set_a_key_pressed_status(true);
 	}
+
 	else if (pInput == 'd')
 	{
 		mInputManager.set_d_key_pressed_status(true);
 	}
+
+	else if (pInput == 's') {
+		mInputManager.set_space_key_pressed_status(true);
+	}
+
 	else{
 		mInputManager.set_w_key_pressed_status(false);
 		mInputManager.set_a_key_pressed_status(false);
 		mInputManager.set_d_key_pressed_status(false);
+		mInputManager.set_space_key_pressed_status(false);
 	}
 }
