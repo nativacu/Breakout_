@@ -58,6 +58,15 @@ void engine::renderer::renderer::clean_up()
 	glDeleteVertexArrays(1, &mElementsBufferObject);
 }
 
+void engine::renderer::renderer::render_object(engine::core::gameObject & pObject)
+{
+
+	set_texture1(load_texture(pObject.get_texture_path(),pObject.get_alpha_status()));
+	set_vertex_data(pObject.get_vertices(),pObject.get_model_matrix());
+	set_texture_resolution();
+	draw_polygon();
+}
+
 void engine::renderer::renderer::set_vertex_data(float* pVertices, engine::math::matrix4* pModelMatrix)
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -68,8 +77,9 @@ void engine::renderer::renderer::set_vertex_data(float* pVertices, engine::math:
 	for (int i = 0; i < 36; i++)
 	{
 		vertices[i] = pVertices[i];
+		
 	}
-
+	
 	unsigned int indices[] = {
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle

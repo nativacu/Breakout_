@@ -2,7 +2,7 @@
 
 game::block::block()
 {
-	mTexturePath = "Assets/block.png";
+	mTexturePath = "assets/block.png";
 	mIsUsingAlpha = false;
 }
 

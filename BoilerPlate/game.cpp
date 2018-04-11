@@ -11,14 +11,18 @@ game::game::game(int width, int height)
 	mRenderer = engine::renderer::renderer(mWidth, mHeight);
 	mBlocks.push_back(block());
 
-	mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.9f, 0.0f, 0.0f));
+	mBlocks[0].get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, 0.3f, 0.0f, 0.0f));
+	mBlocks[0].get_model_matrix()->rotate_using_radians(0.0f);
+	mBlocks[0].get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
+
+	mBall.get_model_matrix()->translate_matrix(engine::math::vector4(0.0f, -0.7f, 0.0f, 0.0f));
 	mBall.get_model_matrix()->rotate_using_radians(0.0f);
 	mBall.get_model_matrix()->scale_matrix(1.0f, 1.0f, 1.0f);
 }
 
 void game::game::execute(void)
 {
-	
+	mRenderer.get_program_ID();
 }
 
 void game::game::update(void)
@@ -31,25 +35,11 @@ void game::game::render(void)
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT );
 
-	mRenderer.get_program_ID();
-	//for (int i = 0; i < mBlocks.size(); i++) {
-	//	mCurrentTexture = mRenderer.load_texture(mBlocks[i].get_texture_path(), mBlocks[i].get_alpha_status());
-	//	mRenderer.set_vertex_data(mBlocks[i].get_vertices(),);
-	//	mRenderer.set_texture_resolution();
-	//	mRenderer.set_texture1(mCurrentTexture);
-	//	mRenderer.draw_polygon();
-	//}
-
-	mCurrentTexture = mRenderer.load_texture(mBall.get_texture_path(), mBall.get_alpha_status());
-	mRenderer.set_vertex_data(mBall.get_vertices(), mBall.get_model_matrix());
-	mRenderer.set_texture_resolution();
-	mRenderer.set_texture1(mCurrentTexture);
-	mRenderer.draw_polygon();
-
-	mBall.render();
 	for (int i = 0; i < mBlocks.size(); i++) {
-		mBlocks[i].render();
+		mRenderer.render_object(mBlocks[i]);
 	}
+
+	mRenderer.render_object(mBall);
 }
 
 void game::game::clean_up()

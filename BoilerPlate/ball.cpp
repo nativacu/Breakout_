@@ -2,7 +2,7 @@
 
 game::ball::ball()
 {
-	mTexturePath = "Assets/ball.png";
+	mTexturePath = "assets/ball.png";
 	mIsUsingAlpha = true;
 }
 

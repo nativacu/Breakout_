@@ -107,6 +107,7 @@ namespace engine
 		{
 			return nullptr;
 		}
+
 		engine::math::matrix4* gameObject::get_model_matrix()
 		{
 			return &mModelMatrix;
