@@ -184,6 +184,7 @@ copy /Y "$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\i
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="collisionComponent.cpp" />
@@ -209,6 +210,7 @@ copy /Y "$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\i
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
+    <ClInclude Include="Background.hpp" />
     <ClInclude Include="ball.hpp" />
     <ClInclude Include="block.hpp" />
     <ClInclude Include="collisionComponent.hpp" />
@@ -239,6 +241,7 @@ copy /Y "$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\i
     <None Include="vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\background.jpg" />
     <Image Include="assets\ball.png" />
     <Image Include="assets\block.png" />
     <Image Include="Assets\block_solid.png" />

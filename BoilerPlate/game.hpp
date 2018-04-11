@@ -7,6 +7,7 @@
 #include "ball.hpp"
 #include "block.hpp"
 #include "paddle.hpp"
+#include "background.hpp"
 #include <vector>
 #include "mathUtilities.hpp"
 #include "gameLevel.hpp"
@@ -30,10 +31,12 @@ namespace game
 			engine::renderer::renderer	mRenderer;
 			int mWidth;
 			int mHeight;
-			std::vector<block> mBlocks;
+			std::vector<block*> mBlocks;
+			game::block mTestBlock;
 			GLuint mCurrentTexture;
 			game::ball mBall;
 			game::paddle mPaddle;
+			background mBackground;
 			engine::utilities::inputManager mInputManager;
 			game::gameLevel mLevel;
 			irrklang::ISoundEngine*				mSoundEngine;

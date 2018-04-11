@@ -56,6 +56,9 @@
     <ClCompile Include="positionComponent.cpp">
       <Filter>engine\components</Filter>
     </ClCompile>
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="gameLevel.cpp">
       <Filter>game\levels</Filter>
     </ClCompile>
@@ -125,6 +128,9 @@
     <ClInclude Include="positionComponent.hpp">
       <Filter>engine\components</Filter>
     </ClInclude>
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.hpp" />
     <ClInclude Include="gameLevel.hpp">
       <Filter>game\levels</Filter>
     </ClInclude>
@@ -183,6 +189,9 @@
       <Filter>game\assets</Filter>
     </Image>
     <Image Include="Assets\block_solid.png">
+      <Filter>game\assets</Filter>
+    </Image>
+    <Image Include="Assets\background.jpg">
       <Filter>game\assets</Filter>
     </Image>
   </ItemGroup>
