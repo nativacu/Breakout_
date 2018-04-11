@@ -135,6 +135,13 @@ void engine::renderer::renderer::toggle_wire_frame_view(bool status)
 	mUsingWireFrameView = status;
 }
 
+void engine::renderer::renderer::add_texture(const char * texture_path, bool isUsingAlpha)
+{
+	//Add texture to container
+	mTextures[mTextureCount] = load_texture(texture_path, isUsingAlpha);
+	mTextureCount++;
+}
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 

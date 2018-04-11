@@ -505,7 +505,8 @@ engine::math::matrix4 engine::math::matrix4::look_at(vector3 currentPosition, ve
 	return result;
 }
 
-void engine::math::matrix4::make_perspective_matrix(const float &angleOfView, const float &nearClippingPane, const float &farClippingPane, const float &imageAspectRatio)
+void engine::math::matrix4::make_perspective_matrix(const float &angleOfView, const float &nearClippingPane, 
+const float &farClippingPane, const float &imageAspectRatio)
 {
 	mathUtilities utility;
 

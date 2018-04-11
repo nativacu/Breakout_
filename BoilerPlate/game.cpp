@@ -18,7 +18,12 @@ game::game::game(int width, int height)
 
 void game::game::execute(void)
 {
-	
+	mRenderer.get_program_ID();
+	mRenderer.load_texture("Assets/block.png", false);
+	mRenderer.load_texture("Assets/ball.png", true);
+	mRenderer.load_texture("Assets/paddle.png", true);
+
+	//Load level
 }
 
 void game::game::update(void)
@@ -31,14 +36,14 @@ void game::game::render(void)
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT );
 
-	mRenderer.get_program_ID();
-	//for (int i = 0; i < mBlocks.size(); i++) {
-	//	mCurrentTexture = mRenderer.load_texture(mBlocks[i].get_texture_path(), mBlocks[i].get_alpha_status());
-	//	mRenderer.set_vertex_data(mBlocks[i].get_vertices(),);
-	//	mRenderer.set_texture_resolution();
-	//	mRenderer.set_texture1(mCurrentTexture);
-	//	mRenderer.draw_polygon();
-	//}
+	for (int i = 0; i < mBlocks.size(); i++) 
+	{
+		mCurrentTexture = mRenderer.load_texture(mBlocks[i].get_texture_path(), mBlocks[i].get_alpha_status());
+		mRenderer.set_vertex_data(mBlocks[i].get_vertices(), mBlocks[i].get_model_matrix());
+		mRenderer.set_texture_resolution();
+		mRenderer.set_texture1(mCurrentTexture);
+		mRenderer.draw_polygon();
+	}
 
 	mCurrentTexture = mRenderer.load_texture(mBall.get_texture_path(), mBall.get_alpha_status());
 	mRenderer.set_vertex_data(mBall.get_vertices(), mBall.get_model_matrix());
@@ -47,9 +52,6 @@ void game::game::render(void)
 	mRenderer.draw_polygon();
 
 	mBall.render();
-	for (int i = 0; i < mBlocks.size(); i++) {
-		mBlocks[i].render();
-	}
 }
 
 void game::game::clean_up()

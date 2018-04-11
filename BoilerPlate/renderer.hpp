@@ -5,6 +5,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+const int MAX_TEXTURE_COUNT = 16;
+
 namespace engine {
 	namespace renderer {
 		class renderer
@@ -16,8 +18,8 @@ namespace engine {
 			void draw_polygon();
 			void clean_up();
 			void set_vertex_data(float* pVertices, engine::math::matrix4* pModelMatrix);
-			void render_texture(float* pVertices, float pIndices, float pTextureCount);
 			void toggle_wire_frame_view(bool);
+			void add_texture(const char * texture_path, bool isUsingAlpha);
 			GLuint load_texture(const char * texture_path, bool isUsingAlpha);
 			void set_texture1(GLuint a);
 			
@@ -32,6 +34,10 @@ namespace engine {
 			engine::utilities::shaderUtility mShaderUtility;
 			bool mUsingWireFrameView;
 			GLuint mTexture;
+
+			//Texture container
+			GLuint mTextures[MAX_TEXTURE_COUNT];
+			int mTextureCount = 0;
 
 			//Added this
 			int mScreenWidth;
